@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Privacy Policy | Wallora</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #080808;
+            color: #fff;
+            line-height: 1.7;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .navbar {
+            width: 100%;
+            height: 78px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 7%;
+
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+
+            background: rgba(8,8,8,0.95);
+
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(15px);
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: 700;
+            letter-spacing: 5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+        }
+
+        .nav-links a {
+            color: #888;
+            text-decoration: none;
+            font-size: 13px;
+            transition: .3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links .active {
+            color: #fff;
+        }
+
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            text-align: center;
+            padding: 110px 20px 85px;
+            border-bottom: 1px solid #151515;
+        }
+
+        .eyebrow {
+            color: #777;
+            font-size: 11px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+        }
+
+        .hero h1 {
+            font-size: clamp(55px, 9vw, 105px);
+            line-height: .9;
+            letter-spacing: -5px;
+            font-weight: 700;
+        }
+
+        .hero h1 span {
+            color: #777;
+        }
+
+        .hero p {
+            max-width: 650px;
+            margin: 35px auto 0;
+            color: #888;
+            font-size: 14px;
+        }
+
+
+        /* =========================
+           POLICY LAYOUT
+        ========================= */
+
+        .policy-wrapper {
+            width: min(1100px, calc(100% - 40px));
+
+            margin: 0 auto;
+
+            display: grid;
+            grid-template-columns: 230px 1fr;
+
+            gap: 80px;
+
+            padding: 90px 0 120px;
+        }
+
+
+        /* =========================
+           SIDEBAR
+        ========================= */
+
+        .policy-nav {
+            position: sticky;
+            top: 120px;
+            height: fit-content;
+        }
+
+        .policy-nav-title {
+            color: #555;
+            font-size: 10px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .policy-nav a {
+            display: block;
+
+            color: #777;
+
+            text-decoration: none;
+
+            font-size: 12px;
+
+            padding: 9px 0;
+
+            transition: .3s;
+        }
+
+        .policy-nav a:hover {
+            color: #fff;
+            padding-left: 5px;
+        }
+
+
+        /* =========================
+           CONTENT
+        ========================= */
+
+        .policy-content {
+            max-width: 750px;
+        }
+
+        .last-updated {
+            display: inline-block;
+
+            color: #666;
+
+            font-size: 11px;
+
+            border: 1px solid #222;
+
+            padding: 7px 12px;
+
+            margin-bottom: 45px;
+        }
+
+        .policy-section {
+            margin-bottom: 55px;
+
+            scroll-margin-top: 110px;
+        }
+
+        .policy-section h2 {
+            font-size: 25px;
+
+            letter-spacing: -0.5px;
+
+            margin-bottom: 18px;
+        }
+
+        .policy-section p {
+            color: #8b8b8b;
+
+            font-size: 14px;
+
+            margin-bottom: 15px;
+        }
+
+        .policy-section ul {
+            padding-left: 20px;
+            margin: 18px 0;
+        }
+
+        .policy-section li {
+            color: #888;
+
+            font-size: 14px;
+
+            margin-bottom: 9px;
+        }
+
+        .policy-section strong {
+            color: #ddd;
+        }
+
+
+        /* =========================
+           HIGHLIGHT BOX
+        ========================= */
+
+        .notice-box {
+            border: 1px solid #242424;
+
+            background: #0d0d0d;
+
+            padding: 25px 28px;
+
+            margin-bottom: 55px;
+        }
+
+        .notice-box p {
+            margin: 0;
+        }
+
+
+        /* =========================
+           CONTACT BOX
+        ========================= */
+
+        .contact-box {
+            border: 1px solid #222;
+
+            padding: 40px;
+
+            margin-top: 70px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #111,
+                    #090909
+                );
+        }
+
+        .contact-box h2 {
+            font-size: 30px;
+            margin-bottom: 12px;
+        }
+
+        .contact-box p {
+            color: #777;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        .contact-button {
+            display: inline-flex;
+
+            padding: 13px 25px;
+
+            background: #fff;
+
+            color: #000;
+
+            text-decoration: none;
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            letter-spacing: 1px;
+
+            transition: .3s;
+        }
+
+        .contact-button:hover {
+            background: #ccc;
+            transform: translateY(-2px);
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            border-top: 1px solid #1b1b1b;
+
+            padding: 35px 7%;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            color: #555;
+
+            font-size: 11px;
+        }
+
+        .footer-logo {
+            color: #aaa;
+            letter-spacing: 4px;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 800px) {
+
+            .navbar {
+                height: 70px;
+                padding: 0 20px;
+            }
+
+            .logo {
+                font-size: 20px;
+                letter-spacing: 4px;
+            }
+
+            .nav-links {
+                gap: 16px;
+            }
+
+            .nav-links a {
+                font-size: 10px;
+            }
+
+            .hero {
+                padding: 80px 20px 65px;
+            }
+
+            .hero h1 {
+                font-size: clamp(50px, 17vw, 75px);
+                letter-spacing: -4px;
+            }
+
+            .hero p {
+                font-size: 13px;
+                line-height: 1.7;
+            }
+
+            .policy-wrapper {
+                display: block;
+
+                width: calc(100% - 28px);
+
+                padding: 65px 0 80px;
+            }
+
+            .policy-nav {
+                position: static;
+
+                border-bottom: 1px solid #222;
+
+                padding-bottom: 25px;
+
+                margin-bottom: 50px;
+            }
+
+            .policy-nav a {
+                display: inline-block;
+
+                margin-right: 15px;
+            }
+
+            .policy-section {
+                margin-bottom: 45px;
+            }
+
+            .policy-section h2 {
+                font-size: 22px;
+            }
+
+            .policy-section p,
+            .policy-section li {
+                font-size: 13px;
+            }
+
+            .contact-box {
+                padding: 30px 22px;
+            }
+
+            .contact-box h2 {
+                font-size: 27px;
+            }
+
+            footer {
+                padding: 30px 20px;
+
+                flex-direction: column;
+
+                gap: 12px;
+
+                text-align: center;
+            }
+        }
+
+
+        @media (max-width: 420px) {
+
+            .nav-links {
+                gap: 10px;
+            }
+
+            .nav-links a {
+                font-size: 9px;
+            }
+
+            .hero h1 {
+                font-size: 52px;
+            }
+
+            .policy-wrapper {
+                width: calc(100% - 24px);
+            }
+
+            .notice-box {
+                padding: 20px;
+            }
+
+            .contact-box {
+                padding: 28px 18px;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         NAVBAR
+    ========================= -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            WALLORA
+        </div>
+
+        <div class="nav-links">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="about.html">
+                About
+            </a>
+
+            <a href="faq.html">
+                FAQ
+            </a>
+
+            <a href="privacy.html" class="active">
+                Privacy
+            </a>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- =========================
+         HERO
+    ========================= -->
+
+    <section class="hero">
+
+        <div class="eyebrow">
+            Wallora Legal
+        </div>
+
+        <h1>
+            Privacy<br>
+            <span>Policy.</span>
+        </h1>
+
+        <p>
+            Your privacy matters to us. This page explains how
+            Wallora handles information when you use our website.
+        </p>
+
+    </section>
+
+
+
+    <!-- =========================
+         POLICY
+    ========================= -->
+
+    <main class="policy-wrapper">
+
+
+        <!-- SIDEBAR -->
+
+        <aside class="policy-nav">
+
+            <div class="policy-nav-title">
+                On this page
+            </div>
+
+            <a href="#introduction">
+                Introduction
+            </a>
+
+            <a href="#information">
+                Information We Collect
+            </a>
+
+            <a href="#usage">
+                How We Use Information
+            </a>
+
+            <a href="#cookies">
+                Cookies
+            </a>
+
+            <a href="#third-party">
+                Third-Party Services
+            </a>
+
+            <a href="#security">
+                Security
+            </a>
+
+            <a href="#children">
+                Children's Privacy
+            </a>
+
+            <a href="#changes">
+                Policy Changes
+            </a>
+
+            <a href="#contact">
+                Contact Us
+            </a>
+
+        </aside>
+
+
+
+        <!-- CONTENT -->
+
+        <article class="policy-content">
+
+
+            <div class="last-updated">
+                LAST UPDATED: AUGUST 2026
+            </div>
+
+
+            <!-- INTRODUCTION -->
+
+            <section class="policy-section" id="introduction">
+
+                <h2>
+                    01. Introduction
+                </h2>
+
+                <p>
+                    Welcome to Wallora. We respect your privacy
+                    and are committed to protecting the information
+                    you may provide while using our website.
+                </p>
+
+                <p>
+                    This Privacy Policy explains what information
+                    may be collected, how it may be used, and the
+                    choices available to you when using Wallora.
+                </p>
+
+            </section>
+
+
+
+            <!-- INFORMATION -->
+
+            <section class="policy-section" id="information">
+
+                <h2>
+                    02. Information We Collect
+                </h2>
+
+                <p>
+                    Wallora is designed to allow visitors to browse
+                    and discover wallpapers without requiring an
+                    account for basic use.
+                </p>
+
+                <p>
+                    Depending on how you interact with the website,
+                    certain technical or usage information may be
+                    collected automatically.
+                </p>
+
+                <ul>
+
+                    <li>
+                        Device and browser information
+                    </li>
+
+                    <li>
+                        General website usage information
+                    </li>
+
+                    <li>
+                        IP address and approximate location
+                        information where applicable
+                    </li>
+
+                    <li>
+                        Pages or content that you interact with
+                    </li>
+
+                    <li>
+                        Information you voluntarily provide when
+                        contacting us
+                    </li>
+
+                </ul>
+
+            </section>
+
+
+
+            <!-- USAGE -->
+
+            <section class="policy-section" id="usage">
+
+                <h2>
+                    03. How We Use Information
+                </h2>
+
+                <p>
+                    Information may be used to operate, maintain
+                    and improve the Wallora experience.
+                </p>
+
+                <ul>
+
+                    <li>
+                        To provide and maintain our website
+                    </li>
+
+                    <li>
+                        To understand how visitors use Wallora
+                    </li>
+
+                    <li>
+                        To improve website performance and design
+                    </li>
+
+                    <li>
+                        To identify and resolve technical problems
+                    </li>
+
+                    <li>
+                        To respond to messages and support requests
+                    </li>
+
+                    <li>
+                        To protect the website against abuse
+                        or unauthorized activity
+                    </li>
+
+                </ul>
+
+            </section>
+
+
+
+            <!-- COOKIES -->
+
+            <section class="policy-section" id="cookies">
+
+                <h2>
+                    04. Cookies
+                </h2>
+
+                <p>
+                    Wallora or third-party services used on the
+                    website may use cookies or similar technologies.
+                </p>
+
+                <p>
+                    Cookies can help websites remember preferences,
+                    understand visitor activity and provide
+                    relevant functionality.
+                </p>
+
+                <p>
+                    You can manage or disable cookies through your
+                    browser settings. Some website functionality
+                    may be affected if cookies are disabled.
+                </p>
+
+            </section>
+
+
+
+            <!-- THIRD PARTY -->
+
+            <section class="policy-section" id="third-party">
+
+                <h2>
+                    05. Third-Party Services
+                </h2>
+
+                <p>
+                    Wallora may use third-party services to support
+                    website functionality, analytics, advertising,
+                    hosting or other technical requirements.
+                </p>
+
+                <p>
+                    These third-party providers may collect
+                    information according to their own privacy
+                    policies.
+                </p>
+
+                <div class="notice-box">
+
+                    <p>
+                        <strong>Important:</strong>
+                        Wallora does not control the privacy practices
+                        of third-party websites or services. We
+                        recommend reviewing their respective privacy
+                        policies when interacting with them.
+                    </p>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- SECURITY -->
+
+            <section class="policy-section" id="security">
+
+                <h2>
+                    06. Security
+                </h2>
+
+                <p>
+                    We take reasonable measures to help protect
+                    information associated with our website.
+                </p>
+
+                <p>
+                    However, no internet transmission or electronic
+                    storage system can be guaranteed to be completely
+                    secure.
+                </p>
+
+            </section>
+
+
+
+            <!-- CHILDREN -->
+
+            <section class="policy-section" id="children">
+
+                <h2>
+                    07. Children's Privacy
+                </h2>
+
+                <p>
+                    Wallora does not knowingly seek to collect
+                    personal information from children.
+                </p>
+
+                <p>
+                    If you believe that a child has provided
+                    personal information to us, please contact us
+                    so that appropriate action can be taken.
+                </p>
+
+            </section>
+
+
+
+            <!-- CHANGES -->
+
+            <section class="policy-section" id="changes">
+
+                <h2>
+                    08. Changes To This Policy
+                </h2>
+
+                <p>
+                    We may update this Privacy Policy from time
+                    to time to reflect changes to our services,
+                    technology or legal requirements.
+                </p>
+
+                <p>
+                    When changes are made, the updated version
+                    will be published on this page along with
+                    the latest revision date.
+                </p>
+
+            </section>
+
+
+
+            <!-- CONTACT -->
+
+            <section class="policy-section" id="contact">
+
+                <h2>
+                    09. Contact Us
+                </h2>
+
+                <p>
+                    If you have questions, concerns or requests
+                    regarding this Privacy Policy, you can contact
+                    the Wallora team.
+                </p>
+
+                <div class="contact-box">
+
+                    <h2>
+                        Have a question?
+                    </h2>
+
+                    <p>
+                        We're always happy to hear from you.
+                    </p>
+
+                    <a href="contact.html" class="contact-button">
+                        CONTACT WALLORA
+                    </a>
+
+                </div>
+
+            </section>
+
+
+        </article>
+
+    </main>
+
+
+
+    <!-- =========================
+         FOOTER
+    ========================= -->
+
+    <footer>
+
+        <div class="footer-logo">
+            WALLORA
+        </div>
+
+        <div>
+            © 2026 Wallora. All rights reserved.
+        </div>
+
+    </footer>
+
+
+</body>
+</html>

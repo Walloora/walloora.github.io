@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DMCA Policy | Wallora</title>
+
+    <meta name="description"
+        content="Wallora DMCA Policy. Learn how to submit a copyright infringement notification and request removal of copyrighted material.">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #08090b;
+            --card: #101216;
+            --card-hover: #15171c;
+            --text: #f5f5f5;
+            --muted: #9b9da5;
+            --border: rgba(255,255,255,0.08);
+            --accent: #ffffff;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.8;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* ================= HEADER ================= */
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(8, 9, 11, 0.88);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav {
+            width: min(1180px, calc(100% - 40px));
+            margin: auto;
+            min-height: 78px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-mark {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(255,255,255,0.25);
+            border-radius: 50%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .logo-text {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 3px;
+        }
+
+        .back-btn {
+            border: 1px solid var(--border);
+            padding: 9px 17px;
+            border-radius: 30px;
+            font-size: 13px;
+            color: #d8d8d8;
+            transition: 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #fff;
+            color: #000;
+        }
+
+        /* ================= HERO ================= */
+
+        .hero {
+            width: min(1180px, calc(100% - 40px));
+            margin: auto;
+
+            padding: 105px 0 75px;
+            text-align: center;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+
+            color: #a9abb2;
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+        }
+
+        .eyebrow::before {
+            content: "";
+            width: 28px;
+            height: 1px;
+            background: #777;
+        }
+
+        .hero h1 {
+            font-size: clamp(48px, 8vw, 88px);
+            line-height: 0.95;
+            letter-spacing: -4px;
+            margin-bottom: 28px;
+        }
+
+        .hero h1 span {
+            color: #85878e;
+        }
+
+        .hero p {
+            max-width: 650px;
+            margin: auto;
+
+            color: var(--muted);
+            font-size: 16px;
+        }
+
+        /* ================= CONTENT ================= */
+
+        .content {
+            width: min(900px, calc(100% - 40px));
+            margin: auto;
+            padding-bottom: 100px;
+        }
+
+        .notice {
+            padding: 25px 28px;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            background: linear-gradient(
+                145deg,
+                rgba(255,255,255,0.05),
+                rgba(255,255,255,0.015)
+            );
+
+            margin-bottom: 55px;
+        }
+
+        .notice strong {
+            color: #fff;
+        }
+
+        .notice p {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .section {
+            padding: 42px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section:last-child {
+            border-bottom: none;
+        }
+
+        .section-number {
+            color: #6f7178;
+            font-size: 12px;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .section h2 {
+            font-size: 27px;
+            letter-spacing: -0.8px;
+            margin-bottom: 18px;
+        }
+
+        .section p {
+            color: var(--muted);
+            font-size: 15px;
+            margin-bottom: 16px;
+        }
+
+        .section ul {
+            margin: 20px 0 20px 20px;
+            color: var(--muted);
+        }
+
+        .section li {
+            margin-bottom: 9px;
+            padding-left: 5px;
+        }
+
+        .section li::marker {
+            color: #777;
+        }
+
+        /* ================= CONTACT CARD ================= */
+
+        .contact-card {
+            margin-top: 65px;
+
+            padding: 42px;
+            border-radius: 24px;
+
+            background:
+                radial-gradient(
+                    circle at top right,
+                    rgba(255,255,255,0.08),
+                    transparent 45%
+                ),
+                #111318;
+
+            border: 1px solid var(--border);
+        }
+
+        .contact-card h2 {
+            font-size: 30px;
+            margin-bottom: 12px;
+        }
+
+        .contact-card p {
+            color: var(--muted);
+            margin-bottom: 22px;
+        }
+
+        .email {
+            display: inline-block;
+            padding: 12px 20px;
+
+            border-radius: 30px;
+            background: #fff;
+            color: #000;
+
+            font-size: 14px;
+            font-weight: 600;
+
+            transition: 0.3s ease;
+        }
+
+        .email:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 35px 20px;
+            text-align: center;
+        }
+
+        footer p {
+            color: #666870;
+            font-size: 12px;
+        }
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 600px) {
+
+            .nav {
+                width: calc(100% - 28px);
+                min-height: 68px;
+            }
+
+            .logo-text {
+                font-size: 15px;
+                letter-spacing: 2px;
+            }
+
+            .logo-mark {
+                width: 36px;
+                height: 36px;
+            }
+
+            .back-btn {
+                padding: 8px 13px;
+                font-size: 12px;
+            }
+
+            .hero {
+                width: calc(100% - 28px);
+                padding: 75px 0 55px;
+            }
+
+            .hero h1 {
+                letter-spacing: -3px;
+            }
+
+            .hero p {
+                font-size: 14px;
+            }
+
+            .content {
+                width: calc(100% - 28px);
+            }
+
+            .notice {
+                padding: 21px;
+                margin-bottom: 35px;
+            }
+
+            .section {
+                padding: 32px 0;
+            }
+
+            .section h2 {
+                font-size: 23px;
+            }
+
+            .section p,
+            .section li {
+                font-size: 14px;
+            }
+
+            .contact-card {
+                padding: 28px 22px;
+                margin-top: 45px;
+            }
+
+            .contact-card h2 {
+                font-size: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ================= HEADER ================= -->
+
+    <header>
+        <nav class="nav">
+
+            <a href="index.html" class="logo">
+                <div class="logo-mark">W</div>
+                <div class="logo-text">WALLORA</div>
+            </a>
+
+            <a href="index.html" class="back-btn">
+                ← Back to Home
+            </a>
+
+        </nav>
+    </header>
+
+
+    <!-- ================= HERO ================= -->
+
+    <section class="hero">
+
+        <div class="eyebrow">
+            Legal & Copyright
+        </div>
+
+        <h1>
+            DMCA <span>Policy</span>
+        </h1>
+
+        <p>
+            Wallora respects the intellectual property rights of creators,
+            photographers, artists, and copyright owners. This page explains
+            how copyright holders can report material that they believe
+            infringes their rights.
+        </p>
+
+    </section>
+
+
+    <!-- ================= CONTENT ================= -->
+
+    <main class="content">
+
+        <div class="notice">
+            <p>
+                <strong>Important:</strong>
+                Wallora is committed to respecting copyright and intellectual
+                property rights. If you believe that content available through
+                Wallora infringes your copyright, you may contact us with the
+                information described below.
+            </p>
+        </div>
+
+
+        <!-- 01 -->
+
+        <section class="section">
+
+            <div class="section-number">01</div>
+
+            <h2>Copyright Infringement Notification</h2>
+
+            <p>
+                If you are a copyright owner or are authorized to act on behalf
+                of a copyright owner, you may submit a copyright infringement
+                notification to Wallora.
+            </p>
+
+            <p>
+                Your notification should contain sufficient information for us
+                to identify the copyrighted work and the material that you
+                believe infringes that work.
+            </p>
+
+        </section>
+
+
+        <!-- 02 -->
+
+        <section class="section">
+
+            <div class="section-number">02</div>
+
+            <h2>Information Required</h2>
+
+            <p>
+                A copyright complaint should include the following information:
+            </p>
+
+            <ul>
+                <li>
+                    Your full name and contact information.
+                </li>
+
+                <li>
+                    Identification of the copyrighted work that you believe
+                    has been infringed.
+                </li>
+
+                <li>
+                    A description of the material you believe infringes your
+                    copyright.
+                </li>
+
+                <li>
+                    The URL or other specific location where the allegedly
+                    infringing material can be found.
+                </li>
+
+                <li>
+                    A statement explaining why you believe the material
+                    infringes your copyright.
+                </li>
+
+                <li>
+                    A statement confirming that the information provided is
+                    accurate to the best of your knowledge.
+                </li>
+
+                <li>
+                    Your electronic or physical signature.
+                </li>
+            </ul>
+
+        </section>
+
+
+        <!-- 03 -->
+
+        <section class="section">
+
+            <div class="section-number">03</div>
+
+            <h2>Review of Complaints</h2>
+
+            <p>
+                Once a valid copyright complaint is received, Wallora may
+                review the information provided and determine what action is
+                appropriate.
+            </p>
+
+            <p>
+                Depending on the circumstances, Wallora may remove or restrict
+                access to the material identified in a valid complaint.
+            </p>
+
+            <p>
+                We may contact the person who submitted or uploaded the
+                material when additional information or clarification is
+                necessary.
+            </p>
+
+        </section>
+
+
+        <!-- 04 -->
+
+        <section class="section">
+
+            <div class="section-number">04</div>
+
+            <h2>Good-Faith Requirement</h2>
+
+            <p>
+                Copyright complaints should only be submitted when the
+                complainant genuinely believes that the identified material
+                infringes their copyright or the copyright of someone they are
+                legally authorized to represent.
+            </p>
+
+            <p>
+                False, misleading, or fraudulent copyright claims may cause
+                unnecessary harm and should not be submitted.
+            </p>
+
+        </section>
+
+
+        <!-- 05 -->
+
+        <section class="section">
+
+            <div class="section-number">05</div>
+
+            <h2>Counter-Notification</h2>
+
+            <p>
+                If material has been removed or restricted as a result of a
+                copyright complaint and you believe that the removal was made
+                in error, you may contact Wallora and explain the basis for
+                your objection.
+            </p>
+
+            <p>
+                Wallora may review the information provided and determine
+                whether the material should be restored, subject to applicable
+                law and the circumstances of the complaint.
+            </p>
+
+        </section>
+
+
+        <!-- 06 -->
+
+        <section class="section">
+
+            <div class="section-number">06</div>
+
+            <h2>Repeat Infringement</h2>
+
+            <p>
+                Wallora may take appropriate action against users who
+                repeatedly upload or distribute material that infringes the
+                intellectual property rights of others.
+            </p>
+
+            <p>
+                Such action may include restricting access to content,
+                suspending accounts, or taking other appropriate measures.
+            </p>
+
+        </section>
+
+
+        <!-- 07 -->
+
+        <section class="section">
+
+            <div class="section-number">07</div>
+
+            <h2>Third-Party Content</h2>
+
+            <p>
+                Wallora may contain links, references, or content originating
+                from third parties. Wallora does not claim ownership of
+                copyright-protected material belonging to third parties.
+            </p>
+
+            <p>
+                Copyright owners who believe that third-party material
+                displayed or referenced through Wallora infringes their rights
+                may contact us so that the matter can be reviewed.
+            </p>
+
+        </section>
+
+
+        <!-- 08 -->
+
+        <section class="section">
+
+            <div class="section-number">08</div>
+
+            <h2>Policy Updates</h2>
+
+            <p>
+                Wallora may update this DMCA Policy from time to time to
+                reflect changes in our services, applicable laws, or our
+                practices.
+            </p>
+
+            <p>
+                Any updated version will be published on this page.
+            </p>
+
+        </section>
+
+        </div>
+
+    </main>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <p>
+            © 2026 Wallora. All rights reserved.
+        </p>
+
+    </footer>
+
+</body>
+</html>

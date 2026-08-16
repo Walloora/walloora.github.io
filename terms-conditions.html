@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Terms & Conditions | Wallora</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #080808;
+            color: #fff;
+            line-height: 1.7;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .navbar {
+            width: 100%;
+            height: 78px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 7%;
+
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+
+            background: rgba(8,8,8,0.95);
+
+            position: sticky;
+            top: 0;
+            z-index: 100;
+
+            backdrop-filter: blur(15px);
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: 700;
+            letter-spacing: 5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+        }
+
+        .nav-links a {
+            color: #888;
+            text-decoration: none;
+            font-size: 13px;
+            transition: .3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links .active {
+            color: #fff;
+        }
+
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            text-align: center;
+
+            padding: 110px 20px 85px;
+
+            border-bottom: 1px solid #151515;
+        }
+
+        .eyebrow {
+            color: #777;
+
+            font-size: 11px;
+
+            letter-spacing: 5px;
+
+            text-transform: uppercase;
+
+            margin-bottom: 25px;
+        }
+
+        .hero h1 {
+            font-size: clamp(55px, 9vw, 105px);
+
+            line-height: .9;
+
+            letter-spacing: -5px;
+
+            font-weight: 700;
+        }
+
+        .hero h1 span {
+            color: #777;
+        }
+
+        .hero p {
+            max-width: 650px;
+
+            margin: 35px auto 0;
+
+            color: #888;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================
+           POLICY LAYOUT
+        ========================= */
+
+        .terms-wrapper {
+            width: min(1100px, calc(100% - 40px));
+
+            margin: 0 auto;
+
+            display: grid;
+
+            grid-template-columns: 230px 1fr;
+
+            gap: 80px;
+
+            padding: 90px 0 120px;
+        }
+
+
+        /* =========================
+           SIDEBAR
+        ========================= */
+
+        .terms-nav {
+            position: sticky;
+
+            top: 120px;
+
+            height: fit-content;
+        }
+
+        .terms-nav-title {
+            color: #555;
+
+            font-size: 10px;
+
+            letter-spacing: 3px;
+
+            text-transform: uppercase;
+
+            margin-bottom: 20px;
+        }
+
+        .terms-nav a {
+            display: block;
+
+            color: #777;
+
+            text-decoration: none;
+
+            font-size: 12px;
+
+            padding: 9px 0;
+
+            transition: .3s;
+        }
+
+        .terms-nav a:hover {
+            color: #fff;
+
+            padding-left: 5px;
+        }
+
+
+        /* =========================
+           CONTENT
+        ========================= */
+
+        .terms-content {
+            max-width: 750px;
+        }
+
+        .last-updated {
+            display: inline-block;
+
+            color: #666;
+
+            font-size: 11px;
+
+            border: 1px solid #222;
+
+            padding: 7px 12px;
+
+            margin-bottom: 45px;
+        }
+
+        .terms-section {
+            margin-bottom: 55px;
+
+            scroll-margin-top: 110px;
+        }
+
+        .terms-section h2 {
+            font-size: 25px;
+
+            letter-spacing: -.5px;
+
+            margin-bottom: 18px;
+        }
+
+        .terms-section p {
+            color: #8b8b8b;
+
+            font-size: 14px;
+
+            margin-bottom: 15px;
+        }
+
+        .terms-section ul {
+            padding-left: 20px;
+
+            margin: 18px 0;
+        }
+
+        .terms-section li {
+            color: #888;
+
+            font-size: 14px;
+
+            margin-bottom: 9px;
+        }
+
+        .terms-section strong {
+            color: #ddd;
+        }
+
+
+        /* =========================
+           NOTICE
+        ========================= */
+
+        .notice-box {
+            border: 1px solid #242424;
+
+            background: #0d0d0d;
+
+            padding: 25px 28px;
+
+            margin-bottom: 55px;
+        }
+
+        .notice-box p {
+            margin: 0;
+        }
+
+
+        /* =========================
+           ACCEPTANCE BOX
+        ========================= */
+
+        .acceptance-box {
+            border: 1px solid #292929;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #111,
+                    #090909
+                );
+
+            padding: 35px;
+
+            margin-bottom: 55px;
+        }
+
+        .acceptance-box h3 {
+            font-size: 18px;
+
+            margin-bottom: 10px;
+        }
+
+        .acceptance-box p {
+            margin: 0;
+        }
+
+
+        /* =========================
+           CONTACT
+        ========================= */
+
+        .contact-box {
+            border: 1px solid #222;
+
+            padding: 40px;
+
+            margin-top: 70px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #111,
+                    #090909
+                );
+        }
+
+        .contact-box h2 {
+            font-size: 30px;
+
+            margin-bottom: 12px;
+        }
+
+        .contact-box p {
+            color: #777;
+
+            font-size: 14px;
+
+            margin-bottom: 25px;
+        }
+
+        .contact-button {
+            display: inline-flex;
+
+            padding: 13px 25px;
+
+            background: #fff;
+
+            color: #000;
+
+            text-decoration: none;
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            letter-spacing: 1px;
+
+            transition: .3s;
+        }
+
+        .contact-button:hover {
+            background: #ccc;
+
+            transform: translateY(-2px);
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            border-top: 1px solid #1b1b1b;
+
+            padding: 35px 7%;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            color: #555;
+
+            font-size: 11px;
+        }
+
+        .footer-logo {
+            color: #aaa;
+
+            letter-spacing: 4px;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 800px) {
+
+            .navbar {
+                height: 70px;
+
+                padding: 0 20px;
+            }
+
+            .logo {
+                font-size: 20px;
+
+                letter-spacing: 4px;
+            }
+
+            .nav-links {
+                gap: 16px;
+            }
+
+            .nav-links a {
+                font-size: 10px;
+            }
+
+            .hero {
+                padding: 80px 20px 65px;
+            }
+
+            .hero h1 {
+                font-size: clamp(50px, 17vw, 75px);
+
+                letter-spacing: -4px;
+            }
+
+            .hero p {
+                font-size: 13px;
+
+                line-height: 1.7;
+            }
+
+            .terms-wrapper {
+                display: block;
+
+                width: calc(100% - 28px);
+
+                padding: 65px 0 80px;
+            }
+
+            .terms-nav {
+                position: static;
+
+                border-bottom: 1px solid #222;
+
+                padding-bottom: 25px;
+
+                margin-bottom: 50px;
+            }
+
+            .terms-nav a {
+                display: inline-block;
+
+                margin-right: 15px;
+            }
+
+            .terms-section {
+                margin-bottom: 45px;
+            }
+
+            .terms-section h2 {
+                font-size: 22px;
+            }
+
+            .terms-section p,
+            .terms-section li {
+                font-size: 13px;
+            }
+
+            .acceptance-box {
+                padding: 25px 20px;
+            }
+
+            .contact-box {
+                padding: 30px 22px;
+            }
+
+            .contact-box h2 {
+                font-size: 27px;
+            }
+
+            footer {
+                padding: 30px 20px;
+
+                flex-direction: column;
+
+                gap: 12px;
+
+                text-align: center;
+            }
+        }
+
+
+        @media (max-width: 420px) {
+
+            .nav-links {
+                gap: 10px;
+            }
+
+            .nav-links a {
+                font-size: 9px;
+            }
+
+            .hero h1 {
+                font-size: 52px;
+            }
+
+            .terms-wrapper {
+                width: calc(100% - 24px);
+            }
+
+            .notice-box {
+                padding: 20px;
+            }
+
+            .acceptance-box {
+                padding: 22px 18px;
+            }
+
+            .contact-box {
+                padding: 28px 18px;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         NAVBAR
+    ========================= -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            WALLORA
+        </div>
+
+        <div class="nav-links">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="about.html">
+                About
+            </a>
+
+            <a href="faq.html">
+                FAQ
+            </a>
+
+            <a href="privacy.html">
+                Privacy
+            </a>
+
+            <a href="terms.html" class="active">
+                Terms
+            </a>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- =========================
+         HERO
+    ========================= -->
+
+    <section class="hero">
+
+        <div class="eyebrow">
+            Wallora Legal
+        </div>
+
+        <h1>
+            Terms &<br>
+            <span>Conditions.</span>
+        </h1>
+
+        <p>
+            These terms explain the rules and conditions that
+            apply when you access and use the Wallora website.
+        </p>
+
+    </section>
+
+
+
+    <!-- =========================
+         TERMS
+    ========================= -->
+
+    <main class="terms-wrapper">
+
+
+        <!-- SIDEBAR -->
+
+        <aside class="terms-nav">
+
+            <div class="terms-nav-title">
+                On this page
+            </div>
+
+            <a href="#acceptance">
+                Acceptance
+            </a>
+
+            <a href="#website">
+                Using Wallora
+            </a>
+
+            <a href="#content">
+                Content
+            </a>
+
+            <a href="#downloads">
+                Downloads
+            </a>
+
+            <a href="#intellectual">
+                Intellectual Property
+            </a>
+
+            <a href="#prohibited">
+                Prohibited Use
+            </a>
+
+            <a href="#third-party">
+                Third-Party Links
+            </a>
+
+            <a href="#availability">
+                Website Availability
+            </a>
+
+            <a href="#liability">
+                Limitation of Liability
+            </a>
+
+            <a href="#changes">
+                Changes
+            </a>
+
+            <a href="#contact">
+                Contact
+            </a>
+
+        </aside>
+
+
+
+        <!-- CONTENT -->
+
+        <article class="terms-content">
+
+
+            <div class="last-updated">
+                LAST UPDATED: AUGUST 2026
+            </div>
+
+
+
+            <!-- ACCEPTANCE -->
+
+            <section class="terms-section" id="acceptance">
+
+                <h2>
+                    01. Acceptance of Terms
+                </h2>
+
+                <p>
+                    Welcome to Wallora. By accessing or using this
+                    website, you agree to be bound by these Terms
+                    & Conditions.
+                </p>
+
+                <p>
+                    If you do not agree with these terms, please
+                    discontinue use of the website.
+                </p>
+
+                <div class="acceptance-box">
+
+                    <h3>
+                        By using Wallora
+                    </h3>
+
+                    <p>
+                        You confirm that you have read, understood
+                        and agree to these Terms & Conditions and
+                        our Privacy Policy.
+                    </p>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- USING WEBSITE -->
+
+            <section class="terms-section" id="website">
+
+                <h2>
+                    02. Using Wallora
+                </h2>
+
+                <p>
+                    Wallora provides a platform where users can
+                    browse, discover and download wallpapers and
+                    related visual content.
+                </p>
+
+                <p>
+                    You agree to use Wallora only for lawful
+                    purposes and in accordance with these terms.
+                </p>
+
+            </section>
+
+
+
+            <!-- CONTENT -->
+
+            <section class="terms-section" id="content">
+
+                <h2>
+                    03. Website Content
+                </h2>
+
+                <p>
+                    Wallora may display wallpapers, images,
+                    descriptions, graphics, text, logos and other
+                    visual or informational material.
+                </p>
+
+                <p>
+                    Content may be provided by Wallora, creators,
+                    contributors or other sources.
+                </p>
+
+                <p>
+                    We make reasonable efforts to maintain the
+                    quality and accuracy of information presented
+                    on the website, but we cannot guarantee that
+                    all content will always be complete, accurate
+                    or current.
+                </p>
+
+            </section>
+
+
+
+            <!-- DOWNLOADS -->
+
+            <section class="terms-section" id="downloads">
+
+                <h2>
+                    04. Downloads & Personal Use
+                </h2>
+
+                <p>
+                    Wallpapers available through Wallora may be
+                    downloaded for personal use where permitted.
+                </p>
+
+                <ul>
+
+                    <li>
+                        Do not use downloaded content for unlawful
+                        purposes.
+                    </li>
+
+                    <li>
+                        Do not claim another creator's work as your
+                        own.
+                    </li>
+
+                    <li>
+                        Do not redistribute Wallora content as
+                        your own wallpaper platform or collection.
+                    </li>
+
+                    <li>
+                        Do not sell or commercially exploit content
+                        unless you have the necessary rights or
+                        permission.
+                    </li>
+
+                </ul>
+
+            </section>
+
+
+
+            <!-- INTELLECTUAL PROPERTY -->
+
+            <section class="terms-section" id="intellectual">
+
+                <h2>
+                    05. Intellectual Property
+                </h2>
+
+                <p>
+                    The Wallora name, logo, website design,
+                    branding, original text and other original
+                    materials may be protected by applicable
+                    intellectual property laws.
+                </p>
+
+                <p>
+                    Nothing on this website grants you ownership
+                    of Wallora's intellectual property unless
+                    explicitly stated.
+                </p>
+
+                <div class="notice-box">
+
+                    <p>
+                        <strong>Respect creators.</strong>
+                        If you believe content displayed on Wallora
+                        infringes your copyright or other rights,
+                        please contact us with the relevant details
+                        so the matter can be reviewed.
+                    </p>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- PROHIBITED -->
+
+            <section class="terms-section" id="prohibited">
+
+                <h2>
+                    06. Prohibited Use
+                </h2>
+
+                <p>
+                    You must not misuse Wallora or attempt to
+                    interfere with the normal operation of the
+                    website.
+                </p>
+
+                <ul>
+
+                    <li>
+                        Attempting to gain unauthorized access to
+                        website systems.
+                    </li>
+
+                    <li>
+                        Introducing malicious software or harmful
+                        code.
+                    </li>
+
+                    <li>
+                        Scraping or collecting website data in a
+                        way that abuses or disrupts the service.
+                    </li>
+
+                    <li>
+                        Using Wallora for fraudulent or unlawful
+                        activity.
+                    </li>
+
+                    <li>
+                        Attempting to bypass security or technical
+                        restrictions.
+                    </li>
+
+                </ul>
+
+            </section>
+
+
+
+            <!-- THIRD PARTY -->
+
+            <section class="terms-section" id="third-party">
+
+                <h2>
+                    07. Third-Party Links & Services
+                </h2>
+
+                <p>
+                    Wallora may contain links, advertisements or
+                    integrations provided by third parties.
+                </p>
+
+                <p>
+                    These third-party websites and services operate
+                    independently and may have their own terms,
+                    privacy policies and practices.
+                </p>
+
+                <p>
+                    Wallora is not responsible for the content,
+                    availability or practices of third-party
+                    websites.
+                </p>
+
+            </section>
+
+
+
+            <!-- AVAILABILITY -->
+
+            <section class="terms-section" id="availability">
+
+                <h2>
+                    08. Website Availability
+                </h2>
+
+                <p>
+                    We aim to keep Wallora available and operating
+                    smoothly, but we do not guarantee that the
+                    website will always be available without
+                    interruption.
+                </p>
+
+                <p>
+                    Maintenance, technical problems, hosting
+                    issues, updates or circumstances outside our
+                    control may temporarily affect availability.
+                </p>
+
+            </section>
+
+
+
+            <!-- LIABILITY -->
+
+            <section class="terms-section" id="liability">
+
+                <h2>
+                    09. Limitation of Liability
+                </h2>
+
+                <p>
+                    To the extent permitted by applicable law,
+                    Wallora and its operators shall not be liable
+                    for indirect, incidental or consequential
+                    damages arising from your use of the website.
+                </p>
+
+                <p>
+                    You use Wallora and its content at your own
+                    discretion and risk.
+                </p>
+
+            </section>
+
+
+
+            <!-- CHANGES -->
+
+            <section class="terms-section" id="changes">
+
+                <h2>
+                    10. Changes to These Terms
+                </h2>
+
+                <p>
+                    Wallora may update these Terms & Conditions
+                    from time to time.
+                </p>
+
+                <p>
+                    Changes will become effective when the updated
+                    terms are published on this page.
+                </p>
+
+                <p>
+                    Your continued use of Wallora after changes
+                    are published means that you accept the updated
+                    terms.
+                </p>
+
+            </section>
+
+
+                </div>
+
+            </section>
+
+
+        </article>
+
+    </main>
+
+
+
+    <!-- =========================
+         FOOTER
+    ========================= -->
+
+    <footer>
+
+        <div class="footer-logo">
+            WALLORA
+        </div>
+
+        <div>
+            © 2026 Wallora. All rights reserved.
+        </div>
+
+    </footer>
+
+
+</body>
+</html>
