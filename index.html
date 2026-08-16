@@ -1848,423 +1848,356 @@
 
 
         /* =====================================================
-           RESPONSIVE — 1200px
-        ====================================================== */
-
-        @media (max-width: 1200px) {
-
-            .category-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-
-            .wallpaper-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-
-
-            .desktop-nav {
-                gap: 22px;
-            }
-
-        }
-
-
-        /* =====================================================
-           RESPONSIVE — 900px
-        ====================================================== */
-
-        @media (max-width: 900px) {
-
-            .desktop-nav,
-            .explore-btn {
-                display: none;
-            }
-
-
-            .mobile-menu-btn {
-                display: block;
-            }
-
-
-            .mobile-nav.open {
-                display: block;
-            }
-
-
-            .wallpaper-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-
-            .trending-box {
-                padding: 55px;
-            }
-
-
-            .trending-content {
-                width: 65%;
-            }
-
-
-            .trending-visual {
-                opacity: .55;
-                width: 65%;
-            }
-
-
-            .about-grid {
-                grid-template-columns: 1fr;
-                gap: 25px;
-            }
-
-
-            .footer-main {
-                grid-template-columns: 2fr 1fr 1fr;
-            }
-
-
-            .footer-column:last-child {
-                grid-column: 2;
-            }
-
-        }
-
-
-        /* =====================================================
-           RESPONSIVE — 650px
-        ====================================================== */
-
-        @media (max-width: 650px) {
-
-            .section-container,
-            .hero-content {
-                width: min(100% - 28px, 1380px);
-            }
-
-
-            .nav-container {
-                width: calc(100% - 28px);
-                min-height: 70px;
-            }
-
-
-            .brand-name {
-                font-size: 16px;
-            }
-
-
-            .brand-subtitle {
-                font-size: 6px;
-            }
-
-
-            .brand-symbol {
-                width: 38px;
-                height: 38px;
-            }
-
-
-            .hero {
-                min-height: 820px;
-            }
-
-
-            .hero-content {
-                padding-top: 80px;
-            }
-
-
-            .hero h1 {
-                font-size: clamp(49px, 14vw, 72px);
-                letter-spacing: -4px;
-            }
-
-
-            .hero-description {
-                font-size: 13px;
-            }
-
-
-            .hero-search {
-                height: auto;
-                min-height: 58px;
-            }
-
-
-            .hero-search button {
-                height: 46px;
-                padding: 0 14px;
-            }
-
-
-            .hero-stats {
-                gap: 17px;
-                margin-top: 38px;
-            }
-
-
-            .stat strong {
-                font-size: 18px;
-            }
-
-
-            .hero-scroll {
-                display: none;
-            }
-
-
-            .categories-section,
-            .wallpapers-section,
-            .about-section {
-                padding: 80px 0;
-            }
-
-
-            .section-heading {
-                align-items: start;
-                flex-direction: column;
-                gap: 18px;
-            }
-
-
-            .section-heading h2 {
-                font-size: 43px;
-                letter-spacing: -2px;
-            }
-
-
-            .category-grid {
-                grid-template-columns: 1fr;
-            }
-
-
-            .category-card {
-                min-height: 330px;
-            }
-
-
-            .filter-area {
-                align-items: stretch;
-                flex-direction: column;
-            }
-
-
-            .sort-control {
-                width: fit-content;
-            }
-
-
-            .wallpaper-grid {
-                grid-template-columns: 1fr;
-            }
-
-
-            .wallpaper-image {
-                height: 460px;
-            }
-
-
-            .trending-section {
-                padding: 60px 0;
-            }
-
-
-            .trending-box {
-                min-height: 600px;
-                padding: 40px 25px;
-                align-items: start;
-            }
-
-
-            .trending-content {
-                width: 100%;
-            }
-
-
-            .trending-content h2 {
-                font-size: 45px;
-            }
-
-
-            .trending-visual {
-                width: 100%;
-                height: 300px;
-                right: -15%;
-                bottom: -25px;
-                top: auto;
-                opacity: .7;
-            }
-
-
-            .floating-card {
-                width: 130px;
-                height: 200px;
-            }
-
-
-            .card-one {
-                right: 43%;
-            }
-
-
-            .card-two {
-                right: 20%;
-            }
-
-
-            .card-three {
-                right: -2%;
-            }
-
-
-            .about-content .about-lead {
-                font-size: 18px;
-            }
-
-
-            .cta-section {
-                padding: 30px 0 80px;
-            }
-
-
-            .cta-box {
-                padding: 65px 20px;
-            }
-
-
-            .footer {
-                padding-top: 60px;
-            }
-
-
-            .footer-main {
-                grid-template-columns: 1fr 1fr;
-                gap: 40px 25px;
-            }
-
-
-            .footer-brand {
-                grid-column: 1 / -1;
-            }
-
-
-            .footer-column:last-child {
-                grid-column: auto;
-            }
-
-
-            .footer-bottom {
-                flex-direction: column;
-            }
-
-
-            .search-overlay-inner {
-                width: calc(100% - 28px);
-                padding-top: 110px;
-            }
-
-
-            .search-overlay h2 {
-                font-size: 50px;
-                letter-spacing: -2px;
-            }
-
-
-            .main-search {
-                height: 60px;
-            }
-
-        }
-
-
-        /* =====================================================
-           RESPONSIVE — 420px
-        ====================================================== */
-
-        @media (max-width: 420px) {
-
-            .hero-search button {
-                font-size: 0;
-                width: 48px;
-                padding: 0;
-                justify-content: center;
-            }
-
-
-            .hero-search button i {
-                font-size: 12px;
-            }
-
-
-            .hero-tags {
-                gap: 5px;
-            }
-
-
-            .hero-stats {
-                gap: 12px;
-            }
-
-
-            .stat-divider {
-                height: 24px;
-            }
-
-
-            .wallpaper-image {
-                height: 420px;
-            }
-
-
-            .footer-main {
-                grid-template-columns: 1fr;
-            }
-
-
-            .footer-column:last-child {
-                grid-column: auto;
-            }
-
-        }
-
-        /* =====================================================
-   MOBILE — 3 WALLPAPERS PER ROW
+   RESPONSIVE — 650px
 ===================================================== */
 
-@media (max-width: 600px) {
+@media (max-width: 650px) {
+
+    .section-container,
+    .hero-content {
+        width: min(100% - 28px, 1380px);
+    }
+
+    .nav-container {
+        width: calc(100% - 28px);
+        min-height: 70px;
+    }
+
+    .brand-name {
+        font-size: 16px;
+    }
+
+    .brand-subtitle {
+        font-size: 6px;
+    }
+
+    .brand-symbol {
+        width: 38px;
+        height: 38px;
+    }
+
+    .hero {
+        min-height: 820px;
+    }
+
+    .hero-content {
+        padding-top: 80px;
+    }
+
+    .hero h1 {
+        font-size: clamp(49px, 14vw, 72px);
+        letter-spacing: -4px;
+    }
+
+    .hero-description {
+        font-size: 13px;
+    }
+
+    .hero-search {
+        height: auto;
+        min-height: 58px;
+    }
+
+    .hero-search button {
+        height: 46px;
+        padding: 0 14px;
+    }
+
+    .hero-stats {
+        gap: 17px;
+        margin-top: 38px;
+    }
+
+    .stat strong {
+        font-size: 18px;
+    }
+
+    .hero-scroll {
+        display: none;
+    }
+
+    .categories-section,
+    .wallpapers-section,
+    .about-section {
+        padding: 80px 0;
+    }
+
+    .section-heading {
+        align-items: start;
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .section-heading h2 {
+        font-size: 43px;
+        letter-spacing: -2px;
+    }
+
+    .category-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .category-card {
+        min-height: 330px;
+    }
+
+    .filter-area {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .sort-control {
+        width: fit-content;
+    }
+
+
+    /* =================================================
+       WALLPAPERS — MOBILE 3 PER ROW
+    ================================================= */
 
     .wallpaper-grid {
+        display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
         gap: 8px !important;
+        width: 100%;
     }
 
     .wallpaper-card {
+        width: 100%;
         min-width: 0;
+        overflow: hidden;
     }
 
-    .wallpaper-card img {
+    .wallpaper-image {
         width: 100%;
+        height: auto !important;
         aspect-ratio: 9 / 14;
+        overflow: hidden;
+    }
+
+    .wallpaper-image img {
+        width: 100%;
+        height: 100%;
         object-fit: cover;
+        display: block;
     }
 
     .wallpaper-card h3 {
         font-size: 10px;
-        line-height: 1.3;
+        line-height: 1.25;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
     .wallpaper-info {
         padding: 7px !important;
+        min-width: 0;
     }
 
     .wallpaper-info span {
         font-size: 8px;
+        line-height: 1.2;
+    }
+
+    .wallpaper-info p {
+        font-size: 8px;
+    }
+
+    .card-actions {
+        gap: 4px;
+    }
+
+    .card-actions button,
+    .favorite-btn {
+        width: 28px;
+        height: 28px;
+        padding: 0;
+    }
+
+    .card-actions i,
+    .favorite-btn i {
+        font-size: 9px;
+    }
+
+
+    /* =================================================
+       TRENDING
+    ================================================= */
+
+    .trending-section {
+        padding: 60px 0;
+    }
+
+    .trending-box {
+        min-height: 600px;
+        padding: 40px 25px;
+        align-items: start;
+    }
+
+    .trending-content {
+        width: 100%;
+    }
+
+    .trending-content h2 {
+        font-size: 45px;
+    }
+
+    .trending-visual {
+        width: 100%;
+        height: 300px;
+        right: -15%;
+        bottom: -25px;
+        top: auto;
+        opacity: .7;
+    }
+
+    .floating-card {
+        width: 130px;
+        height: 200px;
+    }
+
+    .card-one {
+        right: 43%;
+    }
+
+    .card-two {
+        right: 20%;
+    }
+
+    .card-three {
+        right: -2%;
+    }
+
+    .about-content .about-lead {
+        font-size: 18px;
+    }
+
+    .cta-section {
+        padding: 30px 0 80px;
+    }
+
+    .cta-box {
+        padding: 65px 20px;
+    }
+
+    .footer {
+        padding-top: 60px;
+    }
+
+    .footer-main {
+        grid-template-columns: 1fr 1fr;
+        gap: 40px 25px;
+    }
+
+    .footer-brand {
+        grid-column: 1 / -1;
+    }
+
+    .footer-column:last-child {
+        grid-column: auto;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+    }
+
+    .search-overlay-inner {
+        width: calc(100% - 28px);
+        padding-top: 110px;
+    }
+
+    .search-overlay h2 {
+        font-size: 50px;
+        letter-spacing: -2px;
+    }
+
+    .main-search {
+        height: 60px;
     }
 
 }
 
-    </style>
+
+/* =====================================================
+   RESPONSIVE — 420px
+===================================================== */
+
+@media (max-width: 420px) {
+
+    .hero-search button {
+        font-size: 0;
+        width: 48px;
+        padding: 0;
+        justify-content: center;
+    }
+
+    .hero-search button i {
+        font-size: 12px;
+    }
+
+    .hero-tags {
+        gap: 5px;
+    }
+
+    .hero-stats {
+        gap: 12px;
+    }
+
+    .stat-divider {
+        height: 24px;
+    }
+
+
+    /* ================================================
+       EXTRA SMALL PHONES — STILL 3 PER ROW
+    ================================================ */
+
+    .wallpaper-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+        gap: 6px !important;
+    }
+
+    .wallpaper-image {
+        aspect-ratio: 9 / 14;
+        height: auto !important;
+    }
+
+    .wallpaper-info {
+        padding: 6px !important;
+    }
+
+    .wallpaper-card h3 {
+        font-size: 9px;
+    }
+
+    .wallpaper-info span {
+        font-size: 7px;
+    }
+
+    .card-actions button,
+    .favorite-btn {
+        width: 25px;
+        height: 25px;
+    }
+
+    .card-actions i,
+    .favorite-btn i {
+        font-size: 8px;
+    }
+
+
+    .footer-main {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-column:last-child {
+        grid-column: auto;
+    }
+
+}
+
+<style>
 
 </head>
 
