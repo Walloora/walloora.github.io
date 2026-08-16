@@ -2056,13 +2056,62 @@
 
 
             .wallpaper-grid {
-                grid-template-columns: 1fr;
-            }
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    width: 100%;
+}
 
+.wallpaper-card {
+    min-width: 0;
+    width: 100%;
+}
 
-            .wallpaper-image {
-                height: 460px;
-            }
+.wallpaper-image {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 9 / 14;
+    overflow: hidden;
+}
+
+.wallpaper-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+        .wallpaper-info {
+    min-width: 0;
+    padding: 7px;
+    gap: 5px;
+}
+
+.wallpaper-info h3 {
+    min-width: 0;
+    font-size: clamp(8px, 2vw, 11px);
+    line-height: 1.25;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.wallpaper-info span {
+    min-width: 0;
+    font-size: clamp(6px, 1.5vw, 8px);
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.quick-download {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+}
+
+.quick-download i {
+    font-size: 9px;
+}
 
 
             .trending-section {
@@ -2212,9 +2261,36 @@
             }
 
 
-            .wallpaper-image {
-                height: 420px;
-            }
+            .wallpaper-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+}
+
+.wallpaper-image {
+    height: auto;
+    aspect-ratio: 9 / 14;
+}
+
+.wallpaper-info {
+    padding: 6px;
+}
+
+.wallpaper-info h3 {
+    font-size: clamp(7px, 2.5vw, 9px);
+}
+
+.wallpaper-info span {
+    font-size: clamp(6px, 1.8vw, 7px);
+}
+
+.quick-download {
+    width: 24px;
+    height: 24px;
+}
+
+.quick-download i {
+    font-size: 8px;
+}
 
 
             .footer-main {
@@ -2227,42 +2303,6 @@
             }
 
         }
-
-        /* =====================================================
-   MOBILE — 3 WALLPAPERS PER ROW
-===================================================== */
-
-@media (max-width: 600px) {
-
-    .wallpaper-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-        gap: 8px !important;
-    }
-
-    .wallpaper-card {
-        min-width: 0;
-    }
-
-    .wallpaper-card img {
-        width: 100%;
-        aspect-ratio: 9 / 14;
-        object-fit: cover;
-    }
-
-    .wallpaper-card h3 {
-        font-size: 10px;
-        line-height: 1.3;
-    }
-
-    .wallpaper-info {
-        padding: 7px !important;
-    }
-
-    .wallpaper-info span {
-        font-size: 8px;
-    }
-
-}
 
     </style>
 
