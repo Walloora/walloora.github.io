@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FAQ | Wallora</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #080808;
+            color: #fff;
+            min-height: 100vh;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .navbar {
+            width: 100%;
+            height: 78px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 7%;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            background: rgba(8,8,8,0.92);
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: 700;
+            letter-spacing: 5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+        }
+
+        .nav-links a {
+            color: #aaa;
+            text-decoration: none;
+            font-size: 13px;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links .active {
+            color: #fff;
+        }
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            text-align: center;
+            padding: 110px 20px 80px;
+        }
+
+        .eyebrow {
+            color: #888;
+            font-size: 11px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+        }
+
+        .hero h1 {
+            font-size: clamp(55px, 9vw, 105px);
+            line-height: .9;
+            letter-spacing: -5px;
+            font-weight: 700;
+        }
+
+        .hero h1 span {
+            color: #777;
+        }
+
+        .hero p {
+            max-width: 620px;
+            margin: 35px auto 0;
+            color: #999;
+            line-height: 1.8;
+            font-size: 15px;
+        }
+
+        /* =========================
+           FAQ SECTION
+        ========================= */
+
+        .faq-section {
+            width: min(900px, calc(100% - 40px));
+            margin: 0 auto;
+            padding-bottom: 120px;
+        }
+
+        .faq-intro {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .faq-intro h2 {
+            font-size: 30px;
+            margin-bottom: 12px;
+        }
+
+        .faq-intro p {
+            color: #777;
+            font-size: 14px;
+        }
+
+        .faq-container {
+            border-top: 1px solid #222;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #222;
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: 28px 5px;
+            background: transparent;
+            border: none;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            text-align: left;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .faq-question span {
+            color: #555;
+            font-size: 24px;
+            font-weight: 300;
+            transition: transform .35s ease;
+        }
+
+        .faq-item.active .faq-question span {
+            transform: rotate(45deg);
+            color: #fff;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height .4s ease;
+        }
+
+        .faq-answer p {
+            color: #888;
+            line-height: 1.8;
+            font-size: 14px;
+            padding: 0 45px 28px 5px;
+        }
+
+        /* =========================
+           CTA
+        ========================= */
+
+        .cta {
+            width: min(1100px, calc(100% - 40px));
+            margin: 0 auto 100px;
+            padding: 70px 30px;
+            text-align: center;
+            border: 1px solid #222;
+            background: linear-gradient(
+                135deg,
+                #111,
+                #090909
+            );
+        }
+
+        .cta h2 {
+            font-size: 42px;
+            letter-spacing: -2px;
+            margin-bottom: 15px;
+        }
+
+        .cta p {
+            color: #777;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        .cta a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 28px;
+            background: #fff;
+            color: #000;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            transition: .3s;
+        }
+
+        .cta a:hover {
+            background: #ccc;
+            transform: translateY(-2px);
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            border-top: 1px solid #1c1c1c;
+            padding: 35px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #555;
+            font-size: 11px;
+        }
+
+        .footer-logo {
+            color: #aaa;
+            letter-spacing: 4px;
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 650px) {
+
+            .navbar {
+                height: 70px;
+                padding: 0 20px;
+            }
+
+            .logo {
+                font-size: 20px;
+                letter-spacing: 4px;
+            }
+
+            .nav-links {
+                gap: 15px;
+            }
+
+            .nav-links a {
+                font-size: 10px;
+            }
+
+            .hero {
+                padding: 80px 20px 60px;
+            }
+
+            .hero h1 {
+                font-size: clamp(50px, 18vw, 75px);
+                letter-spacing: -4px;
+            }
+
+            .hero p {
+                font-size: 13px;
+            }
+
+            .faq-section {
+                width: calc(100% - 28px);
+                padding-bottom: 80px;
+            }
+
+            .faq-question {
+                font-size: 14px;
+                padding: 24px 3px;
+                gap: 20px;
+            }
+
+            .faq-answer p {
+                font-size: 13px;
+                padding-right: 15px;
+            }
+
+            .cta {
+                width: calc(100% - 28px);
+                margin-bottom: 70px;
+                padding: 55px 20px;
+            }
+
+            .cta h2 {
+                font-size: 32px;
+            }
+
+            footer {
+                padding: 30px 20px;
+                flex-direction: column;
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            WALLORA
+        </div>
+
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="faq.html" class="active">FAQ</a>
+        </div>
+
+    </nav>
+
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div class="eyebrow">
+            Wallora Support
+        </div>
+
+        <h1>
+            Frequently<br>
+            <span>Asked.</span>
+        </h1>
+
+        <p>
+            Everything you need to know about Wallora,
+            wallpapers, downloads and the experience we
+            are building for you.
+        </p>
+
+    </section>
+
+
+    <!-- FAQ -->
+
+    <section class="faq-section">
+
+        <div class="faq-intro">
+
+            <h2>Questions & Answers</h2>
+
+            <p>
+                Can't find what you're looking for?
+                We're here to help.
+            </p>
+
+        </div>
+
+
+        <div class="faq-container">
+
+            <!-- FAQ 1 -->
+
+            <div class="faq-item">
+
+                <button class="faq-question">
+                    What is Wallora?
+                    <span>+</span>
+                </button>
+
+                <div class="faq-answer">
+                    <p>
+                        Wallora is a premium wallpaper platform
+                        designed to help you discover beautiful,
+                        high-quality wallpapers for your devices.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <!-- FAQ 2 -->
+
+            <div class="faq-item">
+
+                <button class="faq-question">
+                    Are Wallora wallpapers free?
+                    <span>+</span>
+                </button>
+
+                <div class="faq-answer">
+                    <p>
+                        Yes. Wallpapers available on Wallora can
+                        be downloaded for free unless specifically
+                        stated otherwise.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <!-- FAQ 3 -->
+
+            <div class="faq-item">
+
+                <button class="faq-question">
+                    Can I use wallpapers on my phone?
+                    <span>+</span>
+                </button>
+
+                <div class="faq-answer">
+                    <p>
+                        Absolutely. Wallora is designed with mobile
+                        users in mind, and our wallpapers can be
+                        used on compatible smartphones and devices.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <!-- FAQ 4 -->
+
+            <div class="faq-item">
+
+                <button class="faq-question">
+                    Can I use wallpapers on my computer?
+                    <span>+</span>
+                </button>
+
+                <div class="faq-answer">
+                    <p>
+                        Yes. You can download suitable wallpapers
+                        for desktops, laptops and other supported
+                        screens.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <!-- FAQ 5 -->
+
+            <div class="faq-item">
+
+                <button class="faq-question">
+                    How do I download a wallpaper?
+                    <span>+</span>
+                </button>
+
+                <div class="faq-answer">
+                    <p>
+                        Simply browse Wallora, open the wallpaper
+                        you like and use the download option
+                        provided on its page.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <!-- FAQ 6 -->
+
+            <div class="faq-item">
+
+                <button class="faq-question">
+                    Does Wallora work on mobile devices?
+                    <span>+</span>
+                </button>
+
+                <div class="faq-answer">
+                    <p>
+                        Yes. Wallora is fully responsive and built
+                        to provide a smooth experience across
+                        smartphones, tablets and desktop devices.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <!-- FAQ 7 -->
+
+            <div class="faq-item">
+
+                <button class="faq-question">
+                    How can I report an issue?
+                    <span>+</span>
+                </button>
+
+                <div class="faq-answer">
+                    <p>
+                        If you encounter a technical problem,
+                        incorrect information or another issue,
+                        please contact the Wallora team through
+                        the contact page.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <!-- FAQ 8 -->
+
+            <div class="faq-item">
+
+                <button class="faq-question">
+                    Can I request a wallpaper?
+                    <span>+</span>
+                </button>
+
+                <div class="faq-answer">
+                    <p>
+                        We are always interested in hearing what
+                        our community wants to see. You can contact
+                        us with your wallpaper suggestions and
+                        requests.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <!-- FAQ 9 -->
+
+            <div class="faq-item">
+
+                <button class="faq-question">
+                    Can I submit my own wallpapers?
+                    <span>+</span>
+                </button>
+
+                <div class="faq-answer">
+                    <p>
+                        If Wallora is accepting creator submissions,
+                        you can contact our team for information
+                        about submission requirements and the
+                        review process.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <!-- FAQ 10 -->
+
+            <div class="faq-item">
+
+                <button class="faq-question">
+                    How can I contact Wallora?
+                    <span>+</span>
+                </button>
+
+                <div class="faq-answer">
+                    <p>
+                        You can reach the Wallora team through the
+                        contact section of our website. We will do
+                        our best to respond as soon as possible.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- CTA -->
+
+    <section class="cta">
+
+        <h2>Still have questions?</h2>
+
+        <p>
+            Can't find the answer you're looking for?
+            Get in touch with Wallora.
+        </p>
+
+        <a href="contact.html">
+            CONTACT WALLORA
+        </a>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <div class="footer-logo">
+            WALLORA
+        </div>
+
+        <div>
+            © 2026 Wallora. All rights reserved.
+        </div>
+
+    </footer>
+
+
+    <!-- FAQ JAVASCRIPT -->
+
+    <script>
+
+        const faqItems = document.querySelectorAll(".faq-item");
+
+        faqItems.forEach(item => {
+
+            const question = item.querySelector(".faq-question");
+
+            question.addEventListener("click", () => {
+
+                const isActive = item.classList.contains("active");
+
+                faqItems.forEach(otherItem => {
+
+                    otherItem.classList.remove("active");
+
+                    const answer =
+                        otherItem.querySelector(".faq-answer");
+
+                    answer.style.maxHeight = null;
+
+                });
+
+                if (!isActive) {
+
+                    item.classList.add("active");
+
+                    const answer =
+                        item.querySelector(".faq-answer");
+
+                    answer.style.maxHeight =
+                        answer.scrollHeight + "px";
+                }
+
+            });
+
+        });
+
+    </script>
+
+</body>
+</html>
