@@ -1,0 +1,1655 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="robots"
+          content="noindex, nofollow">
+
+    <title>WALLORA — Admin Panel</title>
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        :root {
+            --bg: #07080c;
+            --panel: #0e1017;
+            --panel-2: #12151d;
+            --border: rgba(255,255,255,.08);
+            --text: #f5f7fb;
+            --muted: #858b9a;
+            --accent: #ffffff;
+            --danger: #ff4d67;
+            --success: #52d68a;
+        }
+
+
+        body {
+            min-height: 100vh;
+            background:
+                radial-gradient(
+                    circle at 20% 0%,
+                    rgba(255,255,255,.06),
+                    transparent 35%
+                ),
+                var(--bg);
+
+            color: var(--text);
+
+            font-family: "Inter", sans-serif;
+        }
+
+
+        button,
+        input,
+        textarea,
+        select {
+            font: inherit;
+        }
+
+
+        button {
+            cursor: pointer;
+        }
+
+
+        /* =========================================
+           SIDEBAR
+        ========================================= */
+
+        .sidebar {
+
+            position: fixed;
+
+            left: 0;
+            top: 0;
+
+            width: 250px;
+            height: 100vh;
+
+            padding: 28px 18px;
+
+            background: rgba(10,11,16,.94);
+
+            border-right: 1px solid var(--border);
+
+            backdrop-filter: blur(20px);
+
+            z-index: 100;
+        }
+
+
+        .logo {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            margin-bottom: 45px;
+
+            padding: 0 10px;
+
+            text-decoration: none;
+
+            color: white;
+        }
+
+
+        .logo-symbol {
+
+            width: 42px;
+            height: 42px;
+
+            display: grid;
+            place-items: center;
+
+            border: 1px solid rgba(255,255,255,.25);
+
+            font-family: "Outfit";
+
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+
+        .logo-text strong {
+
+            display: block;
+
+            font-family: "Outfit";
+
+            letter-spacing: 2px;
+        }
+
+
+        .logo-text span {
+
+            display: block;
+
+            margin-top: 3px;
+
+            color: var(--muted);
+
+            font-size: 8px;
+
+            letter-spacing: 1.5px;
+        }
+
+
+        .menu-title {
+
+            margin: 0 10px 12px;
+
+            color: #5f6573;
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+            letter-spacing: 1.8px;
+        }
+
+
+        .side-link {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 13px;
+
+            width: 100%;
+
+            padding: 13px 12px;
+
+            margin-bottom: 5px;
+
+            border-radius: 9px;
+
+            color: var(--muted);
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+            transition: .2s;
+        }
+
+
+        .side-link:hover,
+        .side-link.active {
+
+            background: rgba(255,255,255,.07);
+
+            color: white;
+        }
+
+
+        .side-link i {
+            width: 18px;
+            text-align: center;
+        }
+
+
+        /* =========================================
+           MAIN
+        ========================================= */
+
+        .main {
+
+            margin-left: 250px;
+
+            min-height: 100vh;
+
+            padding: 40px;
+        }
+
+
+        .topbar {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            margin-bottom: 35px;
+        }
+
+
+        .topbar h1 {
+
+            font-family: "Outfit";
+
+            font-size: 32px;
+
+            letter-spacing: -.5px;
+        }
+
+
+        .topbar p {
+
+            margin-top: 7px;
+
+            color: var(--muted);
+
+            font-size: 14px;
+        }
+
+
+        .status {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding: 9px 13px;
+
+            border: 1px solid var(--border);
+
+            border-radius: 30px;
+
+            color: var(--muted);
+
+            font-size: 12px;
+        }
+
+
+        .status-dot {
+
+            width: 7px;
+            height: 7px;
+
+            border-radius: 50%;
+
+            background: var(--success);
+
+            box-shadow: 0 0 12px var(--success);
+        }
+
+
+        /* =========================================
+           STATS
+        ========================================= */
+
+        .stats {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, minmax(0, 1fr));
+
+            gap: 15px;
+
+            margin-bottom: 25px;
+        }
+
+
+        .stat-card {
+
+            padding: 20px;
+
+            background: var(--panel);
+
+            border: 1px solid var(--border);
+
+            border-radius: 14px;
+        }
+
+
+        .stat-card span {
+
+            color: var(--muted);
+
+            font-size: 12px;
+        }
+
+
+        .stat-card strong {
+
+            display: block;
+
+            margin-top: 8px;
+
+            font-family: "Outfit";
+
+            font-size: 28px;
+        }
+
+
+        /* =========================================
+           CONTENT GRID
+        ========================================= */
+
+        .content-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                minmax(0, 1.5fr)
+                minmax(300px, .8fr);
+
+            gap: 20px;
+        }
+
+
+        .panel {
+
+            background: var(--panel);
+
+            border: 1px solid var(--border);
+
+            border-radius: 16px;
+
+            padding: 25px;
+        }
+
+
+        .panel-header {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            margin-bottom: 25px;
+        }
+
+
+        .panel-header h2 {
+
+            font-family: "Outfit";
+
+            font-size: 20px;
+        }
+
+
+        .panel-header span {
+
+            color: var(--muted);
+
+            font-size: 12px;
+        }
+
+
+        /* =========================================
+           FORM
+        ========================================= */
+
+        .form-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+
+            gap: 17px;
+        }
+
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+
+        .form-group label {
+
+            display: block;
+
+            margin-bottom: 8px;
+
+            color: #b5bac6;
+
+            font-size: 12px;
+
+            font-weight: 600;
+        }
+
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+
+            width: 100%;
+
+            padding: 13px 14px;
+
+            background: var(--panel-2);
+
+            border: 1px solid var(--border);
+
+            border-radius: 9px;
+
+            outline: none;
+
+            color: white;
+
+            transition: .2s;
+        }
+
+
+        .form-group textarea {
+
+            min-height: 100px;
+
+            resize: vertical;
+        }
+
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+
+            border-color: rgba(255,255,255,.3);
+
+            background: #151821;
+        }
+
+
+        .form-help {
+
+            display: block;
+
+            margin-top: 7px;
+
+            color: #626875;
+
+            font-size: 10px;
+
+            line-height: 1.5;
+        }
+
+
+        .checkbox-row {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 18px;
+
+            margin-top: 5px;
+        }
+
+
+        .checkbox {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            color: var(--muted);
+
+            font-size: 12px;
+        }
+
+
+        .checkbox input {
+
+            width: 15px;
+            height: 15px;
+        }
+
+
+        .submit-row {
+
+            display: flex;
+
+            justify-content: flex-end;
+
+            gap: 10px;
+
+            margin-top: 25px;
+        }
+
+
+        .btn {
+
+            border: 0;
+
+            border-radius: 9px;
+
+            padding: 12px 18px;
+
+            font-weight: 700;
+
+            font-size: 13px;
+
+            transition: .2s;
+        }
+
+
+        .btn-primary {
+
+            background: white;
+
+            color: black;
+        }
+
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+        }
+
+
+        .btn-secondary {
+
+            background: rgba(255,255,255,.06);
+
+            color: white;
+
+            border: 1px solid var(--border);
+        }
+
+
+        /* =========================================
+           PREVIEW
+        ========================================= */
+
+        .preview-box {
+
+            overflow: hidden;
+
+            min-height: 360px;
+
+            background: #08090d;
+
+            border: 1px solid var(--border);
+
+            border-radius: 12px;
+
+            position: relative;
+        }
+
+
+        .preview-box img {
+
+            width: 100%;
+            height: 100%;
+
+            min-height: 360px;
+
+            object-fit: cover;
+
+            display: block;
+        }
+
+
+        .preview-placeholder {
+
+            position: absolute;
+
+            inset: 0;
+
+            display: grid;
+
+            place-items: center;
+
+            text-align: center;
+
+            padding: 25px;
+
+            color: #555b68;
+        }
+
+
+        .preview-placeholder i {
+
+            display: block;
+
+            margin-bottom: 12px;
+
+            font-size: 30px;
+        }
+
+
+        .preview-info {
+
+            margin-top: 15px;
+
+            padding: 15px;
+
+            background: var(--panel-2);
+
+            border: 1px solid var(--border);
+
+            border-radius: 10px;
+        }
+
+
+        .preview-info strong {
+
+            display: block;
+
+            margin-bottom: 5px;
+
+            font-family: "Outfit";
+        }
+
+
+        .preview-info span {
+
+            color: var(--muted);
+
+            font-size: 11px;
+        }
+
+
+        /* =========================================
+           RESPONSIVE
+        ========================================= */
+
+        @media (max-width: 1050px) {
+
+            .sidebar {
+                width: 210px;
+            }
+
+            .main {
+                margin-left: 210px;
+                padding: 25px;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+
+        @media (max-width: 750px) {
+
+            .sidebar {
+
+                position: relative;
+
+                width: 100%;
+
+                height: auto;
+
+                border-right: 0;
+
+                border-bottom: 1px solid var(--border);
+
+            }
+
+
+            .logo {
+                margin-bottom: 25px;
+            }
+
+
+            .main {
+
+                margin-left: 0;
+
+                padding: 20px 15px;
+            }
+
+
+            .stats {
+
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
+
+            }
+
+
+            .form-grid {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .form-group.full {
+
+                grid-column: auto;
+            }
+
+
+            .topbar {
+
+                align-items: flex-start;
+
+                gap: 15px;
+
+                flex-direction: column;
+            }
+
+        }
+
+
+        @media (max-width: 450px) {
+
+            .stats {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .panel {
+
+                padding: 18px;
+            }
+
+
+            .submit-row {
+
+                flex-direction: column;
+            }
+
+
+            .btn {
+
+                width: 100%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside class="sidebar">
+
+    <a href="index.html"
+       class="logo">
+
+        <div class="logo-symbol">
+            W
+        </div>
+
+        <div class="logo-text">
+
+            <strong>WALLORA</strong>
+
+            <span>
+                ADMINISTRATOR
+            </span>
+
+        </div>
+
+    </a>
+
+
+    <div class="menu-title">
+        MANAGEMENT
+    </div>
+
+
+    <a href="#dashboard"
+       class="side-link active">
+
+        <i class="fa-solid fa-chart-line"></i>
+
+        Dashboard
+
+    </a>
+
+
+    <a href="#addWallpaper"
+       class="side-link">
+
+        <i class="fa-solid fa-plus"></i>
+
+        Add Wallpaper
+
+    </a>
+
+
+    <a href="#wallpapers"
+       class="side-link">
+
+        <i class="fa-solid fa-images"></i>
+
+        Wallpapers
+
+    </a>
+
+
+    <div class="menu-title"
+         style="margin-top:30px;">
+
+        WEBSITE
+
+    </div>
+
+
+    <a href="index.html"
+       class="side-link">
+
+        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+
+        View Website
+
+    </a>
+
+</aside>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="main">
+
+
+    <!-- TOPBAR -->
+
+    <div class="topbar"
+         id="dashboard">
+
+        <div>
+
+            <h1>
+                Dashboard
+            </h1>
+
+            <p>
+                Manage your WALLORA wallpaper collection.
+            </p>
+
+        </div>
+
+
+        <div class="status">
+
+            <span class="status-dot"></span>
+
+            System Ready
+
+        </div>
+
+    </div>
+
+
+
+    <!-- STATS -->
+
+    <section class="stats">
+
+        <div class="stat-card">
+
+            <span>
+                Total Wallpapers
+            </span>
+
+            <strong id="totalWallpapers">
+                0
+            </strong>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <span>
+                4K Wallpapers
+            </span>
+
+            <strong id="fourKCount">
+                0
+            </strong>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <span>
+                Anime
+            </span>
+
+            <strong id="animeCount">
+                0
+            </strong>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <span>
+                Cars
+            </span>
+
+            <strong id="carsCount">
+                0
+            </strong>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- CONTENT -->
+
+    <section class="content-grid"
+             id="addWallpaper">
+
+
+        <!-- FORM -->
+
+        <div class="panel">
+
+            <div class="panel-header">
+
+                <div>
+
+                    <h2>
+                        Add Wallpaper
+                    </h2>
+
+                    <span>
+                        Add a new wallpaper to your collection.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <form id="wallpaperForm">
+
+
+                <div class="form-grid">
+
+
+                    <!-- TITLE -->
+
+                    <div class="form-group full">
+
+                        <label for="title">
+                            Wallpaper Title
+                        </label>
+
+                        <input
+                            type="text"
+                            id="title"
+                            placeholder="e.g. Goku Ultra Instinct"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <!-- IMAGE URL -->
+
+                    <div class="form-group full">
+
+                        <label for="imageUrl">
+                            Image URL
+                        </label>
+
+                        <input
+                            type="url"
+                            id="imageUrl"
+                            placeholder="https://example.com/image.jpg"
+                            required
+                        >
+
+                        <span class="form-help">
+
+                            Paste the direct URL of the image.
+                            The image must be publicly accessible.
+
+                        </span>
+
+                    </div>
+
+
+
+                    <!-- CATEGORY -->
+
+                    <div class="form-group">
+
+                        <label for="category">
+                            Category
+                        </label>
+
+                        <select id="category">
+
+                            <option value="Anime">
+                                Anime
+                            </option>
+
+                            <option value="Cars">
+                                Cars
+                            </option>
+
+                            <option value="Gaming">
+                                Gaming
+                            </option>
+
+                            <option value="Nature">
+                                Nature
+                            </option>
+
+                            <option value="Aesthetic">
+                                Aesthetic
+                            </option>
+
+                            <option value="Abstract">
+                                Abstract
+                            </option>
+
+                            <option value="Space">
+                                Space
+                            </option>
+
+                            <option value="Minimal">
+                                Minimal
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <!-- QUALITY -->
+
+                    <div class="form-group">
+
+                        <label for="quality">
+                            Quality
+                        </label>
+
+                        <select id="quality">
+
+                            <option value="4K">
+                                4K
+                            </option>
+
+                            <option value="HD">
+                                HD
+                            </option>
+
+                            <option value="Full HD">
+                                Full HD
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <!-- TAGS -->
+
+                    <div class="form-group full">
+
+                        <label for="tags">
+                            Search Tags
+                        </label>
+
+                        <input
+                            type="text"
+                            id="tags"
+                            placeholder="Goku, Anime, Aura, Dark, 4K"
+                        >
+
+                        <span class="form-help">
+
+                            Separate tags using commas.
+                            These tags will power the search and filters.
+
+                        </span>
+
+                    </div>
+
+
+
+                    <!-- DESCRIPTION -->
+
+                    <div class="form-group full">
+
+                        <label for="description">
+                            Description
+                        </label>
+
+                        <textarea
+                            id="description"
+                            placeholder="Describe this wallpaper..."
+                        ></textarea>
+
+                    </div>
+
+
+
+                    <!-- OPTIONS -->
+
+                    <div class="form-group full">
+
+                        <label>
+                            Options
+                        </label>
+
+
+                        <div class="checkbox-row">
+
+                            <label class="checkbox">
+
+                                <input
+                                    type="checkbox"
+                                    id="bright"
+                                >
+
+                                Bright
+
+                            </label>
+
+
+                            <label class="checkbox">
+
+                                <input
+                                    type="checkbox"
+                                    id="dark"
+                                >
+
+                                Dark
+
+                            </label>
+
+
+                            <label class="checkbox">
+
+                                <input
+                                    type="checkbox"
+                                    id="aura"
+                                >
+
+                                Aura
+
+                            </label>
+
+
+                            <label class="checkbox">
+
+                                <input
+                                    type="checkbox"
+                                    id="trending"
+                                >
+
+                                Trending
+
+                            </label>
+
+
+                            <label class="checkbox">
+
+                                <input
+                                    type="checkbox"
+                                    id="featured"
+                                >
+
+                                Featured
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- BUTTONS -->
+
+                <div class="submit-row">
+
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        id="previewButton">
+
+                        <i class="fa-solid fa-eye"></i>
+
+                        Preview
+
+                    </button>
+
+
+                    <button
+                        type="reset"
+                        class="btn btn-secondary">
+
+                        Reset
+
+                    </button>
+
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary">
+
+                        <i class="fa-solid fa-plus"></i>
+
+                        Add Wallpaper
+
+                    </button>
+
+                </div>
+
+
+            </form>
+
+        </div>
+
+
+
+        <!-- PREVIEW -->
+
+        <div class="panel">
+
+            <div class="panel-header">
+
+                <div>
+
+                    <h2>
+                        Live Preview
+                    </h2>
+
+                    <span>
+                        See how your image looks before adding it.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="preview-box"
+                 id="previewBox">
+
+
+                <div class="preview-placeholder"
+                     id="previewPlaceholder">
+
+                    <div>
+
+                        <i class="fa-regular fa-image"></i>
+
+                        Paste an image URL and click
+                        Preview.
+
+                    </div>
+
+                </div>
+
+
+                <img
+                    id="previewImage"
+                    alt="Wallpaper preview"
+                    style="display:none;"
+                >
+
+            </div>
+
+
+            <div class="preview-info">
+
+                <strong id="previewTitle">
+                    Wallpaper Title
+                </strong>
+
+                <span id="previewMeta">
+                    Category • Quality
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+
+<script>
+
+    /* =====================================================
+       WALLORA ADMIN — TEMPORARY LOCAL SYSTEM
+    ===================================================== */
+
+
+    const form =
+        document.getElementById("wallpaperForm");
+
+    const imageUrl =
+        document.getElementById("imageUrl");
+
+    const title =
+        document.getElementById("title");
+
+    const category =
+        document.getElementById("category");
+
+    const quality =
+        document.getElementById("quality");
+
+    const tags =
+        document.getElementById("tags");
+
+    const description =
+        document.getElementById("description");
+
+
+    const previewButton =
+        document.getElementById("previewButton");
+
+    const previewImage =
+        document.getElementById("previewImage");
+
+    const previewPlaceholder =
+        document.getElementById("previewPlaceholder");
+
+    const previewTitle =
+        document.getElementById("previewTitle");
+
+    const previewMeta =
+        document.getElementById("previewMeta");
+
+
+    /* =====================================================
+       IMAGE PREVIEW
+    ===================================================== */
+
+    function updatePreview() {
+
+        const url =
+            imageUrl.value.trim();
+
+
+        if (!url) {
+
+            previewImage.style.display = "none";
+
+            previewPlaceholder.style.display = "grid";
+
+            return;
+
+        }
+
+
+        previewImage.src = url;
+
+        previewImage.style.display = "block";
+
+        previewPlaceholder.style.display = "none";
+
+
+        previewImage.onerror = () => {
+
+            previewImage.style.display = "none";
+
+            previewPlaceholder.style.display = "grid";
+
+            previewPlaceholder.innerHTML = `
+                <div>
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    Image URL could not be loaded.
+                </div>
+            `;
+
+        };
+
+
+        previewTitle.textContent =
+            title.value || "Wallpaper Title";
+
+
+        previewMeta.textContent =
+            `${category.value} • ${quality.value}`;
+
+    }
+
+
+    previewButton.addEventListener(
+        "click",
+        updatePreview
+    );
+
+
+    imageUrl.addEventListener(
+        "input",
+        () => {
+
+            if (imageUrl.value.trim()) {
+                updatePreview();
+            }
+
+        }
+    );
+
+
+    title.addEventListener(
+        "input",
+        () => {
+
+            previewTitle.textContent =
+                title.value || "Wallpaper Title";
+
+        }
+    );
+
+
+    /* =====================================================
+       TEMPORARY SAVE
+       
+       IMPORTANT:
+       This currently stores data locally in the browser.
+
+       NEXT STEP:
+       Firebase database will replace this.
+    ===================================================== */
+
+    form.addEventListener(
+        "submit",
+        event => {
+
+            event.preventDefault();
+
+
+            const wallpaper = {
+
+                id:
+                    Date.now().toString(),
+
+                title:
+                    title.value.trim(),
+
+                imageUrl:
+                    imageUrl.value.trim(),
+
+                category:
+                    category.value,
+
+                quality:
+                    quality.value,
+
+                tags:
+                    tags.value
+                        .split(",")
+                        .map(tag => tag.trim())
+                        .filter(Boolean),
+
+                description:
+                    description.value.trim(),
+
+                bright:
+                    document.getElementById("bright").checked,
+
+                dark:
+                    document.getElementById("dark").checked,
+
+                aura:
+                    document.getElementById("aura").checked,
+
+                trending:
+                    document.getElementById("trending").checked,
+
+                featured:
+                    document.getElementById("featured").checked,
+
+                downloads: 0,
+
+                views: 0,
+
+                createdAt:
+                    new Date().toISOString()
+
+            };
+
+
+            const wallpapers =
+                JSON.parse(
+                    localStorage.getItem(
+                        "walloraWallpapers"
+                    )
+                ) || [];
+
+
+            wallpapers.push(wallpaper);
+
+
+            localStorage.setItem(
+                "walloraWallpapers",
+                JSON.stringify(wallpapers)
+            );
+
+
+            alert(
+                "Wallpaper added successfully!"
+            );
+
+
+            updateStats();
+
+            form.reset();
+
+            previewImage.style.display = "none";
+
+            previewPlaceholder.style.display = "grid";
+
+            previewPlaceholder.innerHTML = `
+                <div>
+                    <i class="fa-regular fa-image"></i>
+                    Paste an image URL and click Preview.
+                </div>
+            `;
+
+            previewTitle.textContent =
+                "Wallpaper Title";
+
+            previewMeta.textContent =
+                "Category • Quality";
+
+        }
+    );
+
+
+    /* =====================================================
+       STATS
+    ===================================================== */
+
+    function updateStats() {
+
+        const wallpapers =
+            JSON.parse(
+                localStorage.getItem(
+                    "walloraWallpapers"
+                )
+            ) || [];
+
+
+        document.getElementById(
+            "totalWallpapers"
+        ).textContent =
+            wallpapers.length;
+
+
+        document.getElementById(
+            "fourKCount"
+        ).textContent =
+            wallpapers.filter(
+                wallpaper =>
+                    wallpaper.quality === "4K"
+            ).length;
+
+
+        document.getElementById(
+            "animeCount"
+        ).textContent =
+            wallpapers.filter(
+                wallpaper =>
+                    wallpaper.category === "Anime"
+            ).length;
+
+
+        document.getElementById(
+            "carsCount"
+        ).textContent =
+            wallpapers.filter(
+                wallpaper =>
+                    wallpaper.category === "Cars"
+            ).length;
+
+    }
+
+
+    updateStats();
+
+</script>
+
+
+</body>
+
+</html>

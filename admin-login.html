@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>WALLORA — Admin Access</title>
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            min-height: 100vh;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 20px;
+
+            background:
+                radial-gradient(
+                    circle at 50% 0%,
+                    rgba(255,255,255,.08),
+                    transparent 40%
+                ),
+                #07080c;
+
+            color: white;
+
+            font-family: "Inter", sans-serif;
+
+        }
+
+
+        .login-card {
+
+            width: 100%;
+
+            max-width: 420px;
+
+            padding: 40px;
+
+            background:
+                rgba(15,17,24,.88);
+
+            border: 1px solid
+                rgba(255,255,255,.09);
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 30px 100px
+                rgba(0,0,0,.5);
+
+            backdrop-filter: blur(25px);
+
+        }
+
+
+        .logo {
+
+            width: 55px;
+            height: 55px;
+
+            display: grid;
+
+            place-items: center;
+
+            margin: 0 auto 25px;
+
+            border: 1px solid
+                rgba(255,255,255,.25);
+
+            font-family: "Outfit";
+
+            font-size: 25px;
+
+            font-weight: 800;
+
+        }
+
+
+        .eyebrow {
+
+            display: block;
+
+            margin-bottom: 8px;
+
+            text-align: center;
+
+            color: #777e8d;
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+            letter-spacing: 2px;
+
+        }
+
+
+        h1 {
+
+            margin-bottom: 10px;
+
+            text-align: center;
+
+            font-family: "Outfit";
+
+            font-size: 30px;
+
+        }
+
+
+        .description {
+
+            margin-bottom: 30px;
+
+            text-align: center;
+
+            color: #7d8492;
+
+            font-size: 13px;
+
+            line-height: 1.6;
+
+        }
+
+
+        .input-wrapper {
+
+            position: relative;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .field {
+
+            position: relative;
+
+            margin-bottom: 14px;
+
+        }
+
+
+        .field > i {
+
+            position: absolute;
+
+            left: 15px;
+
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            color: #626875;
+
+            pointer-events: none;
+
+        }
+
+
+        input {
+
+            width: 100%;
+
+            padding: 14px 45px;
+
+            background: #11141b;
+
+            border: 1px solid
+                rgba(255,255,255,.08);
+
+            border-radius: 10px;
+
+            outline: none;
+
+            color: white;
+
+            font-size: 14px;
+
+            font-family: "Inter", sans-serif;
+
+        }
+
+
+        input::placeholder {
+
+            color: #555c69;
+
+        }
+
+
+        input:focus {
+
+            border-color:
+                rgba(255,255,255,.3);
+
+            background: #13161e;
+
+        }
+
+
+        .password-toggle {
+
+            position: absolute;
+
+            right: 14px;
+
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            border: 0;
+
+            background: transparent;
+
+            color: #666d7b;
+
+            cursor: pointer;
+
+            padding: 5px;
+
+        }
+
+
+        .password-toggle:hover {
+
+            color: white;
+
+        }
+
+
+        .login-button {
+
+            width: 100%;
+
+            padding: 14px;
+
+            border: 0;
+
+            border-radius: 10px;
+
+            background: white;
+
+            color: black;
+
+            font-weight: 800;
+
+            cursor: pointer;
+
+            transition: .2s;
+
+            font-family: "Inter", sans-serif;
+
+        }
+
+
+        .login-button:hover {
+
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 10px 30px
+                rgba(255,255,255,.08);
+
+        }
+
+
+        .login-button:disabled {
+
+            opacity: .6;
+
+            cursor: not-allowed;
+
+            transform: none;
+
+        }
+
+
+        .error {
+
+            display: none;
+
+            margin-top: 15px;
+
+            padding: 11px;
+
+            border-radius: 8px;
+
+            background:
+                rgba(255,77,103,.08);
+
+            border: 1px solid
+                rgba(255,77,103,.15);
+
+            color: #ff7285;
+
+            text-align: center;
+
+            font-size: 12px;
+
+            line-height: 1.5;
+
+        }
+
+
+        .success {
+
+            display: none;
+
+            margin-top: 15px;
+
+            padding: 11px;
+
+            border-radius: 8px;
+
+            background:
+                rgba(80,255,160,.08);
+
+            border: 1px solid
+                rgba(80,255,160,.15);
+
+            color: #76e9a8;
+
+            text-align: center;
+
+            font-size: 12px;
+
+        }
+
+
+        .back {
+
+            display: block;
+
+            margin-top: 25px;
+
+            text-align: center;
+
+            color: #666d7b;
+
+            font-size: 12px;
+
+            text-decoration: none;
+
+        }
+
+
+        .back:hover {
+
+            color: white;
+
+        }
+
+
+        @media (max-width: 480px) {
+
+            .login-card {
+
+                padding: 30px 22px;
+
+            }
+
+            h1 {
+
+                font-size: 27px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="login-card">
+
+
+    <div class="logo">
+        W
+    </div>
+
+
+    <span class="eyebrow">
+        WALLORA
+    </span>
+
+
+    <h1>
+        Admin Access
+    </h1>
+
+
+    <p class="description">
+
+        This area is restricted to
+        authorized administrators.
+
+    </p>
+
+
+    <form id="loginForm">
+
+
+        <!-- EMAIL -->
+
+        <div class="field">
+
+            <i class="fa-solid fa-envelope"></i>
+
+            <input
+                type="email"
+                id="email"
+                placeholder="Admin email"
+                autocomplete="email"
+                required
+            >
+
+        </div>
+
+
+        <!-- PASSWORD -->
+
+        <div class="field">
+
+            <i class="fa-solid fa-lock"></i>
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Password"
+                autocomplete="current-password"
+                required
+            >
+
+            <button
+                type="button"
+                class="password-toggle"
+                id="togglePassword"
+                aria-label="Show password">
+
+                <i class="fa-solid fa-eye"></i>
+
+            </button>
+
+        </div>
+
+
+        <!-- LOGIN -->
+
+        <button
+            type="submit"
+            class="login-button"
+            id="loginButton">
+
+            Continue
+
+            <i class="fa-solid fa-arrow-right"></i>
+
+        </button>
+
+
+        <!-- ERROR -->
+
+        <div
+            class="error"
+            id="loginError">
+        </div>
+
+
+        <!-- SUCCESS -->
+
+        <div
+            class="success"
+            id="loginSuccess">
+
+            Login successful. Opening dashboard...
+
+        </div>
+
+
+    </form>
+
+
+    <a
+        href="index.html"
+        class="back">
+
+        <i class="fa-solid fa-arrow-left"></i>
+
+        Back to WALLORA
+
+    </a>
+
+
+</div>
+
+
+<!-- =========================================
+     FIREBASE LOGIN
+========================================= -->
+
+<script type="module">
+
+    import {
+        signInWithEmailAndPassword
+    } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+
+
+    import {
+        auth
+    } from "./firebase.js";
+
+
+    const form =
+        document.getElementById("loginForm");
+
+
+    const emailInput =
+        document.getElementById("email");
+
+
+    const passwordInput =
+        document.getElementById("password");
+
+
+    const loginButton =
+        document.getElementById("loginButton");
+
+
+    const errorBox =
+        document.getElementById("loginError");
+
+
+    const successBox =
+        document.getElementById("loginSuccess");
+
+
+    const togglePassword =
+        document.getElementById("togglePassword");
+
+
+    /* =========================================
+       SHOW / HIDE PASSWORD
+    ========================================= */
+
+    togglePassword.addEventListener(
+        "click",
+        () => {
+
+            const icon =
+                togglePassword.querySelector("i");
+
+
+            if (
+                passwordInput.type === "password"
+            ) {
+
+                passwordInput.type = "text";
+
+                icon.classList.remove(
+                    "fa-eye"
+                );
+
+                icon.classList.add(
+                    "fa-eye-slash"
+                );
+
+                togglePassword.setAttribute(
+                    "aria-label",
+                    "Hide password"
+                );
+
+            } else {
+
+                passwordInput.type = "password";
+
+                icon.classList.remove(
+                    "fa-eye-slash"
+                );
+
+                icon.classList.add(
+                    "fa-eye"
+                );
+
+                togglePassword.setAttribute(
+                    "aria-label",
+                    "Show password"
+                );
+
+            }
+
+        }
+    );
+
+
+    /* =========================================
+       FIREBASE LOGIN
+    ========================================= */
+
+    form.addEventListener(
+        "submit",
+        async (event) => {
+
+            event.preventDefault();
+
+
+            const email =
+                emailInput.value.trim();
+
+
+            const password =
+                passwordInput.value;
+
+
+            errorBox.style.display =
+                "none";
+
+
+            successBox.style.display =
+                "none";
+
+
+            loginButton.disabled =
+                true;
+
+
+            loginButton.innerHTML = `
+                Checking
+                <i class="fa-solid fa-spinner fa-spin"></i>
+            `;
+
+
+            try {
+
+                await signInWithEmailAndPassword(
+                    auth,
+                    email,
+                    password
+                );
+
+
+                successBox.style.display =
+                    "block";
+
+
+                loginButton.innerHTML = `
+                    Access granted
+                    <i class="fa-solid fa-check"></i>
+                `;
+
+
+                setTimeout(
+                    () => {
+
+                        window.location.href =
+                            "admin.html";
+
+                    },
+                    700
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    "Firebase login error:",
+                    error
+                );
+
+
+                errorBox.textContent =
+                    getFirebaseErrorMessage(
+                        error.code
+                    );
+
+
+                errorBox.style.display =
+                    "block";
+
+
+                loginButton.disabled =
+                    false;
+
+
+                loginButton.innerHTML = `
+                    Continue
+                    <i class="fa-solid fa-arrow-right"></i>
+                `;
+
+
+                passwordInput.value = "";
+
+                passwordInput.focus();
+
+            }
+
+        }
+    );
+
+
+    /* =========================================
+       FIREBASE ERROR MESSAGES
+    ========================================= */
+
+    function getFirebaseErrorMessage(
+        errorCode
+    ) {
+
+        switch (errorCode) {
+
+            case "auth/invalid-email":
+
+                return "Please enter a valid email address.";
+
+
+            case "auth/invalid-credential":
+
+                return "Incorrect email or password.";
+
+
+            case "auth/user-not-found":
+
+                return "No administrator account was found with this email.";
+
+
+            case "auth/wrong-password":
+
+                return "Incorrect email or password.";
+
+
+            case "auth/too-many-requests":
+
+                return "Too many login attempts. Please try again later.";
+
+
+            case "auth/network-request-failed":
+
+                return "Network error. Check your internet connection.";
+
+
+            default:
+
+                return "Unable to sign in. Please try again.";
+
+        }
+
+    }
+
+</script>
+
+
+</body>
+
+</html>
