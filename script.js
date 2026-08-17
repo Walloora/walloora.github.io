@@ -31,12 +31,11 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-
 const db = getFirestore(app);
 
 
 /* =========================================================
-   GLOBAL WALLPAPER DATA
+   GLOBAL DATA
 ========================================================= */
 
 let allWallpapers = [];
@@ -45,58 +44,111 @@ let currentFilter = "All";
 
 let currentSearch = "";
 
+let currentSort = "latest";
+
 
 /* =========================================================
-   PAGE START
+   DOM READY
 ========================================================= */
 
 document.addEventListener("DOMContentLoaded", async () => {
 
-    /* =====================================================
-       PAGE LOADER
-    ===================================================== */
+    initPageLoader();
+
+    initNavbar();
+
+    initMobileMenu();
+
+    initSearchOverlay();
+
+    initHeroSearch();
+
+    initSearchSuggestions();
+
+    initFilters();
+
+    initCategoryCards();
+
+    initSorting();
+
+    initLoadMore();
+
+    initBackToTop();
+
+    initActiveNavigation();
+
+    await loadWallpapers();
+
+    console.log("WALLORA initialized successfully.");
+
+});
+
+
+/* =========================================================
+   PAGE LOADER
+========================================================= */
+
+function initPageLoader() {
 
     const pageLoader =
         document.getElementById("pageLoader");
 
+    if (!pageLoader) return;
 
     window.addEventListener("load", () => {
 
         setTimeout(() => {
 
-            pageLoader?.classList.add("hidden");
+            pageLoader.classList.add("hidden");
 
         }, 500);
 
     });
 
+}
 
-    /* =====================================================
-       NAVBAR
-    ===================================================== */
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+function initNavbar() {
 
     const navbar =
         document.getElementById("navbar");
 
+    if (!navbar) return;
 
-    window.addEventListener("scroll", () => {
+    const updateNavbar = () => {
 
         if (window.scrollY > 40) {
 
-            navbar?.classList.add("scrolled");
+            navbar.classList.add("scrolled");
 
         } else {
 
-            navbar?.classList.remove("scrolled");
+            navbar.classList.remove("scrolled");
 
         }
 
-    });
+    };
+
+    updateNavbar();
+
+    window.addEventListener(
+        "scroll",
+        updateNavbar,
+        { passive: true }
+    );
+
+}
 
 
-    /* =====================================================
-       MOBILE MENU
-    ===================================================== */
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
+function initMobileMenu() {
 
     const mobileMenuBtn =
         document.getElementById("mobileMenuBtn");
@@ -104,21 +156,22 @@ document.addEventListener("DOMContentLoaded", async () => {
     const mobileNav =
         document.getElementById("mobileNav");
 
+    if (!mobileMenuBtn || !mobileNav) return;
 
-    mobileMenuBtn?.addEventListener(
+
+    const icon =
+        mobileMenuBtn.querySelector("i");
+
+
+    mobileMenuBtn.addEventListener(
         "click",
         () => {
 
-            mobileNav?.classList.toggle("open");
+            const isOpen =
+                mobileNav.classList.toggle("open");
 
 
-            const icon =
-                mobileMenuBtn.querySelector("i");
-
-
-            if (
-                mobileNav?.classList.contains("open")
-            ) {
+            if (isOpen) {
 
                 icon?.classList.remove("fa-bars");
 
@@ -136,30 +189,33 @@ document.addEventListener("DOMContentLoaded", async () => {
     );
 
 
-    mobileNav?.querySelectorAll("a")
+    mobileNav
+        .querySelectorAll("a")
         .forEach(link => {
 
-            link.addEventListener("click", () => {
+            link.addEventListener(
+                "click",
+                () => {
 
-                mobileNav.classList.remove("open");
+                    mobileNav.classList.remove("open");
 
+                    icon?.classList.remove("fa-xmark");
 
-                const icon =
-                    mobileMenuBtn?.querySelector("i");
+                    icon?.classList.add("fa-bars");
 
-
-                icon?.classList.remove("fa-xmark");
-
-                icon?.classList.add("fa-bars");
-
-            });
+                }
+            );
 
         });
 
+}
 
-    /* =====================================================
-       SEARCH OVERLAY
-    ===================================================== */
+
+/* =========================================================
+   SEARCH OVERLAY
+========================================================= */
+
+function initSearchOverlay() {
 
     const searchOverlay =
         document.getElementById("searchOverlay");
@@ -177,52 +233,71 @@ document.addEventListener("DOMContentLoaded", async () => {
         document.getElementById("clearSearch");
 
 
-    openSearch?.addEventListener("click", () => {
+    openSearch?.addEventListener(
+        "click",
+        () => {
 
-        searchOverlay?.classList.add("active");
+            searchOverlay?.classList.add("active");
 
+            setTimeout(() => {
 
-        setTimeout(() => {
+                globalSearch?.focus();
 
-            globalSearch?.focus();
-
-        }, 200);
-
-    });
-
-
-    closeSearch?.addEventListener("click", () => {
-
-        searchOverlay?.classList.remove("active");
-
-    });
-
-
-    searchOverlay?.addEventListener("click", e => {
-
-        if (e.target === searchOverlay) {
-
-            searchOverlay.classList.remove("active");
+            }, 200);
 
         }
+    );
 
-    });
 
-
-    document.addEventListener("keydown", e => {
-
-        if (e.key === "Escape") {
+    closeSearch?.addEventListener(
+        "click",
+        () => {
 
             searchOverlay?.classList.remove("active");
 
         }
+    );
 
-    });
+
+    searchOverlay?.addEventListener(
+        "click",
+        event => {
+
+            if (
+                event.target === searchOverlay
+            ) {
+
+                searchOverlay.classList.remove(
+                    "active"
+                );
+
+            }
+
+        }
+    );
 
 
-    clearSearch?.addEventListener("click", () => {
+    document.addEventListener(
+        "keydown",
+        event => {
 
-        if (globalSearch) {
+            if (event.key === "Escape") {
+
+                searchOverlay?.classList.remove(
+                    "active"
+                );
+
+            }
+
+        }
+    );
+
+
+    clearSearch?.addEventListener(
+        "click",
+        () => {
+
+            if (!globalSearch) return;
 
             globalSearch.value = "";
 
@@ -231,33 +306,28 @@ document.addEventListener("DOMContentLoaded", async () => {
             globalSearch.focus();
 
         }
-
-    });
-
-
-    /* =====================================================
-       LOAD FIRESTORE WALLPAPERS
-    ===================================================== */
-
-    await loadWallpapers();
+    );
 
 
-    /* =====================================================
-       SEARCH
-    ===================================================== */
+    globalSearch?.addEventListener(
+        "input",
+        () => {
 
-    globalSearch?.addEventListener("input", () => {
+            performSearch(
+                globalSearch.value
+            );
 
-        performSearch(
-            globalSearch.value
-        );
+        }
+    );
 
-    });
+}
 
 
-    /* =====================================================
-       HERO SEARCH
-    ===================================================== */
+/* =========================================================
+   HERO SEARCH
+========================================================= */
+
+function initHeroSearch() {
 
     const heroSearch =
         document.getElementById("heroSearch");
@@ -271,10 +341,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     function executeHeroSearch() {
 
         const value =
-            heroSearch?.value.trim();
+            heroSearch?.value.trim() || "";
 
 
-        if (!value) return;
+        if (!value) {
+
+            heroSearch?.focus();
+
+            return;
+
+        }
 
 
         performSearch(value);
@@ -297,9 +373,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     heroSearch?.addEventListener(
         "keydown",
-        e => {
+        event => {
 
-            if (e.key === "Enter") {
+            if (event.key === "Enter") {
 
                 executeHeroSearch();
 
@@ -308,10 +384,14 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     );
 
+}
 
-    /* =====================================================
-       SEARCH SUGGESTIONS
-    ===================================================== */
+
+/* =========================================================
+   SEARCH SUGGESTIONS
+========================================================= */
+
+function initSearchSuggestions() {
 
     document
         .querySelectorAll("[data-search]")
@@ -322,7 +402,13 @@ document.addEventListener("DOMContentLoaded", async () => {
                 () => {
 
                     const value =
-                        button.dataset.search;
+                        button.dataset.search || "";
+
+
+                    const globalSearch =
+                        document.getElementById(
+                            "globalSearch"
+                        );
 
 
                     if (globalSearch) {
@@ -350,7 +436,13 @@ document.addEventListener("DOMContentLoaded", async () => {
                 () => {
 
                     const value =
-                        button.dataset.heroSearch;
+                        button.dataset.heroSearch || "";
+
+
+                    const heroSearch =
+                        document.getElementById(
+                            "heroSearch"
+                        );
 
 
                     if (heroSearch) {
@@ -375,10 +467,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         });
 
+}
 
-    /* =====================================================
-       FILTERS
-    ===================================================== */
+
+/* =========================================================
+   FILTERS
+========================================================= */
+
+function initFilters() {
 
     const filterButtons =
         document.querySelectorAll(
@@ -418,10 +514,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     });
 
+}
 
-    /* =====================================================
-       CATEGORY CARDS
-    ===================================================== */
+
+/* =========================================================
+   CATEGORY CARDS
+========================================================= */
+
+function initCategoryCards() {
 
     document
         .querySelectorAll(".category-card")
@@ -435,13 +535,20 @@ document.addEventListener("DOMContentLoaded", async () => {
                         card.dataset.filter;
 
 
+                    if (!filter) return;
+
+
                     const target =
                         document.querySelector(
-                            `.filter-btn[data-filter="${filter}"]`
+                            `.filter-btn[data-filter="${CSS.escape(filter)}"]`
                         );
 
 
-                    target?.click();
+                    if (target) {
+
+                        target.click();
+
+                    }
 
 
                     document
@@ -455,10 +562,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         });
 
+}
 
-    /* =====================================================
-       SORTING
-    ===================================================== */
+
+/* =========================================================
+   SORTING
+========================================================= */
+
+function initSorting() {
 
     const sortWallpapers =
         document.getElementById(
@@ -466,19 +577,36 @@ document.addEventListener("DOMContentLoaded", async () => {
         );
 
 
-    sortWallpapers?.addEventListener(
+    if (!sortWallpapers) return;
+
+
+    currentSort =
+        sortWallpapers.value ||
+        "latest";
+
+
+    sortWallpapers.addEventListener(
         "change",
         () => {
+
+            currentSort =
+                sortWallpapers.value ||
+                "latest";
+
 
             renderWallpapers();
 
         }
     );
 
+}
 
-    /* =====================================================
-       LOAD MORE
-    ===================================================== */
+
+/* =========================================================
+   LOAD MORE
+========================================================= */
+
+function initLoadMore() {
 
     const loadMoreButton =
         document.querySelector(
@@ -486,7 +614,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         );
 
 
-    loadMoreButton?.addEventListener(
+    if (!loadMoreButton) return;
+
+
+    loadMoreButton.addEventListener(
         "click",
         () => {
 
@@ -496,6 +627,9 @@ document.addEventListener("DOMContentLoaded", async () => {
             `;
 
 
+            loadMoreButton.disabled = true;
+
+
             setTimeout(() => {
 
                 loadMoreButton.innerHTML = `
@@ -503,18 +637,19 @@ document.addEventListener("DOMContentLoaded", async () => {
                     <i class="fa-solid fa-check"></i>
                 `;
 
-
-                loadMoreButton.disabled = true;
-
             }, 500);
 
         }
     );
 
+}
 
-    /* =====================================================
-       BACK TO TOP
-    ===================================================== */
+
+/* =========================================================
+   BACK TO TOP
+========================================================= */
+
+function initBackToTop() {
 
     const backToTop =
         document.getElementById(
@@ -522,29 +657,35 @@ document.addEventListener("DOMContentLoaded", async () => {
         );
 
 
-    window.addEventListener(
-        "scroll",
-        () => {
+    if (!backToTop) return;
 
-            if (window.scrollY > 600) {
 
-                backToTop?.classList.add(
-                    "show"
-                );
+    const updateBackToTop = () => {
 
-            } else {
+        if (window.scrollY > 600) {
 
-                backToTop?.classList.remove(
-                    "show"
-                );
+            backToTop.classList.add("show");
 
-            }
+        } else {
+
+            backToTop.classList.remove("show");
 
         }
+
+    };
+
+
+    updateBackToTop();
+
+
+    window.addEventListener(
+        "scroll",
+        updateBackToTop,
+        { passive: true }
     );
 
 
-    backToTop?.addEventListener(
+    backToTop.addEventListener(
         "click",
         () => {
 
@@ -556,10 +697,14 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     );
 
+}
 
-    /* =====================================================
-       ACTIVE NAVIGATION
-    ===================================================== */
+
+/* =========================================================
+   ACTIVE NAVIGATION
+========================================================= */
+
+function initActiveNavigation() {
 
     const sections =
         document.querySelectorAll(
@@ -573,6 +718,25 @@ document.addEventListener("DOMContentLoaded", async () => {
         );
 
 
+    if (
+        !sections.length ||
+        !navLinks.length
+    ) {
+
+        return;
+
+    }
+
+
+    if (
+        !("IntersectionObserver" in window)
+    ) {
+
+        return;
+
+    }
+
+
     const observer =
         new IntersectionObserver(
             entries => {
@@ -583,16 +747,18 @@ document.addEventListener("DOMContentLoaded", async () => {
                         return;
 
 
-                    navLinks.forEach(link =>
+                    navLinks.forEach(link => {
+
                         link.classList.remove(
                             "active"
-                        )
-                    );
+                        );
+
+                    });
 
 
                     const activeLink =
                         document.querySelector(
-                            `.desktop-nav a[href="#${entry.target.id}"]`
+                            `.desktop-nav a[href="#${CSS.escape(entry.target.id)}"]`
                         );
 
 
@@ -609,16 +775,14 @@ document.addEventListener("DOMContentLoaded", async () => {
         );
 
 
-    sections.forEach(section =>
-        observer.observe(section)
-    );
+    sections.forEach(section => {
 
+        observer.observe(section);
 
-    console.log(
-        "WALLORA initialized successfully."
-    );
+    });
 
-});
+}
+
 
 /* =========================================================
    FIRESTORE — LOAD WALLPAPERS
@@ -632,7 +796,15 @@ async function loadWallpapers() {
         );
 
 
-    if (!grid) return;
+    if (!grid) {
+
+        console.warn(
+            "Wallpaper grid not found."
+        );
+
+        return;
+
+    }
 
 
     try {
@@ -646,6 +818,10 @@ async function loadWallpapers() {
 
         let snapshot;
 
+
+        /*
+           First try newest wallpapers.
+        */
 
         try {
 
@@ -663,7 +839,7 @@ async function loadWallpapers() {
         } catch (error) {
 
             console.warn(
-                "Ordering failed. Loading without order.",
+                "createdAt ordering failed. Loading without ordering.",
                 error
             );
 
@@ -677,13 +853,28 @@ async function loadWallpapers() {
 
 
         allWallpapers =
-            snapshot.docs.map(doc => ({
+            snapshot.docs.map(
+                documentSnapshot => ({
 
-                id: doc.id,
+                    id:
+                        documentSnapshot.id,
 
-                ...doc.data()
+                    ...documentSnapshot.data()
 
-            }));
+                })
+            );
+
+
+        /*
+           If createdAt sorting failed,
+           sort locally.
+        */
+
+        allWallpapers.sort(
+            (a, b) =>
+                getTime(b.createdAt) -
+                getTime(a.createdAt)
+        );
 
 
         console.log(
@@ -727,8 +918,9 @@ async function loadWallpapers() {
                 </p>
 
                 <small>
-                    Please check your Firebase configuration
-                    and Firestore permissions.
+                    Please check your Firebase
+                    configuration and Firestore
+                    permissions.
                 </small>
 
             </div>
@@ -799,41 +991,40 @@ function renderWallpapers() {
        SORT
     ===================================================== */
 
-    const sort =
-        document.getElementById(
-            "sortWallpapers"
-        )?.value || "latest";
+    switch (currentSort) {
+
+        case "popular":
+
+            wallpapers.sort(
+                (a, b) =>
+                    Number(b.views || 0) -
+                    Number(a.views || 0)
+            );
+
+            break;
 
 
-    if (sort === "latest") {
+        case "downloads":
 
-        wallpapers.sort(
-            (a, b) =>
-                getTime(b.createdAt) -
-                getTime(a.createdAt)
-        );
+            wallpapers.sort(
+                (a, b) =>
+                    Number(b.downloads || 0) -
+                    Number(a.downloads || 0)
+            );
 
-    }
-
-
-    if (sort === "popular") {
-
-        wallpapers.sort(
-            (a, b) =>
-                Number(b.views || 0) -
-                Number(a.views || 0)
-        );
-
-    }
+            break;
 
 
-    if (sort === "downloads") {
+        case "latest":
+        default:
 
-        wallpapers.sort(
-            (a, b) =>
-                Number(b.downloads || 0) -
-                Number(a.downloads || 0)
-        );
+            wallpapers.sort(
+                (a, b) =>
+                    getTime(b.createdAt) -
+                    getTime(a.createdAt)
+            );
+
+            break;
 
     }
 
@@ -842,7 +1033,7 @@ function renderWallpapers() {
        EMPTY RESULT
     ===================================================== */
 
-    if (wallpapers.length === 0) {
+    if (!wallpapers.length) {
 
         grid.innerHTML = `
 
@@ -908,15 +1099,20 @@ function wallpaperMatches(
     if (!query) return true;
 
 
-    query =
-        query
+    const normalizedQuery =
+        String(query)
             .toLowerCase()
             .trim();
+
+
+    if (!normalizedQuery) return true;
 
 
     const searchable = [
 
         wallpaper.title,
+
+        wallpaper.name,
 
         wallpaper.category,
 
@@ -927,6 +1123,8 @@ function wallpaperMatches(
         wallpaper.type,
 
         wallpaper.videoUrl,
+
+        wallpaper.imageUrl,
 
         ...(Array.isArray(wallpaper.tags)
             ? wallpaper.tags
@@ -953,11 +1151,14 @@ function wallpaperMatches(
             : ""
 
     ]
+        .filter(Boolean)
         .join(" ")
         .toLowerCase();
 
 
-    return searchable.includes(query);
+    return searchable.includes(
+        normalizedQuery
+    );
 
 }
 
@@ -968,22 +1169,19 @@ function wallpaperMatches(
 
 function isVideoWallpaper(wallpaper) {
 
+    const type =
+        String(
+            wallpaper.type || ""
+        )
+            .toLowerCase()
+            .trim();
+
+
     /*
-       The admin panel will save:
-
-       type: "image"
-
-       OR
-
-       type: "video"
-
-       So we check that first.
+       Primary detection.
     */
 
-    if (
-        String(wallpaper.type || "")
-            .toLowerCase() === "video"
-    ) {
+    if (type === "video") {
 
         return true;
 
@@ -991,13 +1189,14 @@ function isVideoWallpaper(wallpaper) {
 
 
     /*
-       Backup detection:
-       If a video URL exists, treat it as video.
+       Backup detection.
     */
 
     if (
         wallpaper.videoUrl &&
-        String(wallpaper.videoUrl).trim()
+        String(
+            wallpaper.videoUrl
+        ).trim()
     ) {
 
         return true;
@@ -1025,11 +1224,14 @@ function createWallpaperCard(
 
 
     const tagText =
-        tags.join(" • ");
+        tags
+            .filter(Boolean)
+            .join(" • ");
 
 
     const quality =
-        wallpaper.quality || "HD";
+        wallpaper.quality ||
+        "HD";
 
 
     const isVideo =
@@ -1038,43 +1240,48 @@ function createWallpaperCard(
         );
 
 
-    /*
-       IMAGE URL
-    */
-
     const imageUrl =
-        wallpaper.imageUrl || "";
+        String(
+            wallpaper.imageUrl || ""
+        ).trim();
 
-
-    /*
-       VIDEO URL
-    */
 
     const videoUrl =
-        wallpaper.videoUrl || "";
+        String(
+            wallpaper.videoUrl || ""
+        ).trim();
 
 
-    /*
-       MEDIA ELEMENT
+    const title =
+        wallpaper.title ||
+        wallpaper.name ||
+        "Untitled Wallpaper";
 
-       IMAGE:
-       normal <img>
 
-       VIDEO:
-       <video> with controls
-    */
+    const category =
+        wallpaper.category ||
+        "Wallpaper";
+
 
     let mediaHTML = "";
 
 
-    if (isVideo) {
+    /* =====================================================
+       VIDEO
+    ===================================================== */
+
+    if (isVideo && videoUrl) {
 
         mediaHTML = `
 
             <video
                 class="wallpaper-media wallpaper-video"
                 src="${escapeHTML(videoUrl)}"
-                poster="${escapeHTML(imageUrl)}"
+                ${
+                    imageUrl
+                    ? `poster="${escapeHTML(imageUrl)}"`
+                    : ""
+                }
                 muted
                 loop
                 playsinline
@@ -1083,18 +1290,24 @@ function createWallpaperCard(
 
         `;
 
-    } else {
+    }
+
+
+    /* =====================================================
+       IMAGE
+    ===================================================== */
+
+    else {
 
         mediaHTML = `
 
             <img
                 class="wallpaper-media wallpaper-image-source"
                 src="${escapeHTML(imageUrl)}"
-                alt="${escapeHTML(
-                    wallpaper.title ||
-                    "Wallpaper"
-                )}"
+                alt="${escapeHTML(title)}"
                 loading="lazy"
+                decoding="async"
+                onerror="this.style.display='none';"
             >
 
         `;
@@ -1106,27 +1319,36 @@ function createWallpaperCard(
 
         <article
             class="wallpaper-card"
+            data-id="${escapeHTML(wallpaper.id || "")}"
             data-type="${isVideo ? "video" : "image"}"
             data-tags="${escapeHTML(
                 [
-                    wallpaper.category,
-                    wallpaper.quality,
+                    category,
+                    quality,
                     wallpaper.type || "",
                     ...tags,
-                    wallpaper.bright ? "Bright" : "",
-                    wallpaper.dark ? "Dark" : "",
-                    wallpaper.aura ? "Aura" : "",
-                    wallpaper.trending ? "Trending" : "",
-                    wallpaper.featured ? "Featured" : ""
+                    wallpaper.bright
+                        ? "Bright"
+                        : "",
+                    wallpaper.dark
+                        ? "Dark"
+                        : "",
+                    wallpaper.aura
+                        ? "Aura"
+                        : "",
+                    wallpaper.trending
+                        ? "Trending"
+                        : "",
+                    wallpaper.featured
+                        ? "Featured"
+                        : ""
                 ]
-                .filter(Boolean)
-                .join(" ")
+                    .filter(Boolean)
+                    .join(" ")
             )}"
-
             data-popular="${Number(
                 wallpaper.views || 0
             )}"
-
             data-downloads="${Number(
                 wallpaper.downloads || 0
             )}"
@@ -1150,19 +1372,7 @@ function createWallpaperCard(
                     ? `
                         <span
                             class="media-type-badge"
-                            style="
-                                position:absolute;
-                                left:12px;
-                                top:12px;
-                                z-index:5;
-                                padding:5px 9px;
-                                border-radius:20px;
-                                background:rgba(0,0,0,.65);
-                                color:#fff;
-                                font-size:10px;
-                                font-weight:700;
-                                backdrop-filter:blur(8px);
-                            "
+                            aria-label="Video wallpaper"
                         >
                             <i class="fa-solid fa-video"></i>
                             VIDEO
@@ -1177,9 +1387,7 @@ function createWallpaperCard(
                     aria-label="Add to favorites"
                     type="button"
                 >
-
                     <i class="fa-regular fa-heart"></i>
-
                 </button>
 
 
@@ -1190,9 +1398,7 @@ function createWallpaperCard(
                         class="view-wallpaper"
                         aria-label="View wallpaper"
                     >
-
                         <i class="fa-solid fa-eye"></i>
-
                     </button>
 
 
@@ -1201,9 +1407,7 @@ function createWallpaperCard(
                         class="download-wallpaper"
                         aria-label="Download wallpaper"
                     >
-
                         <i class="fa-solid fa-download"></i>
-
                     </button>
 
                 </div>
@@ -1216,22 +1420,6 @@ function createWallpaperCard(
                             type="button"
                             class="video-play-button"
                             aria-label="Play video"
-                            style="
-                                position:absolute;
-                                left:50%;
-                                top:50%;
-                                transform:translate(-50%,-50%);
-                                width:55px;
-                                height:55px;
-                                border:1px solid rgba(255,255,255,.35);
-                                border-radius:50%;
-                                background:rgba(0,0,0,.55);
-                                color:white;
-                                display:grid;
-                                place-items:center;
-                                z-index:6;
-                                backdrop-filter:blur(10px);
-                            "
                         >
                             <i class="fa-solid fa-play"></i>
                         </button>
@@ -1247,24 +1435,20 @@ function createWallpaperCard(
                 <div>
 
                     <h3>
-                        ${escapeHTML(
-                            wallpaper.title ||
-                            "Untitled Wallpaper"
-                        )}
+                        ${escapeHTML(title)}
                     </h3>
 
 
                     <span>
 
-                        ${escapeHTML(
-                            wallpaper.category ||
-                            "Wallpaper"
-                        )}
+                        ${escapeHTML(category)}
 
-                        ${tagText
+                        ${
+                            tagText
                             ? " • " +
                               escapeHTML(tagText)
-                            : ""}
+                            : ""
+                        }
 
                     </span>
 
@@ -1276,9 +1460,7 @@ function createWallpaperCard(
                     type="button"
                     aria-label="Download wallpaper"
                 >
-
                     <i class="fa-solid fa-arrow-down"></i>
-
                 </button>
 
             </div>
@@ -1288,6 +1470,8 @@ function createWallpaperCard(
     `;
 
 }
+
+
 /* =========================================================
    CARD EVENTS
 ========================================================= */
@@ -1304,19 +1488,38 @@ function attachCardEvents() {
 
             button.addEventListener(
                 "click",
-                e => {
+                event => {
 
-                    e.preventDefault();
-                    e.stopPropagation();
+                    event.preventDefault();
+                    event.stopPropagation();
+
+
+                    const card =
+                        button.closest(
+                            ".wallpaper-card"
+                        );
+
+
+                    const id =
+                        card?.dataset.id;
+
 
                     const icon =
                         button.querySelector("i");
 
-                    button.classList.toggle("liked");
 
-                    if (
-                        button.classList.contains("liked")
-                    ) {
+                    button.classList.toggle(
+                        "liked"
+                    );
+
+
+                    const liked =
+                        button.classList.contains(
+                            "liked"
+                        );
+
+
+                    if (liked) {
 
                         icon?.classList.remove(
                             "fa-regular"
@@ -1338,14 +1541,31 @@ function attachCardEvents() {
 
                     }
 
+
+                    /*
+                       Save favorite locally.
+                    */
+
+                    if (id) {
+
+                        saveFavorite(
+                            id,
+                            liked
+                        );
+
+                    }
+
                 }
             );
 
         });
 
 
+    restoreFavorites();
+
+
     /* =====================================================
-       VIEW WALLPAPER / VIDEO
+       VIEW
     ===================================================== */
 
     document
@@ -1354,15 +1574,17 @@ function attachCardEvents() {
 
             button.addEventListener(
                 "click",
-                e => {
+                event => {
 
-                    e.preventDefault();
-                    e.stopPropagation();
+                    event.preventDefault();
+                    event.stopPropagation();
+
 
                     const card =
                         button.closest(
                             ".wallpaper-card"
                         );
+
 
                     if (!card) return;
 
@@ -1371,6 +1593,7 @@ function attachCardEvents() {
                         card.querySelector(
                             ".wallpaper-video"
                         );
+
 
                     const image =
                         card.querySelector(
@@ -1384,22 +1607,9 @@ function attachCardEvents() {
 
                     if (video) {
 
-                        if (video.paused) {
-
-                            video.play().catch(
-                                error => {
-                                    console.warn(
-                                        "Video could not play:",
-                                        error
-                                    );
-                                }
-                            );
-
-                        } else {
-
-                            video.pause();
-
-                        }
+                        toggleVideo(
+                            video
+                        );
 
                         return;
 
@@ -1414,7 +1624,8 @@ function attachCardEvents() {
 
                         window.open(
                             image.src,
-                            "_blank"
+                            "_blank",
+                            "noopener,noreferrer"
                         );
 
                     }
@@ -1430,15 +1641,17 @@ function attachCardEvents() {
     ===================================================== */
 
     document
-        .querySelectorAll(".video-play-button")
+        .querySelectorAll(
+            ".video-play-button"
+        )
         .forEach(button => {
 
             button.addEventListener(
                 "click",
-                e => {
+                event => {
 
-                    e.preventDefault();
-                    e.stopPropagation();
+                    event.preventDefault();
+                    event.stopPropagation();
 
 
                     const card =
@@ -1456,34 +1669,9 @@ function attachCardEvents() {
                     if (!video) return;
 
 
-                    if (video.paused) {
-
-                        video.play().catch(
-                            error => {
-
-                                console.warn(
-                                    "Video play failed:",
-                                    error
-                                );
-
-                            }
-                        );
-
-
-                        button.innerHTML = `
-                            <i class="fa-solid fa-pause"></i>
-                        `;
-
-                    } else {
-
-                        video.pause();
-
-
-                        button.innerHTML = `
-                            <i class="fa-solid fa-play"></i>
-                        `;
-
-                    }
+                    toggleVideo(
+                        video
+                    );
 
                 }
             );
@@ -1492,34 +1680,23 @@ function attachCardEvents() {
 
 
     /* =====================================================
-       VIDEO PLAY / PAUSE STATE
+       VIDEO EVENTS
     ===================================================== */
 
     document
-        .querySelectorAll(".wallpaper-video")
+        .querySelectorAll(
+            ".wallpaper-video"
+        )
         .forEach(video => {
 
             video.addEventListener(
                 "play",
                 () => {
 
-                    const card =
-                        video.closest(
-                            ".wallpaper-card"
-                        );
-
-                    const button =
-                        card?.querySelector(
-                            ".video-play-button"
-                        );
-
-                    if (button) {
-
-                        button.innerHTML = `
-                            <i class="fa-solid fa-pause"></i>
-                        `;
-
-                    }
+                    updateVideoButton(
+                        video,
+                        true
+                    );
 
                 }
             );
@@ -1529,23 +1706,23 @@ function attachCardEvents() {
                 "pause",
                 () => {
 
-                    const card =
-                        video.closest(
-                            ".wallpaper-card"
-                        );
+                    updateVideoButton(
+                        video,
+                        false
+                    );
 
-                    const button =
-                        card?.querySelector(
-                            ".video-play-button"
-                        );
+                }
+            );
 
-                    if (button) {
 
-                        button.innerHTML = `
-                            <i class="fa-solid fa-play"></i>
-                        `;
+            video.addEventListener(
+                "ended",
+                () => {
 
-                    }
+                    updateVideoButton(
+                        video,
+                        false
+                    );
 
                 }
             );
@@ -1565,10 +1742,10 @@ function attachCardEvents() {
 
             button.addEventListener(
                 "click",
-                e => {
+                event => {
 
-                    e.preventDefault();
-                    e.stopPropagation();
+                    event.preventDefault();
+                    event.stopPropagation();
 
 
                     const card =
@@ -1580,53 +1757,28 @@ function attachCardEvents() {
                     if (!card) return;
 
 
-                    /*
-                       VIDEO DOWNLOAD
-                    */
-
                     const video =
                         card.querySelector(
                             ".wallpaper-video"
                         );
 
 
-                    if (video?.src) {
+                    if (
+                        video?.currentSrc ||
+                        video?.src
+                    ) {
 
-                        const link =
-                            document.createElement(
-                                "a"
-                            );
-
-                        link.href =
-                            video.src;
-
-                        link.target =
-                            "_blank";
-
-                        link.rel =
-                            "noopener";
-
-                        link.download =
-                            "";
-
-
-                        document.body.appendChild(
-                            link
+                        downloadMedia(
+                            video.currentSrc ||
+                            video.src,
+                            card.dataset.id,
+                            "video"
                         );
-
-                        link.click();
-
-
-                        link.remove();
 
                         return;
 
                     }
 
-
-                    /*
-                       IMAGE DOWNLOAD
-                    */
 
                     const image =
                         card.querySelector(
@@ -1634,38 +1786,271 @@ function attachCardEvents() {
                         );
 
 
-                    if (!image?.src) return;
+                    if (image?.src) {
 
-
-                    const link =
-                        document.createElement(
-                            "a"
+                        downloadMedia(
+                            image.currentSrc ||
+                            image.src,
+                            card.dataset.id,
+                            "image"
                         );
 
-
-                    link.href =
-                        image.src;
-
-                    link.target =
-                        "_blank";
-
-                    link.rel =
-                        "noopener";
-
-                    link.download =
-                        "";
-
-
-                    document.body.appendChild(
-                        link
-                    );
-
-                    link.click();
-
-
-                    link.remove();
+                    }
 
                 }
+            );
+
+        });
+
+}
+
+
+/* =========================================================
+   VIDEO TOGGLE
+========================================================= */
+
+function toggleVideo(video) {
+
+    if (!video) return;
+
+
+    if (video.paused) {
+
+        video.play().catch(
+            error => {
+
+                console.warn(
+                    "Video could not play:",
+                    error
+                );
+
+            }
+        );
+
+    } else {
+
+        video.pause();
+
+    }
+
+}
+
+
+/* =========================================================
+   UPDATE VIDEO BUTTON
+========================================================= */
+
+function updateVideoButton(
+    video,
+    playing
+) {
+
+    const card =
+        video.closest(
+            ".wallpaper-card"
+        );
+
+
+    const button =
+        card?.querySelector(
+            ".video-play-button"
+        );
+
+
+    if (!button) return;
+
+
+    button.innerHTML =
+        playing
+        ? `
+            <i class="fa-solid fa-pause"></i>
+        `
+        : `
+            <i class="fa-solid fa-play"></i>
+        `;
+
+}
+
+
+/* =========================================================
+   DOWNLOAD MEDIA
+========================================================= */
+
+function downloadMedia(
+    url,
+    id,
+    type
+) {
+
+    if (!url) return;
+
+
+    const link =
+        document.createElement("a");
+
+
+    link.href = url;
+
+    link.target = "_blank";
+
+    link.rel = "noopener";
+
+
+    const extension =
+        type === "video"
+            ? "mp4"
+            : "jpg";
+
+
+    link.download =
+        `wallora-${id || "wallpaper"}.${extension}`;
+
+
+    document.body.appendChild(
+        link
+    );
+
+
+    link.click();
+
+
+    link.remove();
+
+}
+
+
+/* =========================================================
+   FAVORITES — LOCAL STORAGE
+========================================================= */
+
+function getFavorites() {
+
+    try {
+
+        return JSON.parse(
+            localStorage.getItem(
+                "walloraFavorites"
+            )
+        ) || [];
+
+    } catch {
+
+        return [];
+
+    }
+
+}
+
+
+/* =========================================================
+   SAVE FAVORITE
+========================================================= */
+
+function saveFavorite(
+    id,
+    liked
+) {
+
+    if (!id) return;
+
+
+    let favorites =
+        getFavorites();
+
+
+    if (liked) {
+
+        if (!favorites.includes(id)) {
+
+            favorites.push(id);
+
+        }
+
+    } else {
+
+        favorites =
+            favorites.filter(
+                favoriteId =>
+                    favoriteId !== id
+            );
+
+    }
+
+
+    try {
+
+        localStorage.setItem(
+            "walloraFavorites",
+            JSON.stringify(favorites)
+        );
+
+    } catch (error) {
+
+        console.warn(
+            "Could not save favorite:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   RESTORE FAVORITES
+========================================================= */
+
+function restoreFavorites() {
+
+    const favorites =
+        getFavorites();
+
+
+    if (!favorites.length) return;
+
+
+    document
+        .querySelectorAll(
+            ".wallpaper-card"
+        )
+        .forEach(card => {
+
+            const id =
+                card.dataset.id;
+
+
+            if (
+                !id ||
+                !favorites.includes(id)
+            ) {
+
+                return;
+
+            }
+
+
+            const button =
+                card.querySelector(
+                    ".favorite-btn"
+                );
+
+
+            const icon =
+                button?.querySelector("i");
+
+
+            button?.classList.add(
+                "liked"
+            );
+
+
+            icon?.classList.remove(
+                "fa-regular"
+            );
+
+
+            icon?.classList.add(
+                "fa-solid"
             );
 
         });
@@ -1677,10 +2062,12 @@ function attachCardEvents() {
    SEARCH
 ========================================================= */
 
-function performSearch(query) {
+function performSearch(
+    query
+) {
 
     currentSearch =
-        query
+        String(query || "")
             .trim()
             .toLowerCase();
 
@@ -1728,7 +2115,7 @@ function performSearch(query) {
         );
 
 
-    if (results.length === 0) {
+    if (!results.length) {
 
         preview.innerHTML = `
 
@@ -1806,7 +2193,7 @@ function updateWallpaperCount() {
 
 
 /* =========================================================
-   TIME
+   FIREBASE TIMESTAMP / DATE
 ========================================================= */
 
 function getTime(value) {
@@ -1814,21 +2201,57 @@ function getTime(value) {
     if (!value) return 0;
 
 
+    /*
+       Firestore Timestamp
+    */
+
     if (
         typeof value === "object" &&
-        value.seconds
+        typeof value.toMillis === "function"
     ) {
 
-        return value.seconds * 1000;
+        return value.toMillis();
 
     }
 
+
+    /*
+       Firestore timestamp object
+       with seconds.
+    */
+
+    if (
+        typeof value === "object" &&
+        typeof value.seconds === "number"
+    ) {
+
+        return (
+            value.seconds * 1000
+        );
+
+    }
+
+
+    /*
+       JavaScript Date
+    */
+
+    if (value instanceof Date) {
+
+        return value.getTime();
+
+    }
+
+
+    /*
+       String / number
+    */
 
     const time =
         new Date(value).getTime();
 
 
-    return isNaN(time)
+    return Number.isNaN(time)
         ? 0
         : time;
 
