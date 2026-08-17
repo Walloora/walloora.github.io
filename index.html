@@ -5307,8 +5307,54 @@
      JAVASCRIPT
 ========================================================= -->
 
-<script type="module"
-        src="script.js"></script>
+<script type="module" src="script.js"></script>
+
+<script>
+    /*
+     * WALLORA FAIL-SAFE LOADER
+     *
+     * Even if Firebase, images, videos or another
+     * JavaScript function has an error, the page
+     * loader will automatically disappear.
+     */
+
+    window.addEventListener("load", function () {
+
+        setTimeout(function () {
+
+            const loader = document.getElementById("pageLoader");
+
+            if (loader) {
+                loader.classList.add("hidden");
+            }
+
+            document.body.classList.remove("no-scroll");
+
+        }, 500);
+
+    });
+
+
+    /*
+     * Emergency fallback.
+     *
+     * If something prevents the normal load event
+     * from completing, remove the loader anyway.
+     */
+
+    setTimeout(function () {
+
+        const loader = document.getElementById("pageLoader");
+
+        if (loader) {
+            loader.classList.add("hidden");
+        }
+
+        document.body.classList.remove("no-scroll");
+
+    }, 5000);
+
+</script>
 
 
 </body>
