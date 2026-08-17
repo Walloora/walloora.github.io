@@ -2,6 +2,7 @@
    WALLORA — MAIN JAVASCRIPT
    Firebase + Search + Filters + Sorting
    IMAGE + VIDEO WALLPAPER SUPPORT
+   FIXED PAGE LOADER
 ========================================================= */
 
 import {
@@ -22,7 +23,7 @@ import {
 ========================================================= */
 
 const firebaseConfig = {
-    apiKey: "AIzaSyD1QnKPohCoYQ8h3RvenvrrX8PilmmpN08",
+    apiKey: "AIzaD1QnKPohCoYQ8h3RvenvrrX8PilmmpN08",
     authDomain: "wallora-bb207.firebaseapp.com",
     projectId: "wallora-bb207",
     storageBucket: "wallora-bb207.firebasestorage.app",
@@ -48,57 +49,6 @@ let currentSort = "latest";
 
 
 /* =========================================================
-   DOM READY
-========================================================= */
-
-document.addEventListener("DOMContentLoaded", async () => {
-
-    console.log("WALLORA starting...");
-
-    /* =====================================================
-       INITIALIZE PAGE
-    ===================================================== */
-
-    initPageLoader();
-
-    initNavbar();
-
-    initMobileMenu();
-
-    initSearchOverlay();
-
-    initHeroSearch();
-
-    initSearchSuggestions();
-
-    initFilters();
-
-    initCategoryCards();
-
-    initSorting();
-
-    initLoadMore();
-
-    initBackToTop();
-
-    initActiveNavigation();
-
-
-    /* =====================================================
-       LOAD FIREBASE WALLPAPERS
-    ===================================================== */
-
-    await loadWallpapers();
-
-
-    console.log(
-        "WALLORA initialized successfully."
-    );
-
-});
-
-
-/* =========================================================
    PAGE LOADER
 ========================================================= */
 
@@ -107,70 +57,142 @@ function initPageLoader() {
     const pageLoader =
         document.getElementById("pageLoader");
 
-
     if (!pageLoader) {
-
-        console.warn(
-            "Page loader element #pageLoader was not found."
-        );
-
+        console.warn("Page loader element not found.");
         return;
-
     }
 
+    /*
+       Prevent the loader from getting stuck forever.
+
+       Maximum loading time:
+       8 seconds
+    */
+
+    let loaderHidden = false;
 
     const hideLoader = () => {
 
+        if (loaderHidden) return;
+
+        loaderHidden = true;
+
+        pageLoader.classList.add("hidden");
+
+        /*
+           Completely remove it after transition.
+        */
+
         setTimeout(() => {
 
-            pageLoader.classList.add("hidden");
+            if (pageLoader && pageLoader.parentNode) {
 
-        }, 500);
+                pageLoader.style.pointerEvents = "none";
+
+            }
+
+        }, 800);
 
     };
 
 
     /*
-       If the whole page has already loaded,
-       hide the loader immediately.
+       Normal page load.
     */
 
     if (document.readyState === "complete") {
 
-        hideLoader();
+        setTimeout(hideLoader, 400);
 
-        return;
+    } else {
+
+        window.addEventListener(
+            "load",
+            () => {
+
+                setTimeout(
+                    hideLoader,
+                    400
+                );
+
+            },
+            { once: true }
+        );
 
     }
 
 
     /*
-       Otherwise wait for the complete
-       window load event.
+       IMPORTANT:
+       Even if Firebase, image, video, font,
+       or another resource gets stuck,
+       the loader WILL disappear.
     */
 
-    window.addEventListener(
-        "load",
+    setTimeout(
         hideLoader,
-        { once: true }
+        8000
     );
 
-
-    /*
-       Safety fallback.
-
-       If an external image/video/resource
-       prevents window "load" from firing,
-       the loader will still disappear.
-    */
-
-    setTimeout(() => {
-
-        pageLoader.classList.add("hidden");
-
-    }, 5000);
-
 }
+
+
+/* =========================================================
+   DOM READY
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    async () => {
+
+        /*
+           START LOADER
+        */
+
+        initPageLoader();
+
+
+        /*
+           INITIALIZE UI
+        */
+
+        initNavbar();
+
+        initMobileMenu();
+
+        initSearchOverlay();
+
+        initHeroSearch();
+
+        initSearchSuggestions();
+
+        initFilters();
+
+        initCategoryCards();
+
+        initSorting();
+
+        initLoadMore();
+
+        initBackToTop();
+
+        initActiveNavigation();
+
+
+        /*
+           LOAD FIREBASE DATA
+        */
+
+        await loadWallpapers();
+
+
+        console.log(
+            "WALLORA initialized successfully."
+        );
+
+    },
+    { once: true }
+);
 
 
 /* =========================================================
@@ -181,7 +203,6 @@ function initNavbar() {
 
     const navbar =
         document.getElementById("navbar");
-
 
     if (!navbar) return;
 
@@ -220,13 +241,17 @@ function initNavbar() {
 function initMobileMenu() {
 
     const mobileMenuBtn =
-        document.getElementById("mobileMenuBtn");
+        document.getElementById(
+            "mobileMenuBtn"
+        );
 
     const mobileNav =
-        document.getElementById("mobileNav");
+        document.getElementById(
+            "mobileNav"
+        );
 
-
-    if (!mobileMenuBtn || !mobileNav) return;
+    if (!mobileMenuBtn || !mobileNav)
+        return;
 
 
     const icon =
@@ -238,7 +263,9 @@ function initMobileMenu() {
         () => {
 
             const isOpen =
-                mobileNav.classList.toggle("open");
+                mobileNav.classList.toggle(
+                    "open"
+                );
 
 
             if (isOpen) {
@@ -302,19 +329,29 @@ function initMobileMenu() {
 function initSearchOverlay() {
 
     const searchOverlay =
-        document.getElementById("searchOverlay");
+        document.getElementById(
+            "searchOverlay"
+        );
 
     const openSearch =
-        document.getElementById("openSearch");
+        document.getElementById(
+            "openSearch"
+        );
 
     const closeSearch =
-        document.getElementById("closeSearch");
+        document.getElementById(
+            "closeSearch"
+        );
 
     const globalSearch =
-        document.getElementById("globalSearch");
+        document.getElementById(
+            "globalSearch"
+        );
 
     const clearSearch =
-        document.getElementById("clearSearch");
+        document.getElementById(
+            "clearSearch"
+        );
 
 
     openSearch?.addEventListener(
@@ -324,7 +361,6 @@ function initSearchOverlay() {
             searchOverlay?.classList.add(
                 "active"
             );
-
 
             setTimeout(() => {
 
@@ -388,12 +424,9 @@ function initSearchOverlay() {
 
             if (!globalSearch) return;
 
-
             globalSearch.value = "";
 
-
             performSearch("");
-
 
             globalSearch.focus();
 
@@ -422,7 +455,9 @@ function initSearchOverlay() {
 function initHeroSearch() {
 
     const heroSearch =
-        document.getElementById("heroSearch");
+        document.getElementById(
+            "heroSearch"
+        );
 
     const heroSearchButton =
         document.getElementById(
@@ -549,7 +584,9 @@ function initSearchSuggestions() {
 
 
                     document
-                        .getElementById("wallpapers")
+                        .getElementById(
+                            "wallpapers"
+                        )
                         ?.scrollIntoView({
                             behavior: "smooth"
                         });
@@ -644,7 +681,9 @@ function initCategoryCards() {
 
 
                     document
-                        .getElementById("wallpapers")
+                        .getElementById(
+                            "wallpapers"
+                        )
                         ?.scrollIntoView({
                             behavior: "smooth"
                         });
@@ -756,11 +795,15 @@ function initBackToTop() {
 
         if (window.scrollY > 600) {
 
-            backToTop.classList.add("show");
+            backToTop.classList.add(
+                "show"
+            );
 
         } else {
 
-            backToTop.classList.remove("show");
+            backToTop.classList.remove(
+                "show"
+            );
 
         }
 
@@ -911,9 +954,9 @@ async function loadWallpapers() {
         let snapshot;
 
 
-        /* =====================================================
-           TRY NEWEST FIRST
-        ===================================================== */
+        /*
+           Try newest wallpapers first.
+        */
 
         try {
 
@@ -944,10 +987,6 @@ async function loadWallpapers() {
         }
 
 
-        /* =====================================================
-           CONVERT FIRESTORE DOCUMENTS
-        ===================================================== */
-
         allWallpapers =
             snapshot.docs.map(
                 documentSnapshot => ({
@@ -961,9 +1000,9 @@ async function loadWallpapers() {
             );
 
 
-        /* =====================================================
-           LOCAL SORT
-        ===================================================== */
+        /*
+           Local sorting.
+        */
 
         allWallpapers.sort(
             (a, b) =>
@@ -977,10 +1016,6 @@ async function loadWallpapers() {
             allWallpapers.length
         );
 
-
-        /* =====================================================
-           RENDER
-        ===================================================== */
 
         renderWallpapers();
 
@@ -1050,9 +1085,9 @@ function renderWallpapers() {
         [...allWallpapers];
 
 
-    /* =====================================================
+    /*
        SEARCH
-    ===================================================== */
+    */
 
     if (currentSearch) {
 
@@ -1068,9 +1103,9 @@ function renderWallpapers() {
     }
 
 
-    /* =====================================================
+    /*
        FILTER
-    ===================================================== */
+    */
 
     if (currentFilter !== "All") {
 
@@ -1086,9 +1121,9 @@ function renderWallpapers() {
     }
 
 
-    /* =====================================================
+    /*
        SORT
-    ===================================================== */
+    */
 
     switch (currentSort) {
 
@@ -1115,7 +1150,6 @@ function renderWallpapers() {
 
 
         case "latest":
-
         default:
 
             wallpapers.sort(
@@ -1129,9 +1163,9 @@ function renderWallpapers() {
     }
 
 
-    /* =====================================================
-       EMPTY RESULT
-    ===================================================== */
+    /*
+       EMPTY
+    */
 
     if (!wallpapers.length) {
 
@@ -1172,9 +1206,9 @@ function renderWallpapers() {
     }
 
 
-    /* =====================================================
+    /*
        CREATE CARDS
-    ===================================================== */
+    */
 
     grid.innerHTML =
         wallpapers
@@ -1277,20 +1311,12 @@ function isVideoWallpaper(wallpaper) {
             .trim();
 
 
-    /* =====================================================
-       PRIMARY DETECTION
-    ===================================================== */
-
     if (type === "video") {
 
         return true;
 
     }
 
-
-    /* =====================================================
-       BACKUP DETECTION
-    ===================================================== */
 
     if (
         wallpaper.videoUrl &&
@@ -1366,9 +1392,9 @@ function createWallpaperCard(
     let mediaHTML = "";
 
 
-    /* =====================================================
+    /*
        VIDEO
-    ===================================================== */
+    */
 
     if (isVideo && videoUrl) {
 
@@ -1393,9 +1419,9 @@ function createWallpaperCard(
     }
 
 
-    /* =====================================================
+    /*
        IMAGE
-    ===================================================== */
+    */
 
     else {
 
@@ -1419,35 +1445,35 @@ function createWallpaperCard(
 
         <article
             class="wallpaper-card"
-            data-id="${escapeHTML(wallpaper.id || "")}"
-            data-type="${isVideo ? "video" : "image"}"
+            data-id="${escapeHTML(
+                wallpaper.id || ""
+            )}"
+            data-type="${
+                isVideo
+                    ? "video"
+                    : "image"
+            }"
             data-tags="${escapeHTML(
                 [
                     category,
                     quality,
                     wallpaper.type || "",
                     ...tags,
-
                     wallpaper.bright
                         ? "Bright"
                         : "",
-
                     wallpaper.dark
                         ? "Dark"
                         : "",
-
                     wallpaper.aura
                         ? "Aura"
                         : "",
-
                     wallpaper.trending
                         ? "Trending"
                         : "",
-
                     wallpaper.featured
                         ? "Featured"
                         : ""
-
                 ]
                     .filter(Boolean)
                     .join(" ")
@@ -1584,9 +1610,9 @@ function createWallpaperCard(
 
 function attachCardEvents() {
 
-    /* =====================================================
+    /*
        FAVORITES
-    ===================================================== */
+    */
 
     document
         .querySelectorAll(".favorite-btn")
@@ -1597,7 +1623,6 @@ function attachCardEvents() {
                 event => {
 
                     event.preventDefault();
-
                     event.stopPropagation();
 
 
@@ -1667,9 +1692,9 @@ function attachCardEvents() {
     restoreFavorites();
 
 
-    /* =====================================================
+    /*
        VIEW
-    ===================================================== */
+    */
 
     document
         .querySelectorAll(".view-wallpaper")
@@ -1680,7 +1705,6 @@ function attachCardEvents() {
                 event => {
 
                     event.preventDefault();
-
                     event.stopPropagation();
 
 
@@ -1705,20 +1729,14 @@ function attachCardEvents() {
                         );
 
 
-                    /* VIDEO */
-
                     if (video) {
 
-                        toggleVideo(
-                            video
-                        );
+                        toggleVideo(video);
 
                         return;
 
                     }
 
-
-                    /* IMAGE */
 
                     if (image?.src) {
 
@@ -1736,9 +1754,9 @@ function attachCardEvents() {
         });
 
 
-    /* =====================================================
-       VIDEO PLAY BUTTON
-    ===================================================== */
+    /*
+       VIDEO PLAY
+    */
 
     document
         .querySelectorAll(
@@ -1751,7 +1769,6 @@ function attachCardEvents() {
                 event => {
 
                     event.preventDefault();
-
                     event.stopPropagation();
 
 
@@ -1770,9 +1787,7 @@ function attachCardEvents() {
                     if (!video) return;
 
 
-                    toggleVideo(
-                        video
-                    );
+                    toggleVideo(video);
 
                 }
             );
@@ -1780,9 +1795,9 @@ function attachCardEvents() {
         });
 
 
-    /* =====================================================
+    /*
        VIDEO EVENTS
-    ===================================================== */
+    */
 
     document
         .querySelectorAll(
@@ -1831,9 +1846,9 @@ function attachCardEvents() {
         });
 
 
-    /* =====================================================
+    /*
        DOWNLOAD
-    ===================================================== */
+    */
 
     document
         .querySelectorAll(
@@ -1846,7 +1861,6 @@ function attachCardEvents() {
                 event => {
 
                     event.preventDefault();
-
                     event.stopPropagation();
 
 
@@ -2303,9 +2317,9 @@ function getTime(value) {
     if (!value) return 0;
 
 
-    /* =====================================================
-       FIRESTORE TIMESTAMP
-    ===================================================== */
+    /*
+       Firestore Timestamp
+    */
 
     if (
         typeof value === "object" &&
@@ -2317,9 +2331,9 @@ function getTime(value) {
     }
 
 
-    /* =====================================================
-       FIRESTORE TIMESTAMP OBJECT
-    ===================================================== */
+    /*
+       Firestore timestamp object
+    */
 
     if (
         typeof value === "object" &&
@@ -2333,9 +2347,9 @@ function getTime(value) {
     }
 
 
-    /* =====================================================
-       JAVASCRIPT DATE
-    ===================================================== */
+    /*
+       JavaScript Date
+    */
 
     if (value instanceof Date) {
 
@@ -2344,9 +2358,9 @@ function getTime(value) {
     }
 
 
-    /* =====================================================
-       STRING / NUMBER
-    ===================================================== */
+    /*
+       String / number
+    */
 
     const time =
         new Date(value).getTime();
