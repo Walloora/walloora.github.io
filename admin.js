@@ -24,6 +24,11 @@ import {
 const form = document.getElementById("wallpaperForm");
 
 const imageUrl = document.getElementById("imageUrl");
+const posterUrl =
+    document.getElementById("posterUrl");
+
+const posterUrlGroup =
+    document.getElementById("posterUrlGroup");
 const title = document.getElementById("title");
 const category = document.getElementById("category");
 const quality = document.getElementById("quality");
@@ -115,6 +120,10 @@ function updateMediaTypeUI() {
 
     if (type === "video") {
 
+    if (posterUrlGroup) {
+        posterUrlGroup.style.display = "block";
+    }
+
         mediaUrlLabel.textContent =
             "Video URL";
 
@@ -154,6 +163,14 @@ function updateMediaTypeUI() {
         `;
 
     } else {
+
+        if (posterUrlGroup) {
+    posterUrlGroup.style.display = "none";
+}
+
+if (posterUrl) {
+    posterUrl.value = "";
+}
 
         mediaUrlLabel.textContent =
             "Image URL";
@@ -561,32 +578,21 @@ form?.addEventListener(
 
         const wallpaper = {
 
-            /*
-             * IMPORTANT
-             * "mediaType" tells the homepage
-             * whether this is an image or video.
-             */
+    mediaType:
+        type,
 
-            mediaType:
-                type,
+    imageUrl:
+        type === "image"
+            ? url
+            : (posterUrl?.value.trim() || ""),
 
+    videoUrl:
+        type === "video"
+            ? url
+            : "",
 
-            /*
-             * Keep imageUrl so the existing
-             * WALLORA structure remains compatible.
-             */
-
-            imageUrl:
-                url,
-
-
-            /*
-             * Also save mediaUrl for clarity
-             * and future development.
-             */
-
-            mediaUrl:
-                url,
+    mediaUrl:
+        url,
 
 
             title:
@@ -650,7 +656,22 @@ form?.addEventListener(
                 user.uid
 
         };
+        
+if (type === "video") {
 
+    const poster =
+        posterUrl?.value.trim() || "";
+
+    if (!poster) {
+
+        alert(
+            "Please enter a poster image URL for the video."
+        );
+
+        return;
+    }
+
+}
 
         try {
 
