@@ -1,6 +1,7 @@
 /* =========================================================
    WALLORA — MAIN JAVASCRIPT
    Firebase + Search + Filters + Sorting
+   IMAGE + VIDEO WALLPAPER SUPPORT
 ========================================================= */
 
 import {
@@ -30,6 +31,7 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+
 const db = getFirestore(app);
 
 
@@ -38,7 +40,9 @@ const db = getFirestore(app);
 ========================================================= */
 
 let allWallpapers = [];
+
 let currentFilter = "All";
+
 let currentSearch = "";
 
 
@@ -54,6 +58,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const pageLoader =
         document.getElementById("pageLoader");
+
 
     window.addEventListener("load", () => {
 
@@ -72,6 +77,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const navbar =
         document.getElementById("navbar");
+
 
     window.addEventListener("scroll", () => {
 
@@ -105,8 +111,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             mobileNav?.classList.toggle("open");
 
+
             const icon =
                 mobileMenuBtn.querySelector("i");
+
 
             if (
                 mobileNav?.classList.contains("open")
@@ -135,8 +143,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                 mobileNav.classList.remove("open");
 
+
                 const icon =
                     mobileMenuBtn?.querySelector("i");
+
 
                 icon?.classList.remove("fa-xmark");
 
@@ -170,6 +180,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     openSearch?.addEventListener("click", () => {
 
         searchOverlay?.classList.add("active");
+
 
         setTimeout(() => {
 
@@ -262,9 +273,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         const value =
             heroSearch?.value.trim();
 
+
         if (!value) return;
 
+
         performSearch(value);
+
 
         document
             .getElementById("wallpapers")
@@ -310,12 +324,14 @@ document.addEventListener("DOMContentLoaded", async () => {
                     const value =
                         button.dataset.search;
 
+
                     if (globalSearch) {
 
                         globalSearch.value =
                             value;
 
                     }
+
 
                     performSearch(value);
 
@@ -336,6 +352,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     const value =
                         button.dataset.heroSearch;
 
+
                     if (heroSearch) {
 
                         heroSearch.value =
@@ -343,7 +360,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                     }
 
+
                     performSearch(value);
+
 
                     document
                         .getElementById("wallpapers")
@@ -484,6 +503,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     <i class="fa-solid fa-check"></i>
                 `;
 
+
                 loadMoreButton.disabled = true;
 
             }, 500);
@@ -600,7 +620,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 });
 
-
 /* =========================================================
    FIRESTORE — LOAD WALLPAPERS
 ========================================================= */
@@ -675,7 +694,6 @@ async function loadWallpapers() {
 
         renderWallpapers();
 
-
         updateWallpaperCount();
 
 
@@ -698,7 +716,10 @@ async function loadWallpapers() {
 
                 <i
                     class="fa-solid fa-triangle-exclamation"
-                    style="font-size:30px;margin-bottom:15px;"
+                    style="
+                        font-size:30px;
+                        margin-bottom:15px;
+                    "
                 ></i>
 
                 <p>
@@ -738,7 +759,9 @@ function renderWallpapers() {
         [...allWallpapers];
 
 
-    /* SEARCH */
+    /* =====================================================
+       SEARCH
+    ===================================================== */
 
     if (currentSearch) {
 
@@ -754,7 +777,9 @@ function renderWallpapers() {
     }
 
 
-    /* FILTER */
+    /* =====================================================
+       FILTER
+    ===================================================== */
 
     if (currentFilter !== "All") {
 
@@ -770,7 +795,9 @@ function renderWallpapers() {
     }
 
 
-    /* SORT */
+    /* =====================================================
+       SORT
+    ===================================================== */
 
     const sort =
         document.getElementById(
@@ -811,7 +838,9 @@ function renderWallpapers() {
     }
 
 
-    /* EMPTY */
+    /* =====================================================
+       EMPTY RESULT
+    ===================================================== */
 
     if (wallpapers.length === 0) {
 
@@ -852,7 +881,9 @@ function renderWallpapers() {
     }
 
 
-    /* CREATE CARDS */
+    /* =====================================================
+       CREATE CARDS
+    ===================================================== */
 
     grid.innerHTML =
         wallpapers
@@ -893,6 +924,10 @@ function wallpaperMatches(
 
         wallpaper.description,
 
+        wallpaper.type,
+
+        wallpaper.videoUrl,
+
         ...(Array.isArray(wallpaper.tags)
             ? wallpaper.tags
             : []),
@@ -928,6 +963,54 @@ function wallpaperMatches(
 
 
 /* =========================================================
+   MEDIA TYPE DETECTION
+========================================================= */
+
+function isVideoWallpaper(wallpaper) {
+
+    /*
+       The admin panel will save:
+
+       type: "image"
+
+       OR
+
+       type: "video"
+
+       So we check that first.
+    */
+
+    if (
+        String(wallpaper.type || "")
+            .toLowerCase() === "video"
+    ) {
+
+        return true;
+
+    }
+
+
+    /*
+       Backup detection:
+       If a video URL exists, treat it as video.
+    */
+
+    if (
+        wallpaper.videoUrl &&
+        String(wallpaper.videoUrl).trim()
+    ) {
+
+        return true;
+
+    }
+
+
+    return false;
+
+}
+
+
+/* =========================================================
    CREATE WALLPAPER CARD
 ========================================================= */
 
@@ -949,14 +1032,86 @@ function createWallpaperCard(
         wallpaper.quality || "HD";
 
 
+    const isVideo =
+        isVideoWallpaper(
+            wallpaper
+        );
+
+
+    /*
+       IMAGE URL
+    */
+
+    const imageUrl =
+        wallpaper.imageUrl || "";
+
+
+    /*
+       VIDEO URL
+    */
+
+    const videoUrl =
+        wallpaper.videoUrl || "";
+
+
+    /*
+       MEDIA ELEMENT
+
+       IMAGE:
+       normal <img>
+
+       VIDEO:
+       <video> with controls
+    */
+
+    let mediaHTML = "";
+
+
+    if (isVideo) {
+
+        mediaHTML = `
+
+            <video
+                class="wallpaper-media wallpaper-video"
+                src="${escapeHTML(videoUrl)}"
+                poster="${escapeHTML(imageUrl)}"
+                muted
+                loop
+                playsinline
+                preload="metadata"
+            ></video>
+
+        `;
+
+    } else {
+
+        mediaHTML = `
+
+            <img
+                class="wallpaper-media wallpaper-image-source"
+                src="${escapeHTML(imageUrl)}"
+                alt="${escapeHTML(
+                    wallpaper.title ||
+                    "Wallpaper"
+                )}"
+                loading="lazy"
+            >
+
+        `;
+
+    }
+
+
     return `
 
         <article
             class="wallpaper-card"
+            data-type="${isVideo ? "video" : "image"}"
             data-tags="${escapeHTML(
                 [
                     wallpaper.category,
                     wallpaper.quality,
+                    wallpaper.type || "",
                     ...tags,
                     wallpaper.bright ? "Bright" : "",
                     wallpaper.dark ? "Dark" : "",
@@ -979,21 +1134,42 @@ function createWallpaperCard(
 
             <div class="wallpaper-image">
 
-                <img
-                    src="${escapeHTML(
-                        wallpaper.imageUrl || ""
-                    )}"
-                    alt="${escapeHTML(
-                        wallpaper.title || "Wallpaper"
-                    )}"
-                    loading="lazy"
-                >
+                ${mediaHTML}
+
 
                 <div class="card-overlay"></div>
+
 
                 <span class="quality-badge">
                     ${escapeHTML(quality)}
                 </span>
+
+
+                ${
+                    isVideo
+                    ? `
+                        <span
+                            class="media-type-badge"
+                            style="
+                                position:absolute;
+                                left:12px;
+                                top:12px;
+                                z-index:5;
+                                padding:5px 9px;
+                                border-radius:20px;
+                                background:rgba(0,0,0,.65);
+                                color:#fff;
+                                font-size:10px;
+                                font-weight:700;
+                                backdrop-filter:blur(8px);
+                            "
+                        >
+                            <i class="fa-solid fa-video"></i>
+                            VIDEO
+                        </span>
+                    `
+                    : ""
+                }
 
 
                 <button
@@ -1032,6 +1208,37 @@ function createWallpaperCard(
 
                 </div>
 
+
+                ${
+                    isVideo
+                    ? `
+                        <button
+                            type="button"
+                            class="video-play-button"
+                            aria-label="Play video"
+                            style="
+                                position:absolute;
+                                left:50%;
+                                top:50%;
+                                transform:translate(-50%,-50%);
+                                width:55px;
+                                height:55px;
+                                border:1px solid rgba(255,255,255,.35);
+                                border-radius:50%;
+                                background:rgba(0,0,0,.55);
+                                color:white;
+                                display:grid;
+                                place-items:center;
+                                z-index:6;
+                                backdrop-filter:blur(10px);
+                            "
+                        >
+                            <i class="fa-solid fa-play"></i>
+                        </button>
+                    `
+                    : ""
+                }
+
             </div>
 
 
@@ -1045,6 +1252,7 @@ function createWallpaperCard(
                             "Untitled Wallpaper"
                         )}
                     </h3>
+
 
                     <span>
 
@@ -1080,15 +1288,15 @@ function createWallpaperCard(
     `;
 
 }
-
-
 /* =========================================================
    CARD EVENTS
 ========================================================= */
 
 function attachCardEvents() {
 
-    /* FAVORITES */
+    /* =====================================================
+       FAVORITES
+    ===================================================== */
 
     document
         .querySelectorAll(".favorite-btn")
@@ -1101,20 +1309,13 @@ function attachCardEvents() {
                     e.preventDefault();
                     e.stopPropagation();
 
-
                     const icon =
                         button.querySelector("i");
 
-
-                    button.classList.toggle(
-                        "liked"
-                    );
-
+                    button.classList.toggle("liked");
 
                     if (
-                        button.classList.contains(
-                            "liked"
-                        )
+                        button.classList.contains("liked")
                     ) {
 
                         icon?.classList.remove(
@@ -1143,12 +1344,12 @@ function attachCardEvents() {
         });
 
 
-    /* VIEW */
+    /* =====================================================
+       VIEW WALLPAPER / VIDEO
+    ===================================================== */
 
     document
-        .querySelectorAll(
-            ".view-wallpaper"
-        )
+        .querySelectorAll(".view-wallpaper")
         .forEach(button => {
 
             button.addEventListener(
@@ -1158,18 +1359,56 @@ function attachCardEvents() {
                     e.preventDefault();
                     e.stopPropagation();
 
-
                     const card =
                         button.closest(
                             ".wallpaper-card"
                         );
 
+                    if (!card) return;
 
-                    const image =
-                        card?.querySelector(
-                            "img"
+
+                    const video =
+                        card.querySelector(
+                            ".wallpaper-video"
                         );
 
+                    const image =
+                        card.querySelector(
+                            ".wallpaper-image-source"
+                        );
+
+
+                    /*
+                       VIDEO
+                    */
+
+                    if (video) {
+
+                        if (video.paused) {
+
+                            video.play().catch(
+                                error => {
+                                    console.warn(
+                                        "Video could not play:",
+                                        error
+                                    );
+                                }
+                            );
+
+                        } else {
+
+                            video.pause();
+
+                        }
+
+                        return;
+
+                    }
+
+
+                    /*
+                       IMAGE
+                    */
 
                     if (image?.src) {
 
@@ -1186,7 +1425,137 @@ function attachCardEvents() {
         });
 
 
-    /* DOWNLOAD */
+    /* =====================================================
+       VIDEO PLAY BUTTON
+    ===================================================== */
+
+    document
+        .querySelectorAll(".video-play-button")
+        .forEach(button => {
+
+            button.addEventListener(
+                "click",
+                e => {
+
+                    e.preventDefault();
+                    e.stopPropagation();
+
+
+                    const card =
+                        button.closest(
+                            ".wallpaper-card"
+                        );
+
+
+                    const video =
+                        card?.querySelector(
+                            ".wallpaper-video"
+                        );
+
+
+                    if (!video) return;
+
+
+                    if (video.paused) {
+
+                        video.play().catch(
+                            error => {
+
+                                console.warn(
+                                    "Video play failed:",
+                                    error
+                                );
+
+                            }
+                        );
+
+
+                        button.innerHTML = `
+                            <i class="fa-solid fa-pause"></i>
+                        `;
+
+                    } else {
+
+                        video.pause();
+
+
+                        button.innerHTML = `
+                            <i class="fa-solid fa-play"></i>
+                        `;
+
+                    }
+
+                }
+            );
+
+        });
+
+
+    /* =====================================================
+       VIDEO PLAY / PAUSE STATE
+    ===================================================== */
+
+    document
+        .querySelectorAll(".wallpaper-video")
+        .forEach(video => {
+
+            video.addEventListener(
+                "play",
+                () => {
+
+                    const card =
+                        video.closest(
+                            ".wallpaper-card"
+                        );
+
+                    const button =
+                        card?.querySelector(
+                            ".video-play-button"
+                        );
+
+                    if (button) {
+
+                        button.innerHTML = `
+                            <i class="fa-solid fa-pause"></i>
+                        `;
+
+                    }
+
+                }
+            );
+
+
+            video.addEventListener(
+                "pause",
+                () => {
+
+                    const card =
+                        video.closest(
+                            ".wallpaper-card"
+                        );
+
+                    const button =
+                        card?.querySelector(
+                            ".video-play-button"
+                        );
+
+                    if (button) {
+
+                        button.innerHTML = `
+                            <i class="fa-solid fa-play"></i>
+                        `;
+
+                    }
+
+                }
+            );
+
+        });
+
+
+    /* =====================================================
+       DOWNLOAD
+    ===================================================== */
 
     document
         .querySelectorAll(
@@ -1208,9 +1577,60 @@ function attachCardEvents() {
                         );
 
 
+                    if (!card) return;
+
+
+                    /*
+                       VIDEO DOWNLOAD
+                    */
+
+                    const video =
+                        card.querySelector(
+                            ".wallpaper-video"
+                        );
+
+
+                    if (video?.src) {
+
+                        const link =
+                            document.createElement(
+                                "a"
+                            );
+
+                        link.href =
+                            video.src;
+
+                        link.target =
+                            "_blank";
+
+                        link.rel =
+                            "noopener";
+
+                        link.download =
+                            "";
+
+
+                        document.body.appendChild(
+                            link
+                        );
+
+                        link.click();
+
+
+                        link.remove();
+
+                        return;
+
+                    }
+
+
+                    /*
+                       IMAGE DOWNLOAD
+                    */
+
                     const image =
-                        card?.querySelector(
-                            "img"
+                        card.querySelector(
+                            ".wallpaper-image-source"
                         );
 
 
@@ -1232,8 +1652,18 @@ function attachCardEvents() {
                     link.rel =
                         "noopener";
 
+                    link.download =
+                        "";
+
+
+                    document.body.appendChild(
+                        link
+                    );
 
                     link.click();
+
+
+                    link.remove();
 
                 }
             );
