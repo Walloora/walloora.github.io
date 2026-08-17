@@ -2047,6 +2047,20 @@
             transform: translateY(-4px);
         }
 
+        /* =====================================================
+   FAIL-SAFE PAGE LOADER
+===================================================== */
+
+.page-loader {
+    pointer-events: all;
+}
+
+.page-loader.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
 
         /* =====================================================
            RESPONSIVE — 1200px
