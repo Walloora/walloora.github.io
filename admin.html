@@ -1264,32 +1264,55 @@
 
                     <!-- MEDIA URL -->
 
-                    <div class="form-group full">
+<div class="form-group full">
 
-                        <label for="imageUrl"
-                               id="mediaUrlLabel">
+    <label for="imageUrl" id="mediaUrlLabel">
+        Image URL
+    </label>
 
-                            Image URL
+    <input
+        type="url"
+        id="imageUrl"
+        placeholder="https://example.com/image.jpg"
+        required
+    >
 
-                        </label>
+    <span class="form-help" id="mediaUrlHelp">
 
-                        <input
-                            type="url"
-                            id="imageUrl"
-                            placeholder="https://example.com/image.jpg"
-                            required
-                        >
+        Paste the direct URL of the image.
+        The image must be publicly accessible.
 
-                        <span class="form-help"
-                              id="mediaUrlHelp">
+    </span>
 
-                            Paste the direct URL of the image.
-                            The image must be publicly accessible.
+</div>
 
-                        </span>
 
-                    </div>
+<!-- VIDEO POSTER -->
 
+<div
+    class="form-group full"
+    id="posterUrlGroup"
+    style="display:none;"
+>
+
+    <label for="posterUrl">
+        Video Poster / Thumbnail URL
+    </label>
+
+    <input
+        type="url"
+        id="posterUrl"
+        placeholder="https://example.com/video-poster.jpg"
+    >
+
+    <span class="form-help">
+
+        This image will appear on the wallpaper card
+        before the video starts playing.
+
+    </span>
+
+</div>
 
 
                     <!-- CATEGORY -->
