@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
     <meta charset="UTF-8">
@@ -10,7 +11,8 @@
     <meta name="description"
           content="Discover stunning HD, 4K, anime, cars, dark, bright and aesthetic wallpapers.">
 
-    <meta name="theme-color" content="#08090d">
+    <meta name="theme-color"
+          content="#08090d">
 
     <title>WALLORA — Premium Wallpapers</title>
 
@@ -19,8 +21,12 @@
          GOOGLE FONTS
     ====================================================== -->
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap"
           rel="stylesheet">
@@ -89,7 +95,8 @@
         }
 
 
-        img {
+        img,
+        video {
             display: block;
             max-width: 100%;
         }
@@ -399,6 +406,32 @@
         .explore-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 12px 30px rgba(255,255,255,.12);
+        }
+
+
+        /* =====================================================
+           ADMIN ACCESS
+        ====================================================== */
+
+        .admin-access {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,.05);
+            border: 1px solid rgba(255,255,255,.08);
+            color: #888c96;
+            transition: .25s ease;
+        }
+
+
+        .admin-access:hover {
+            color: #fff;
+            background: rgba(255,255,255,.11);
+            border-color: rgba(255,255,255,.16);
+            transform: translateY(-2px);
         }
 
 
@@ -1126,6 +1159,52 @@
 
 
         /* =====================================================
+           MEDIA TYPE TABS
+        ====================================================== */
+
+        .media-type-tabs {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+
+        .media-type-btn {
+            height: 38px;
+            padding: 0 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-radius: 10px;
+            background: rgba(255,255,255,.035);
+            border: 1px solid rgba(255,255,255,.07);
+            color: #777b85;
+            font-size: 10px;
+            font-weight: 800;
+            transition: .25s ease;
+        }
+
+
+        .media-type-btn:hover {
+            color: #fff;
+            border-color: rgba(255,255,255,.18);
+        }
+
+
+        .media-type-btn.active {
+            background: #fff;
+            color: #08090d;
+            border-color: #fff;
+        }
+
+
+        .media-type-btn i {
+            font-size: 10px;
+        }
+
+
+        /* =====================================================
            FILTERS
         ====================================================== */
 
@@ -1255,16 +1334,91 @@
         }
 
 
-        .wallpaper-image img {
+        .wallpaper-image img,
+        .wallpaper-image video {
             width: 100%;
             height: 100%;
             object-fit: cover;
+        }
+
+
+        .wallpaper-image img {
             transition: transform .6s ease;
         }
 
 
         .wallpaper-card:hover .wallpaper-image img {
             transform: scale(1.05);
+        }
+
+
+        /* =====================================================
+           VIDEO CARD
+        ====================================================== */
+
+        .wallpaper-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            background: #050609;
+        }
+
+
+        .video-badge {
+            position: absolute;
+            top: 13px;
+            left: 13px;
+            padding: 5px 8px;
+            border-radius: 6px;
+            background: rgba(0,0,0,.55);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,.12);
+            color: #fff;
+            font-size: 8px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            z-index: 3;
+        }
+
+
+        .video-play-indicator {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 48px;
+            height: 48px;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0,0,0,.48);
+            border: 1px solid rgba(255,255,255,.2);
+            color: #fff;
+            backdrop-filter: blur(10px);
+            pointer-events: none;
+            z-index: 3;
+        }
+
+
+        .video-play-indicator i {
+            margin-left: 2px;
+        }
+
+
+        .media-type-label {
+            position: absolute;
+            right: 12px;
+            top: 12px;
+            z-index: 4;
+            padding: 5px 8px;
+            border-radius: 6px;
+            background: rgba(0,0,0,.5);
+            border: 1px solid rgba(255,255,255,.1);
+            color: #fff;
+            font-size: 8px;
+            font-weight: 800;
         }
 
 
@@ -1280,6 +1434,7 @@
                 );
             opacity: .8;
             pointer-events: none;
+            z-index: 2;
         }
 
 
@@ -1296,6 +1451,7 @@
             font-size: 8px;
             font-weight: 800;
             letter-spacing: 1px;
+            z-index: 3;
         }
 
 
@@ -1311,6 +1467,7 @@
             color: #fff;
             backdrop-filter: blur(8px);
             transition: .25s ease;
+            z-index: 5;
         }
 
 
@@ -1318,6 +1475,12 @@
             background: #fff;
             color: #08090d;
             transform: scale(1.08);
+        }
+
+
+        .favorite-btn.active {
+            background: #fff;
+            color: #08090d;
         }
 
 
@@ -1330,6 +1493,7 @@
             opacity: 0;
             transform: translateY(8px);
             transition: .3s ease;
+            z-index: 5;
         }
 
 
@@ -1434,6 +1598,43 @@
             background: #fff;
             color: #08090d;
             border-color: #fff;
+        }
+
+
+        /* =====================================================
+           EMPTY MEDIA STATE
+        ====================================================== */
+
+        .media-empty-state {
+            grid-column: 1 / -1;
+            min-height: 260px;
+            border: 1px dashed rgba(255,255,255,.1);
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            color: #666a74;
+            text-align: center;
+        }
+
+
+        .media-empty-state i {
+            font-size: 28px;
+        }
+
+
+        .media-empty-state h3 {
+            color: #a3a6ae;
+            font-family: "Outfit", sans-serif;
+            font-size: 18px;
+        }
+
+
+        .media-empty-state p {
+            max-width: 420px;
+            font-size: 11px;
         }
 
 
@@ -2044,6 +2245,23 @@
             }
 
 
+            .media-type-tabs {
+                width: 100%;
+                overflow-x: auto;
+                scrollbar-width: none;
+            }
+
+
+            .media-type-tabs::-webkit-scrollbar {
+                display: none;
+            }
+
+
+            .media-type-btn {
+                flex-shrink: 0;
+            }
+
+
             .filter-area {
                 align-items: stretch;
                 flex-direction: column;
@@ -2056,62 +2274,82 @@
 
 
             .wallpaper-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 8px;
-    width: 100%;
-}
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 8px;
+                width: 100%;
+            }
 
-.wallpaper-card {
-    min-width: 0;
-    width: 100%;
-}
 
-.wallpaper-image {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 9 / 14;
-    overflow: hidden;
-}
+            .wallpaper-card {
+                min-width: 0;
+                width: 100%;
+            }
 
-.wallpaper-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
 
-        .wallpaper-info {
-    min-width: 0;
-    padding: 7px;
-    gap: 5px;
-}
+            .wallpaper-image {
+                width: 100%;
+                height: auto;
+                aspect-ratio: 9 / 14;
+                overflow: hidden;
+            }
 
-.wallpaper-info h3 {
-    min-width: 0;
-    font-size: clamp(8px, 2vw, 11px);
-    line-height: 1.25;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
 
-.wallpaper-info span {
-    min-width: 0;
-    font-size: clamp(6px, 1.5vw, 8px);
-    line-height: 1.2;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
+            .wallpaper-image img,
+            .wallpaper-image video {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
 
-.quick-download {
-    width: 28px;
-    height: 28px;
-    flex-shrink: 0;
-}
 
-.quick-download i {
-    font-size: 9px;
-}
+            .wallpaper-info {
+                min-width: 0;
+                padding: 7px;
+                gap: 5px;
+            }
+
+
+            .wallpaper-info h3 {
+                min-width: 0;
+                font-size: clamp(8px, 2vw, 11px);
+                line-height: 1.25;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+
+            .wallpaper-info span {
+                min-width: 0;
+                font-size: clamp(6px, 1.5vw, 8px);
+                line-height: 1.2;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+
+            .quick-download {
+                width: 28px;
+                height: 28px;
+                flex-shrink: 0;
+            }
+
+
+            .quick-download i {
+                font-size: 9px;
+            }
+
+
+            .video-play-indicator {
+                width: 38px;
+                height: 38px;
+            }
+
+
+            .video-play-indicator i {
+                font-size: 11px;
+            }
 
 
             .trending-section {
@@ -2262,35 +2500,52 @@
 
 
             .wallpaper-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 6px;
-}
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 6px;
+            }
 
-.wallpaper-image {
-    height: auto;
-    aspect-ratio: 9 / 14;
-}
 
-.wallpaper-info {
-    padding: 6px;
-}
+            .wallpaper-image {
+                height: auto;
+                aspect-ratio: 9 / 14;
+            }
 
-.wallpaper-info h3 {
-    font-size: clamp(7px, 2.5vw, 9px);
-}
 
-.wallpaper-info span {
-    font-size: clamp(6px, 1.8vw, 7px);
-}
+            .wallpaper-info {
+                padding: 6px;
+            }
 
-.quick-download {
-    width: 24px;
-    height: 24px;
-}
 
-.quick-download i {
-    font-size: 8px;
-}
+            .wallpaper-info h3 {
+                font-size: clamp(7px, 2.5vw, 9px);
+            }
+
+
+            .wallpaper-info span {
+                font-size: clamp(6px, 1.8vw, 7px);
+            }
+
+
+            .quick-download {
+                width: 24px;
+                height: 24px;
+            }
+
+
+            .quick-download i {
+                font-size: 8px;
+            }
+
+
+            .video-play-indicator {
+                width: 32px;
+                height: 32px;
+            }
+
+
+            .video-play-indicator i {
+                font-size: 9px;
+            }
 
 
             .footer-main {
@@ -2316,7 +2571,8 @@
      PAGE LOADER
 ========================================================= -->
 
-<div id="pageLoader" class="page-loader">
+<div id="pageLoader"
+     class="page-loader">
 
     <div class="loader-logo">
         W
@@ -2332,11 +2588,13 @@
      NAVIGATION
 ========================================================= -->
 
-<header class="navbar" id="navbar">
+<header class="navbar"
+        id="navbar">
 
     <div class="nav-container">
 
-        <a href="index.html" class="brand">
+        <a href="index.html"
+           class="brand">
 
             <div class="brand-symbol">
                 W
@@ -2359,23 +2617,28 @@
 
         <nav class="desktop-nav">
 
-            <a href="#home" class="nav-link active">
+            <a href="#home"
+               class="nav-link active">
                 Home
             </a>
 
-            <a href="#wallpapers" class="nav-link">
+            <a href="#wallpapers"
+               class="nav-link">
                 Wallpapers
             </a>
 
-            <a href="#categories" class="nav-link">
+            <a href="#categories"
+               class="nav-link">
                 Categories
             </a>
 
-            <a href="#trending" class="nav-link">
+            <a href="#trending"
+               class="nav-link">
                 Trending
             </a>
 
-            <a href="#about" class="nav-link">
+            <a href="#about"
+               class="nav-link">
                 About
             </a>
 
@@ -2393,7 +2656,8 @@
             </button>
 
 
-            <a href="#wallpapers" class="explore-btn">
+            <a href="#wallpapers"
+               class="explore-btn">
 
                 Explore
 
@@ -2401,14 +2665,15 @@
 
             </a>
 
+
             <a href="admin-login.html"
-   class="admin-access"
-   aria-label="Admin Login"
-   title="Admin Login">
+               class="admin-access"
+               aria-label="Admin Login"
+               title="Admin Login">
 
-    <i class="fa-solid fa-lock"></i>
+                <i class="fa-solid fa-lock"></i>
 
-</a>
+            </a>
 
 
             <button class="mobile-menu-btn"
@@ -2426,7 +2691,8 @@
 
     <!-- MOBILE NAVIGATION -->
 
-    <div class="mobile-nav" id="mobileNav">
+    <div class="mobile-nav"
+         id="mobileNav">
 
         <a href="#home">
             Home
@@ -2458,7 +2724,8 @@
      SEARCH OVERLAY
 ========================================================= -->
 
-<div class="search-overlay" id="searchOverlay">
+<div class="search-overlay"
+     id="searchOverlay">
 
     <div class="search-overlay-inner">
 
@@ -2655,7 +2922,7 @@
             <div class="stat">
 
                 <strong id="wallpaperCount">
-                    10K+
+                    0
                 </strong>
 
                 <span>
@@ -2714,6 +2981,7 @@
 </section>
 
 
+
 <!-- =========================================================
      WALLPAPER EXPLORER
 ========================================================= -->
@@ -2741,6 +3009,48 @@
 
         </div>
 
+
+        <!-- =================================================
+             MEDIA TYPE SWITCH
+        ================================================== -->
+
+        <div class="media-type-tabs">
+
+            <button class="media-type-btn active"
+                    data-media-type="all">
+
+                <i class="fa-solid fa-layer-group"></i>
+
+                All Media
+
+            </button>
+
+
+            <button class="media-type-btn"
+                    data-media-type="image">
+
+                <i class="fa-solid fa-image"></i>
+
+                Images
+
+            </button>
+
+
+            <button class="media-type-btn"
+                    data-media-type="video">
+
+                <i class="fa-solid fa-video"></i>
+
+                Videos
+
+            </button>
+
+        </div>
+
+
+        <!-- =================================================
+             FILTERS
+        ================================================== -->
 
         <div class="filter-area">
 
@@ -2874,276 +3184,976 @@
         </div>
 
 
+        <!-- =================================================
+             DYNAMIC WALLPAPER / VIDEO GRID
 
-        <!-- WALLPAPER GRID -->
+             IMPORTANT:
+             script.js will populate this container.
+
+             Images and videos are NOT hard-coded here.
+        ================================================== -->
 
         <div class="wallpaper-grid"
              id="wallpaperGrid">
 
+            <div class="media-empty-state"
+                 id="mediaLoadingState">
 
-            <article class="wallpaper-card"
-                     data-tags="goku anime aura 4k dark">
+                <i class="fa-solid fa-spinner fa-spin"></i>
 
-                <div class="wallpaper-image">
+                <h3>
+                    Loading wallpapers...
+                </h3>
 
-                    <img
-                        src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=900&q=85"
-                        alt="Anime wallpaper"
-                        loading="lazy"
-                    >
+                <p>
+                    Please wait while WALLORA loads the latest
+                    collection.
+                </p>
 
-                    <div class="card-overlay"></div>
-
-                    <span class="quality-badge">
-                        4K
-                    </span>
-
-                    <button class="favorite-btn"
-                            aria-label="Add to favorites">
-
-                        <i class="fa-regular fa-heart"></i>
-
-                    </button>
-
-
-                    <div class="card-actions">
-
-                        <button>
-                            <i class="fa-solid fa-eye"></i>
-                        </button>
-
-                        <button>
-                            <i class="fa-solid fa-download"></i>
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-                <div class="wallpaper-info">
-
-                    <div>
-
-                        <h3>
-                            Goku Ultra Instinct
-                        </h3>
-
-                        <span>
-                            Anime • Aura • 4K
-                        </span>
-
-                    </div>
-
-                    <button class="quick-download">
-
-                        <i class="fa-solid fa-arrow-down"></i>
-
-                    </button>
-
-                </div>
-
-            </article>
-
-
-
-            <article class="wallpaper-card"
-                     data-tags="cars luxury dark 4k">
-
-                <div class="wallpaper-image">
-
-                    <img
-                        src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=900&q=85"
-                        alt="Luxury car wallpaper"
-                        loading="lazy"
-                    >
-
-                    <div class="card-overlay"></div>
-
-                    <span class="quality-badge">
-                        4K
-                    </span>
-
-                    <button class="favorite-btn">
-
-                        <i class="fa-regular fa-heart"></i>
-
-                    </button>
-
-                    <div class="card-actions">
-
-                        <button>
-                            <i class="fa-solid fa-eye"></i>
-                        </button>
-
-                        <button>
-                            <i class="fa-solid fa-download"></i>
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-                <div class="wallpaper-info">
-
-                    <div>
-
-                        <h3>
-                            Midnight Machine
-                        </h3>
-
-                        <span>
-                            Cars • Luxury • Dark
-                        </span>
-
-                    </div>
-
-                    <button class="quick-download">
-
-                        <i class="fa-solid fa-arrow-down"></i>
-
-                    </button>
-
-                </div>
-
-            </article>
-
-
-
-            <article class="wallpaper-card"
-                     data-tags="nature mountains bright hd">
-
-                <div class="wallpaper-image">
-
-                    <img
-                        src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=900&q=85"
-                        alt="Mountain landscape wallpaper"
-                        loading="lazy"
-                    >
-
-                    <div class="card-overlay"></div>
-
-                    <span class="quality-badge">
-                        HD
-                    </span>
-
-                    <button class="favorite-btn">
-
-                        <i class="fa-regular fa-heart"></i>
-
-                    </button>
-
-                    <div class="card-actions">
-
-                        <button>
-                            <i class="fa-solid fa-eye"></i>
-                        </button>
-
-                        <button>
-                            <i class="fa-solid fa-download"></i>
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-                <div class="wallpaper-info">
-
-                    <div>
-
-                        <h3>
-                            Beyond the Mountains
-                        </h3>
-
-                        <span>
-                            Nature • Bright • HD
-                        </span>
-
-                    </div>
-
-                    <button class="quick-download">
-
-                        <i class="fa-solid fa-arrow-down"></i>
-
-                    </button>
-
-                </div>
-
-            </article>
-
-
-
-            <article class="wallpaper-card"
-                     data-tags="gaming dark 4k">
-
-                <div class="wallpaper-image">
-
-                    <img
-                        src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=900&q=85"
-                        alt="Gaming wallpaper"
-                        loading="lazy"
-                    >
-
-                    <div class="card-overlay"></div>
-
-                    <span class="quality-badge">
-                        4K
-                    </span>
-
-                    <button class="favorite-btn">
-
-                        <i class="fa-regular fa-heart"></i>
-
-                    </button>
-
-                    <div class="card-actions">
-
-                        <button>
-                            <i class="fa-solid fa-eye"></i>
-                        </button>
-
-                        <button>
-                            <i class="fa-solid fa-download"></i>
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-                <div class="wallpaper-info">
-
-                    <div>
-
-                        <h3>
-                            Digital Warrior
-                        </h3>
-
-                        <span>
-                            Gaming • Dark • 4K
-                        </span>
-
-                    </div>
-
-                    <button class="quick-download">
-
-                        <i class="fa-solid fa-arrow-down"></i>
-
-                    </button>
-
-                </div>
-
-            </article>
-
+            </div>
 
         </div>
 
 
+        <!-- =================================================
+             LOAD MORE
+        ================================================== -->
+
         <div class="load-more-wrapper">
 
-            <button class="load-more-btn">
+            <button class="load-more-btn"
+                    id="loadMoreBtn">
+
+                Load more wallpapers
+
+                <i class="fa-solid fa-arrow-down"></i>
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+    <body>
+
+<!-- =========================================================
+     PAGE LOADER
+========================================================= -->
+
+<div id="pageLoader" class="page-loader">
+
+    <div class="loader-logo">W</div>
+
+    <div class="loader-line"></div>
+
+</div>
+
+
+<!-- =========================================================
+     NAVIGATION
+========================================================= -->
+
+<header class="navbar" id="navbar">
+
+    <div class="nav-container">
+
+        <a href="index.html" class="brand">
+
+            <div class="brand-symbol">
+                W
+            </div>
+
+            <div class="brand-text">
+
+                <span class="brand-name">
+                    WALLORA
+                </span>
+
+                <span class="brand-subtitle">
+                    THE WALLPAPER UNIVERSE
+                </span>
+
+            </div>
+
+        </a>
+
+
+        <nav class="desktop-nav">
+
+            <a href="#home" class="nav-link active">
+                Home
+            </a>
+
+            <a href="#wallpapers" class="nav-link">
+                Wallpapers
+            </a>
+
+            <a href="#categories" class="nav-link">
+                Categories
+            </a>
+
+            <a href="#trending" class="nav-link">
+                Trending
+            </a>
+
+            <a href="#about" class="nav-link">
+                About
+            </a>
+
+        </nav>
+
+
+        <div class="nav-actions">
+
+            <button
+                class="nav-search-btn"
+                id="openSearch"
+                aria-label="Open search"
+                type="button">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+            </button>
+
+
+            <a href="#wallpapers"
+               class="explore-btn">
+
+                Explore
+
+                <i class="fa-solid fa-arrow-right"></i>
+
+            </a>
+
+
+            <a
+                href="admin-login.html"
+                class="admin-access"
+                aria-label="Admin Login"
+                title="Admin Login">
+
+                <i class="fa-solid fa-lock"></i>
+
+            </a>
+
+
+            <button
+                class="mobile-menu-btn"
+                id="mobileMenuBtn"
+                aria-label="Open menu"
+                type="button">
+
+                <i class="fa-solid fa-bars"></i>
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- MOBILE NAV -->
+
+    <div class="mobile-nav" id="mobileNav">
+
+        <a href="#home">
+            Home
+        </a>
+
+        <a href="#wallpapers">
+            Wallpapers
+        </a>
+
+        <a href="#categories">
+            Categories
+        </a>
+
+        <a href="#trending">
+            Trending
+        </a>
+
+        <a href="#about">
+            About
+        </a>
+
+    </div>
+
+</header>
+
+
+<!-- =========================================================
+     SEARCH OVERLAY
+========================================================= -->
+
+<div
+    class="search-overlay"
+    id="searchOverlay">
+
+    <div class="search-overlay-inner">
+
+        <button
+            class="close-search"
+            id="closeSearch"
+            aria-label="Close search"
+            type="button">
+
+            <i class="fa-solid fa-xmark"></i>
+
+        </button>
+
+
+        <span class="search-eyebrow">
+            DISCOVER YOUR NEXT WALLPAPER
+        </span>
+
+
+        <h2>
+            Search the
+            <span>Universe.</span>
+        </h2>
+
+
+        <div class="main-search">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input
+                type="search"
+                id="globalSearch"
+                placeholder="Search Goku, cars, dark, 4K..."
+                autocomplete="off"
+            >
+
+
+            <button
+                id="clearSearch"
+                type="button">
+
+                Clear
+
+            </button>
+
+        </div>
+
+
+        <div class="search-suggestions">
+
+            <span>
+                Popular:
+            </span>
+
+            <button
+                type="button"
+                data-search="Goku">
+
+                Goku
+
+            </button>
+
+            <button
+                type="button"
+                data-search="Cars">
+
+                Cars
+
+            </button>
+
+            <button
+                type="button"
+                data-search="4K">
+
+                4K
+
+            </button>
+
+            <button
+                type="button"
+                data-search="Dark">
+
+                Dark
+
+            </button>
+
+            <button
+                type="button"
+                data-search="Nature">
+
+                Nature
+
+            </button>
+
+            <button
+                type="button"
+                data-search="Aura">
+
+                Aura
+
+            </button>
+
+        </div>
+
+
+        <!-- SEARCH RESULTS ARE GENERATED BY SCRIPT.JS -->
+
+        <div
+            id="searchResultsPreview"
+            class="search-results-preview">
+
+            <div class="empty-search">
+
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+
+                <p>
+                    Start typing to discover wallpapers.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<main id="home">
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<section class="hero">
+
+    <div class="hero-background"></div>
+
+    <div class="hero-noise"></div>
+
+
+    <div class="hero-content">
+
+        <div class="hero-badge">
+
+            <span class="pulse-dot"></span>
+
+            THE NEXT GENERATION
+            OF WALLPAPERS
+
+        </div>
+
+
+        <h1>
+
+            Your screen.
+            <br>
+
+            <span>Unlimited imagination.</span>
+
+        </h1>
+
+
+        <p class="hero-description">
+
+            Discover thousands of carefully selected wallpapers
+            in HD, 4K, anime, cars, gaming, dark, aesthetic and
+            countless other styles.
+
+        </p>
+
+
+        <!-- HERO SEARCH -->
+
+        <div class="hero-search">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input
+                type="search"
+                id="heroSearch"
+                placeholder="Search wallpapers..."
+                autocomplete="off"
+            >
+
+            <button
+                id="heroSearchButton"
+                type="button">
+
+                Search
+
+                <i class="fa-solid fa-arrow-right"></i>
+
+            </button>
+
+        </div>
+
+
+        <div class="hero-tags">
+
+            <span>
+                Popular:
+            </span>
+
+            <button
+                type="button"
+                data-hero-search="Anime">
+
+                Anime
+
+            </button>
+
+            <button
+                type="button"
+                data-hero-search="Cars">
+
+                Cars
+
+            </button>
+
+            <button
+                type="button"
+                data-hero-search="4K">
+
+                4K
+
+            </button>
+
+            <button
+                type="button"
+                data-hero-search="Gaming">
+
+                Gaming
+
+            </button>
+
+            <button
+                type="button"
+                data-hero-search="Nature">
+
+                Nature
+
+            </button>
+
+        </div>
+
+
+        <!-- DYNAMIC STATS -->
+
+        <div class="hero-stats">
+
+            <div class="stat">
+
+                <strong id="wallpaperCount">
+                    0
+                </strong>
+
+                <span>
+                    Wallpapers
+                </span>
+
+            </div>
+
+
+            <div class="stat-divider"></div>
+
+
+            <div class="stat">
+
+                <strong>
+                    4K
+                </strong>
+
+                <span>
+                    Ultra HD
+                </span>
+
+            </div>
+
+
+            <div class="stat-divider"></div>
+
+
+            <div class="stat">
+
+                <strong>
+                    FREE
+                </strong>
+
+                <span>
+                    Downloads
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="hero-scroll">
+
+        <span>
+            SCROLL TO EXPLORE
+        </span>
+
+        <i class="fa-solid fa-arrow-down"></i>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     CATEGORIES
+========================================================= -->
+
+<section
+    class="categories-section"
+    id="categories">
+
+    <div class="section-container">
+
+
+        <div class="section-heading">
+
+            <div>
+
+                <span class="section-label">
+                    EXPLORE
+                </span>
+
+                <h2>
+                    Find your
+                    <span>style.</span>
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div class="category-grid">
+
+
+            <button
+                class="category-card category-anime"
+                type="button"
+                data-category="Anime">
+
+                <div class="category-image"></div>
+
+                <div class="category-overlay"></div>
+
+
+                <div class="category-content">
+
+                    <span class="category-number">
+                        01
+                    </span>
+
+                    <div>
+
+                        <h3>
+                            Anime
+                        </h3>
+
+                        <p>
+                            Characters, worlds & legendary moments
+                        </p>
+
+                    </div>
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </div>
+
+            </button>
+
+
+            <button
+                class="category-card category-cars"
+                type="button"
+                data-category="Cars">
+
+                <div class="category-image"></div>
+
+                <div class="category-overlay"></div>
+
+
+                <div class="category-content">
+
+                    <span class="category-number">
+                        02
+                    </span>
+
+                    <div>
+
+                        <h3>
+                            Cars
+                        </h3>
+
+                        <p>
+                            Supercars, luxury & automotive culture
+                        </p>
+
+                    </div>
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </div>
+
+            </button>
+
+
+            <button
+                class="category-card category-nature"
+                type="button"
+                data-category="Nature">
+
+                <div class="category-image"></div>
+
+                <div class="category-overlay"></div>
+
+
+                <div class="category-content">
+
+                    <span class="category-number">
+                        03
+                    </span>
+
+                    <div>
+
+                        <h3>
+                            Nature
+                        </h3>
+
+                        <p>
+                            Mountains, landscapes & peaceful scenes
+                        </p>
+
+                    </div>
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </div>
+
+            </button>
+
+
+            <button
+                class="category-card category-gaming"
+                type="button"
+                data-category="Gaming">
+
+                <div class="category-image"></div>
+
+                <div class="category-overlay"></div>
+
+
+                <div class="category-content">
+
+                    <span class="category-number">
+                        04
+                    </span>
+
+                    <div>
+
+                        <h3>
+                            Gaming
+                        </h3>
+
+                        <p>
+                            Games, characters & digital worlds
+                        </p>
+
+                    </div>
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </div>
+
+            </button>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     WALLPAPER COLLECTION
+========================================================= -->
+
+<section
+    class="wallpapers-section"
+    id="wallpapers">
+
+    <div class="section-container">
+
+
+        <div class="section-heading">
+
+            <div>
+
+                <span class="section-label">
+                    COLLECTION
+                </span>
+
+                <h2>
+                    Wallpapers
+                    <span>for every mood.</span>
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             FILTERS
+        ================================================== -->
+
+        <div class="filter-area">
+
+
+            <div class="filter-scroll">
+
+
+                <button
+                    class="filter-btn active"
+                    data-filter="All"
+                    type="button">
+
+                    <i class="fa-solid fa-table-cells"></i>
+
+                    All
+
+                </button>
+
+
+                <button
+                    class="filter-btn"
+                    data-filter="4K"
+                    type="button">
+
+                    <i class="fa-solid fa-gem"></i>
+
+                    4K
+
+                </button>
+
+
+                <button
+                    class="filter-btn"
+                    data-filter="HD"
+                    type="button">
+
+                    HD
+
+                </button>
+
+
+                <button
+                    class="filter-btn"
+                    data-filter="Bright"
+                    type="button">
+
+                    <i class="fa-solid fa-sun"></i>
+
+                    Bright
+
+                </button>
+
+
+                <button
+                    class="filter-btn"
+                    data-filter="Dark"
+                    type="button">
+
+                    <i class="fa-solid fa-moon"></i>
+
+                    Dark
+
+                </button>
+
+
+                <button
+                    class="filter-btn"
+                    data-filter="Aura"
+                    type="button">
+
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+
+                    Aura
+
+                </button>
+
+
+                <button
+                    class="filter-btn"
+                    data-filter="Anime"
+                    type="button">
+
+                    Anime
+
+                </button>
+
+
+                <button
+                    class="filter-btn"
+                    data-filter="Cars"
+                    type="button">
+
+                    Cars
+
+                </button>
+
+
+                <button
+                    class="filter-btn"
+                    data-filter="Gaming"
+                    type="button">
+
+                    Gaming
+
+                </button>
+
+
+                <button
+                    class="filter-btn"
+                    data-filter="Nature"
+                    type="button">
+
+                    Nature
+
+                </button>
+
+
+                <button
+                    class="filter-btn"
+                    data-filter="Aesthetic"
+                    type="button">
+
+                    Aesthetic
+
+                </button>
+
+
+                <!-- NEW: VIDEOS FILTER -->
+
+                <button
+                    class="filter-btn"
+                    data-filter="Video"
+                    type="button">
+
+                    <i class="fa-solid fa-play"></i>
+
+                    Videos
+
+                </button>
+
+            </div>
+
+
+            <div class="sort-control">
+
+                <i class="fa-solid fa-arrow-down-wide-short"></i>
+
+                <select id="sortWallpapers">
+
+                    <option value="latest">
+                        Latest
+                    </option>
+
+                    <option value="popular">
+                        Popular
+                    </option>
+
+                    <option value="downloads">
+                        Most Downloaded
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             WALLPAPER GRID
+
+             IMPORTANT:
+             SCRIPT.JS WILL GENERATE ALL CARDS HERE.
+
+             IMAGE FILES → <img>
+             VIDEO FILES → <video>
+
+             DO NOT ADD STATIC CARDS HERE.
+        ================================================== -->
+
+        <div
+            class="wallpaper-grid"
+            id="wallpaperGrid">
+
+            <!-- Dynamic wallpapers appear here -->
+
+            <div
+                class="wallpaper-loading"
+                id="wallpaperLoading">
+
+                <i class="fa-solid fa-spinner fa-spin"></i>
+
+                <span>
+                    Loading wallpapers...
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             NO RESULTS
+        ================================================== -->
+
+        <div
+            class="empty-wallpapers"
+            id="emptyWallpapers"
+            hidden>
+
+            <i class="fa-regular fa-images"></i>
+
+            <h3>
+                No wallpapers found
+            </h3>
+
+            <p>
+                Try another category or search term.
+            </p>
+
+        </div>
+
+
+        <!-- =================================================
+             LOAD MORE
+        ================================================== -->
+
+        <div
+            class="load-more-wrapper"
+            id="loadMoreWrapper">
+
+            <button
+                class="load-more-btn"
+                id="loadMoreBtn"
+                type="button">
 
                 Load more wallpapers
 
@@ -3158,13 +4168,13 @@
 </section>
 
 
-
 <!-- =========================================================
      TRENDING
 ========================================================= -->
 
-<section class="trending-section"
-         id="trending">
+<section
+    class="trending-section"
+    id="trending">
 
     <div class="section-container">
 
@@ -3187,7 +4197,10 @@
                     getting the most attention from the community.
                 </p>
 
-                <button class="discover-btn">
+                <button
+                    class="discover-btn"
+                    id="discoverTrending"
+                    type="button">
 
                     Discover trending
 
@@ -3221,13 +4234,13 @@
 </section>
 
 
-
 <!-- =========================================================
      ABOUT
 ========================================================= -->
 
-<section class="about-section"
-         id="about">
+<section
+    class="about-section"
+    id="about">
 
     <div class="section-container">
 
@@ -3284,9 +4297,8 @@
 </section>
 
 
-
 <!-- =========================================================
-     NEWSLETTER / CTA
+     CTA
 ========================================================= -->
 
 <section class="cta-section">
@@ -3313,11 +4325,14 @@
 
                 <input
                     type="email"
+                    id="newsletterEmail"
                     placeholder="Enter your email"
                     aria-label="Email"
                 >
 
-                <button>
+                <button
+                    id="newsletterButton"
+                    type="button">
 
                     Join
 
@@ -3336,7 +4351,6 @@
 </main>
 
 
-
 <!-- =========================================================
      FOOTER
 ========================================================= -->
@@ -3350,7 +4364,7 @@
 
             <div class="footer-brand">
 
-                <a href="#" class="brand">
+                <a href="index.html" class="brand">
 
                     <div class="brand-symbol">
                         W
@@ -3379,16 +4393,28 @@
 
                 <div class="social-links">
 
-                    <a href="#" aria-label="Instagram">
+                    <a
+                        href="#"
+                        aria-label="Instagram">
+
                         <i class="fa-brands fa-instagram"></i>
+
                     </a>
 
-                    <a href="#" aria-label="TikTok">
+                    <a
+                        href="#"
+                        aria-label="TikTok">
+
                         <i class="fa-brands fa-tiktok"></i>
+
                     </a>
 
-                    <a href="#" aria-label="Pinterest">
+                    <a
+                        href="#"
+                        aria-label="Pinterest">
+
                         <i class="fa-brands fa-pinterest-p"></i>
+
                     </a>
 
                 </div>
@@ -3404,6 +4430,10 @@
 
                 <a href="#wallpapers">
                     Wallpapers
+                </a>
+
+                <a href="#categories">
+                    Categories
                 </a>
 
                 <a href="#trending">
@@ -3475,6 +4505,686 @@
 </footer>
 
 
+<!-- =========================================================
+     BACK TO TOP
+========================================================= -->
+
+<button
+    class="back-to-top"
+    id="backToTop"
+    aria-label="Back to top"
+    type="button">
+
+    <i class="fa-solid fa-arrow-up"></i>
+
+</button>
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script
+    type="module"
+    src="script.js">
+</script>
+
+<!-- =========================================================
+     WALLPAPER EXPLORER
+========================================================= -->
+
+<section class="wallpapers-section" id="wallpapers">
+
+    <div class="section-container">
+
+        <div class="section-heading">
+
+            <div>
+
+                <span class="section-label">
+                    COLLECTION
+                </span>
+
+                <h2>
+                    Wallpapers
+                    <span>for every mood.</span>
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             FILTERS
+        ================================================== -->
+
+        <div class="filter-area">
+
+            <div class="filter-scroll">
+
+                <button class="filter-btn active"
+                        data-filter="All">
+
+                    <i class="fa-solid fa-table-cells"></i>
+                    All
+
+                </button>
+
+                <button class="filter-btn"
+                        data-filter="4K">
+
+                    <i class="fa-solid fa-gem"></i>
+                    4K
+
+                </button>
+
+                <button class="filter-btn"
+                        data-filter="HD">
+
+                    HD
+
+                </button>
+
+                <button class="filter-btn"
+                        data-filter="Bright">
+
+                    <i class="fa-solid fa-sun"></i>
+                    Bright
+
+                </button>
+
+                <button class="filter-btn"
+                        data-filter="Dark">
+
+                    <i class="fa-solid fa-moon"></i>
+                    Dark
+
+                </button>
+
+                <button class="filter-btn"
+                        data-filter="Aura">
+
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    Aura
+
+                </button>
+
+                <button class="filter-btn"
+                        data-filter="Anime">
+
+                    Anime
+
+                </button>
+
+                <button class="filter-btn"
+                        data-filter="Cars">
+
+                    Cars
+
+                </button>
+
+                <button class="filter-btn"
+                        data-filter="Gaming">
+
+                    Gaming
+
+                </button>
+
+                <button class="filter-btn"
+                        data-filter="Nature">
+
+                    Nature
+
+                </button>
+
+                <button class="filter-btn"
+                        data-filter="Aesthetic">
+
+                    Aesthetic
+
+                </button>
+
+            </div>
+
+
+            <div class="sort-control">
+
+                <i class="fa-solid fa-arrow-down-wide-short"></i>
+
+                <select id="sortWallpapers">
+
+                    <option value="latest">
+                        Latest
+                    </option>
+
+                    <option value="popular">
+                        Popular
+                    </option>
+
+                    <option value="downloads">
+                        Most Downloaded
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             DYNAMIC WALLPAPER GRID
+
+             IMPORTANT:
+             Do NOT manually add wallpaper cards here.
+
+             script.js will load the images/videos from
+             Firebase/your admin system.
+
+             Images and videos are handled separately.
+        ================================================== -->
+
+        <div class="wallpaper-grid"
+             id="wallpaperGrid">
+
+            <!--
+                Dynamic cards are inserted here by script.js
+            -->
+
+
+            <!-- FALLBACK LOADING STATE -->
+
+            <div class="wallpaper-loading"
+                 id="wallpaperLoading">
+
+                <div class="loading-spinner"></div>
+
+                <span>
+                    Loading wallpapers...
+                </span>
+
+            </div>
+
+
+            <!-- EMPTY STATE -->
+
+            <div class="wallpaper-empty"
+                 id="wallpaperEmpty"
+                 style="display:none;">
+
+                <i class="fa-regular fa-images"></i>
+
+                <h3>
+                    No wallpapers found
+                </h3>
+
+                <p>
+                    Try another category or search term.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             LOAD MORE
+        ================================================== -->
+
+        <div class="load-more-wrapper">
+
+            <button class="load-more-btn"
+                    id="loadMoreBtn">
+
+                Load more wallpapers
+
+                <i class="fa-solid fa-arrow-down"></i>
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     TRENDING SECTION
+========================================================= -->
+
+<section class="trending-section"
+         id="trending">
+
+    <div class="section-container">
+
+        <div class="trending-box">
+
+
+            <div class="trending-content">
+
+                <span class="section-label">
+                    TRENDING NOW
+                </span>
+
+
+                <h2>
+
+                    What the world
+                    <br>
+
+                    is downloading.
+
+                </h2>
+
+
+                <p>
+
+                    Discover wallpapers that are currently
+                    getting the most attention from the
+                    WALLORA community.
+
+                </p>
+
+
+                <button class="discover-btn"
+                        id="discoverTrending">
+
+                    Discover trending
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </button>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 TRENDING VISUAL
+
+                 This is intentionally static/decorative.
+                 The actual wallpaper collection is loaded
+                 dynamically above.
+            ================================================== -->
+
+            <div class="trending-visual">
+
+
+                <div class="floating-card card-one">
+
+                    <span>
+                        01
+                    </span>
+
+                </div>
+
+
+                <div class="floating-card card-two">
+
+                    <span>
+                        02
+                    </span>
+
+                </div>
+
+
+                <div class="floating-card card-three">
+
+                    <span>
+                        03
+                    </span>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     ABOUT SECTION
+========================================================= -->
+
+<section class="about-section"
+         id="about">
+
+    <div class="section-container">
+
+        <div class="about-grid">
+
+
+            <div class="about-heading">
+
+                <span class="section-label">
+                    OUR PURPOSE
+                </span>
+
+
+                <h2>
+
+                    A better wallpaper
+                    <span>experience.</span>
+
+                </h2>
+
+            </div>
+
+
+
+            <div class="about-content">
+
+                <p class="about-lead">
+
+                    WALLORA is built around one simple idea:
+                    your device should feel like yours.
+
+                </p>
+
+
+                <p>
+
+                    We curate high-quality wallpapers across
+                    different styles, moods and interests so
+                    finding the perfect background doesn't have
+                    to feel like searching through the entire
+                    internet.
+
+                </p>
+
+
+                <p>
+
+                    From cinematic landscapes to anime,
+                    automobiles, gaming and minimal aesthetics,
+                    every collection is designed to help you
+                    find something worth putting on your screen.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     CTA / NEWSLETTER
+========================================================= -->
+
+<section class="cta-section">
+
+    <div class="section-container">
+
+        <div class="cta-box">
+
+
+            <span class="section-label">
+                STAY INSPIRED
+            </span>
+
+
+            <h2>
+
+                Never run out of
+                <span>wallpaper.</span>
+
+            </h2>
+
+
+            <p>
+
+                New collections and wallpapers are added
+                regularly.
+
+            </p>
+
+
+            <form class="cta-search"
+                  id="newsletterForm">
+
+                <input
+                    type="email"
+                    id="newsletterEmail"
+                    placeholder="Enter your email"
+                    aria-label="Email"
+                    autocomplete="email"
+                    required
+                >
+
+
+                <button type="submit">
+
+                    Join
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer class="footer">
+
+    <div class="section-container">
+
+
+        <div class="footer-main">
+
+
+            <!-- =================================================
+                 FOOTER BRAND
+            ================================================== -->
+
+            <div class="footer-brand">
+
+                <a href="#home"
+                   class="brand">
+
+                    <div class="brand-symbol">
+                        W
+                    </div>
+
+
+                    <div class="brand-text">
+
+                        <span class="brand-name">
+                            WALLORA
+                        </span>
+
+
+                        <span class="brand-subtitle">
+                            THE WALLPAPER UNIVERSE
+                        </span>
+
+                    </div>
+
+                </a>
+
+
+                <p>
+
+                    Beautiful wallpapers.
+                    Limitless possibilities.
+
+                </p>
+
+
+                <div class="social-links">
+
+                    <a href="#"
+                       aria-label="Instagram">
+
+                        <i class="fa-brands fa-instagram"></i>
+
+                    </a>
+
+
+                    <a href="#"
+                       aria-label="TikTok">
+
+                        <i class="fa-brands fa-tiktok"></i>
+
+                    </a>
+
+
+                    <a href="#"
+                       aria-label="Pinterest">
+
+                        <i class="fa-brands fa-pinterest-p"></i>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 EXPLORE
+            ================================================== -->
+
+            <div class="footer-column">
+
+                <h4>
+                    Explore
+                </h4>
+
+
+                <a href="#wallpapers">
+                    Wallpapers
+                </a>
+
+
+                <a href="#trending">
+                    Trending
+                </a>
+
+
+                <a href="#categories">
+                    Categories
+                </a>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 COMPANY
+            ================================================== -->
+
+            <div class="footer-column">
+
+                <h4>
+                    Company
+                </h4>
+
+
+                <a href="about.html">
+                    About Us
+                </a>
+
+
+                <a href="faq.html">
+                    FAQ
+                </a>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 LEGAL
+            ================================================== -->
+
+            <div class="footer-column">
+
+                <h4>
+                    Legal
+                </h4>
+
+
+                <a href="privacy-policy.html">
+                    Privacy Policy
+                </a>
+
+
+                <a href="terms-conditions.html">
+                    Terms & Conditions
+                </a>
+
+
+                <a href="copyright-policy.html">
+                    Copyright Policy
+                </a>
+
+
+                <a href="dmca.html">
+                    DMCA
+                </a>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             FOOTER BOTTOM
+        ================================================== -->
+
+        <div class="footer-bottom">
+
+            <span>
+
+                © 2026 WALLORA.
+                All rights reserved.
+
+            </span>
+
+
+            <span>
+
+                Made for screens everywhere.
+
+            </span>
+
+        </div>
+
+
+    </div>
+
+</footer>
+
+
 
 <!-- =========================================================
      BACK TO TOP
@@ -3491,10 +5201,102 @@
 
 
 <!-- =========================================================
+     WALLPAPER PREVIEW MODAL
+
+     Used by script.js when the user clicks the
+     VIEW/EYE button.
+
+     Supports BOTH:
+       • Images
+       • Videos
+========================================================= -->
+
+<div class="wallpaper-modal"
+     id="wallpaperModal"
+     aria-hidden="true">
+
+
+    <div class="wallpaper-modal-backdrop"
+         id="wallpaperModalBackdrop">
+    </div>
+
+
+    <div class="wallpaper-modal-content">
+
+
+        <button class="wallpaper-modal-close"
+                id="wallpaperModalClose"
+                aria-label="Close preview">
+
+            <i class="fa-solid fa-xmark"></i>
+
+        </button>
+
+
+        <!-- IMAGE PREVIEW -->
+
+        <img id="modalImage"
+             class="modal-media modal-image"
+             alt="Wallpaper preview"
+             style="display:none;">
+
+
+        <!-- VIDEO PREVIEW -->
+
+        <video id="modalVideo"
+               class="modal-media modal-video"
+               controls
+               playsinline
+               preload="metadata"
+               style="display:none;">
+
+            Your browser does not support video playback.
+
+        </video>
+
+
+        <div class="modal-information">
+
+            <h3 id="modalTitle">
+                Wallpaper
+            </h3>
+
+
+            <p id="modalMeta">
+                WALLORA
+            </p>
+
+
+            <div class="modal-actions">
+
+                <button id="modalDownload"
+                        class="modal-download-btn">
+
+                    <i class="fa-solid fa-download"></i>
+
+                    Download
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
      JAVASCRIPT
 ========================================================= -->
 
-<script type="module" src="script.js"></script>
+<script type="module"
+        src="script.js"></script>
+
 
 </body>
+
 </html>
