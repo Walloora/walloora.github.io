@@ -85,28 +85,28 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
 /* =========================================================
-   PAGE LOADER
+   PAGE START
 ========================================================= */
 
-function initPageLoader() {
+document.addEventListener("DOMContentLoaded", async () => {
+
+    /* =====================================================
+       PAGE LOADER
+    ===================================================== */
 
     const pageLoader =
         document.getElementById("pageLoader");
 
-    if (!pageLoader) return;
 
     window.addEventListener("load", () => {
 
         setTimeout(() => {
 
-            pageLoader.classList.add("hidden");
+            pageLoader?.classList.add("hidden");
 
         }, 500);
 
     });
-
-}
-
 
 /* =========================================================
    NAVBAR
