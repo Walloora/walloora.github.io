@@ -144,80 +144,25 @@
            PAGE LOADER
         ====================================================== */
 
-        .page-loader {
-            position: fixed;
-            inset: 0;
-            z-index: 99999;
-            background: #08090d;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            transition:
-                opacity .6s ease,
-                visibility .6s ease;
-        }
+        #pageLoader {
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 999999 !important;
 
+    opacity: 1;
+    visibility: visible;
 
-        .page-loader.hidden {
-            opacity: 0;
-            visibility: hidden;
-        }
+    transition:
+        opacity .5s ease,
+        visibility .5s ease;
+}
 
-
-        .loader-logo {
-            width: 70px;
-            height: 70px;
-            border: 1px solid rgba(255,255,255,.25);
-            border-radius: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: "Outfit", sans-serif;
-            font-size: 32px;
-            font-weight: 800;
-            letter-spacing: -2px;
-            margin-bottom: 22px;
-        }
-
-
-        .loader-line {
-            width: 120px;
-            height: 2px;
-            background: rgba(255,255,255,.12);
-            overflow: hidden;
-            position: relative;
-        }
-
-
-        .loader-line::after {
-            content: "";
-            position: absolute;
-            left: -100%;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background: #fff;
-            animation: loaderMove 1.3s infinite ease-in-out;
-        }
-
-
-        @keyframes loaderMove {
-
-            0% {
-                left: -100%;
-            }
-
-            50% {
-                left: 0;
-            }
-
-            100% {
-                left: 100%;
-            }
-
-        }
-
+#pageLoader.hidden {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    display: none !important;
+}
 
         /* =====================================================
            NAVBAR
