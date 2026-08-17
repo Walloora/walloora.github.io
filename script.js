@@ -968,47 +968,57 @@ function wallpaperMatches(
 
 function isVideoWallpaper(wallpaper) {
 
+    const mediaType =
+        String(
+            wallpaper.mediaType || ""
+        )
+            .toLowerCase()
+            .trim();
+
+    const type =
+        String(
+            wallpaper.type || ""
+        )
+            .toLowerCase()
+            .trim();
+
     /*
-       The admin panel will save:
-
-       type: "image"
-
-       OR
-
-       type: "video"
-
-       So we check that first.
-    */
-
+     * Primary detection
+     */
     if (
-        String(wallpaper.type || "")
-            .toLowerCase() === "video"
+        mediaType === "video" ||
+        type === "video"
     ) {
-
         return true;
-
     }
 
-
     /*
-       Backup detection:
-       If a video URL exists, treat it as video.
-    */
-
+     * Backup detection
+     */
     if (
         wallpaper.videoUrl &&
-        String(wallpaper.videoUrl).trim()
+        String(
+            wallpaper.videoUrl
+        ).trim()
     ) {
-
         return true;
-
     }
 
+    /*
+     * Old video records may have mediaUrl
+     * containing a video file.
+     */
+    if (
+        wallpaper.mediaUrl &&
+        /\.(mp4|webm|ogg|mov)(\?.*)?$/i.test(
+            String(wallpaper.mediaUrl).trim()
+        )
+    ) {
+        return true;
+    }
 
     return false;
-
 }
-
 
 /* =========================================================
    CREATE WALLPAPER CARD
@@ -1052,17 +1062,6 @@ function createWallpaperCard(
 
     const videoUrl =
         wallpaper.videoUrl || "";
-
-
-    /*
-       MEDIA ELEMENT
-
-       IMAGE:
-       normal <img>
-
-       VIDEO:
-       <video> with controls
-    */
 
     let mediaHTML = "";
 
