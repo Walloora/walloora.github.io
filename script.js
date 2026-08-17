@@ -53,6 +53,12 @@ let currentSort = "latest";
 
 document.addEventListener("DOMContentLoaded", async () => {
 
+    console.log("WALLORA starting...");
+
+    /* =====================================================
+       INITIALIZE PAGE
+    ===================================================== */
+
     initPageLoader();
 
     initNavbar();
@@ -77,36 +83,95 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     initActiveNavigation();
 
+
+    /* =====================================================
+       LOAD FIREBASE WALLPAPERS
+    ===================================================== */
+
     await loadWallpapers();
 
-    console.log("WALLORA initialized successfully.");
+
+    console.log(
+        "WALLORA initialized successfully."
+    );
 
 });
 
 
 /* =========================================================
-   PAGE START
+   PAGE LOADER
 ========================================================= */
 
-document.addEventListener("DOMContentLoaded", async () => {
-
-    /* =====================================================
-       PAGE LOADER
-    ===================================================== */
+function initPageLoader() {
 
     const pageLoader =
         document.getElementById("pageLoader");
 
 
-    window.addEventListener("load", () => {
+    if (!pageLoader) {
+
+        console.warn(
+            "Page loader element #pageLoader was not found."
+        );
+
+        return;
+
+    }
+
+
+    const hideLoader = () => {
 
         setTimeout(() => {
 
-            pageLoader?.classList.add("hidden");
+            pageLoader.classList.add("hidden");
 
         }, 500);
 
-    });
+    };
+
+
+    /*
+       If the whole page has already loaded,
+       hide the loader immediately.
+    */
+
+    if (document.readyState === "complete") {
+
+        hideLoader();
+
+        return;
+
+    }
+
+
+    /*
+       Otherwise wait for the complete
+       window load event.
+    */
+
+    window.addEventListener(
+        "load",
+        hideLoader,
+        { once: true }
+    );
+
+
+    /*
+       Safety fallback.
+
+       If an external image/video/resource
+       prevents window "load" from firing,
+       the loader will still disappear.
+    */
+
+    setTimeout(() => {
+
+        pageLoader.classList.add("hidden");
+
+    }, 5000);
+
+}
+
 
 /* =========================================================
    NAVBAR
@@ -117,7 +182,9 @@ function initNavbar() {
     const navbar =
         document.getElementById("navbar");
 
+
     if (!navbar) return;
+
 
     const updateNavbar = () => {
 
@@ -133,7 +200,9 @@ function initNavbar() {
 
     };
 
+
     updateNavbar();
+
 
     window.addEventListener(
         "scroll",
@@ -156,6 +225,7 @@ function initMobileMenu() {
     const mobileNav =
         document.getElementById("mobileNav");
 
+
     if (!mobileMenuBtn || !mobileNav) return;
 
 
@@ -173,15 +243,23 @@ function initMobileMenu() {
 
             if (isOpen) {
 
-                icon?.classList.remove("fa-bars");
+                icon?.classList.remove(
+                    "fa-bars"
+                );
 
-                icon?.classList.add("fa-xmark");
+                icon?.classList.add(
+                    "fa-xmark"
+                );
 
             } else {
 
-                icon?.classList.remove("fa-xmark");
+                icon?.classList.remove(
+                    "fa-xmark"
+                );
 
-                icon?.classList.add("fa-bars");
+                icon?.classList.add(
+                    "fa-bars"
+                );
 
             }
 
@@ -197,11 +275,17 @@ function initMobileMenu() {
                 "click",
                 () => {
 
-                    mobileNav.classList.remove("open");
+                    mobileNav.classList.remove(
+                        "open"
+                    );
 
-                    icon?.classList.remove("fa-xmark");
+                    icon?.classList.remove(
+                        "fa-xmark"
+                    );
 
-                    icon?.classList.add("fa-bars");
+                    icon?.classList.add(
+                        "fa-bars"
+                    );
 
                 }
             );
@@ -237,7 +321,10 @@ function initSearchOverlay() {
         "click",
         () => {
 
-            searchOverlay?.classList.add("active");
+            searchOverlay?.classList.add(
+                "active"
+            );
+
 
             setTimeout(() => {
 
@@ -253,7 +340,9 @@ function initSearchOverlay() {
         "click",
         () => {
 
-            searchOverlay?.classList.remove("active");
+            searchOverlay?.classList.remove(
+                "active"
+            );
 
         }
     );
@@ -299,9 +388,12 @@ function initSearchOverlay() {
 
             if (!globalSearch) return;
 
+
             globalSearch.value = "";
 
+
             performSearch("");
+
 
             globalSearch.focus();
 
@@ -819,9 +911,9 @@ async function loadWallpapers() {
         let snapshot;
 
 
-        /*
-           First try newest wallpapers.
-        */
+        /* =====================================================
+           TRY NEWEST FIRST
+        ===================================================== */
 
         try {
 
@@ -852,6 +944,10 @@ async function loadWallpapers() {
         }
 
 
+        /* =====================================================
+           CONVERT FIRESTORE DOCUMENTS
+        ===================================================== */
+
         allWallpapers =
             snapshot.docs.map(
                 documentSnapshot => ({
@@ -865,10 +961,9 @@ async function loadWallpapers() {
             );
 
 
-        /*
-           If createdAt sorting failed,
-           sort locally.
-        */
+        /* =====================================================
+           LOCAL SORT
+        ===================================================== */
 
         allWallpapers.sort(
             (a, b) =>
@@ -882,6 +977,10 @@ async function loadWallpapers() {
             allWallpapers.length
         );
 
+
+        /* =====================================================
+           RENDER
+        ===================================================== */
 
         renderWallpapers();
 
@@ -1016,6 +1115,7 @@ function renderWallpapers() {
 
 
         case "latest":
+
         default:
 
             wallpapers.sort(
@@ -1177,9 +1277,9 @@ function isVideoWallpaper(wallpaper) {
             .trim();
 
 
-    /*
-       Primary detection.
-    */
+    /* =====================================================
+       PRIMARY DETECTION
+    ===================================================== */
 
     if (type === "video") {
 
@@ -1188,9 +1288,9 @@ function isVideoWallpaper(wallpaper) {
     }
 
 
-    /*
-       Backup detection.
-    */
+    /* =====================================================
+       BACKUP DETECTION
+    ===================================================== */
 
     if (
         wallpaper.videoUrl &&
@@ -1327,21 +1427,27 @@ function createWallpaperCard(
                     quality,
                     wallpaper.type || "",
                     ...tags,
+
                     wallpaper.bright
                         ? "Bright"
                         : "",
+
                     wallpaper.dark
                         ? "Dark"
                         : "",
+
                     wallpaper.aura
                         ? "Aura"
                         : "",
+
                     wallpaper.trending
                         ? "Trending"
                         : "",
+
                     wallpaper.featured
                         ? "Featured"
                         : ""
+
                 ]
                     .filter(Boolean)
                     .join(" ")
@@ -1491,6 +1597,7 @@ function attachCardEvents() {
                 event => {
 
                     event.preventDefault();
+
                     event.stopPropagation();
 
 
@@ -1542,10 +1649,6 @@ function attachCardEvents() {
                     }
 
 
-                    /*
-                       Save favorite locally.
-                    */
-
                     if (id) {
 
                         saveFavorite(
@@ -1577,6 +1680,7 @@ function attachCardEvents() {
                 event => {
 
                     event.preventDefault();
+
                     event.stopPropagation();
 
 
@@ -1601,9 +1705,7 @@ function attachCardEvents() {
                         );
 
 
-                    /*
-                       VIDEO
-                    */
+                    /* VIDEO */
 
                     if (video) {
 
@@ -1616,9 +1718,7 @@ function attachCardEvents() {
                     }
 
 
-                    /*
-                       IMAGE
-                    */
+                    /* IMAGE */
 
                     if (image?.src) {
 
@@ -1651,6 +1751,7 @@ function attachCardEvents() {
                 event => {
 
                     event.preventDefault();
+
                     event.stopPropagation();
 
 
@@ -1745,6 +1846,7 @@ function attachCardEvents() {
                 event => {
 
                     event.preventDefault();
+
                     event.stopPropagation();
 
 
@@ -2201,9 +2303,9 @@ function getTime(value) {
     if (!value) return 0;
 
 
-    /*
-       Firestore Timestamp
-    */
+    /* =====================================================
+       FIRESTORE TIMESTAMP
+    ===================================================== */
 
     if (
         typeof value === "object" &&
@@ -2215,10 +2317,9 @@ function getTime(value) {
     }
 
 
-    /*
-       Firestore timestamp object
-       with seconds.
-    */
+    /* =====================================================
+       FIRESTORE TIMESTAMP OBJECT
+    ===================================================== */
 
     if (
         typeof value === "object" &&
@@ -2232,9 +2333,9 @@ function getTime(value) {
     }
 
 
-    /*
-       JavaScript Date
-    */
+    /* =====================================================
+       JAVASCRIPT DATE
+    ===================================================== */
 
     if (value instanceof Date) {
 
@@ -2243,9 +2344,9 @@ function getTime(value) {
     }
 
 
-    /*
-       String / number
-    */
+    /* =====================================================
+       STRING / NUMBER
+    ===================================================== */
 
     const time =
         new Date(value).getTime();
