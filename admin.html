@@ -51,6 +51,7 @@
 
         body {
             min-height: 100vh;
+
             background:
                 radial-gradient(
                     circle at 20% 0%,
@@ -128,6 +129,7 @@
             height: 42px;
 
             display: grid;
+
             place-items: center;
 
             border: 1px solid rgba(255,255,255,.25);
@@ -135,6 +137,7 @@
             font-family: "Outfit";
 
             font-size: 20px;
+
             font-weight: 800;
         }
 
@@ -213,7 +216,9 @@
 
 
         .side-link i {
+
             width: 18px;
+
             text-align: center;
         }
 
@@ -418,6 +423,7 @@
 
 
         .form-group.full {
+
             grid-column: 1 / -1;
         }
 
@@ -490,6 +496,79 @@
         }
 
 
+        /* =========================================
+           MEDIA TYPE
+        ========================================= */
+
+        .media-type {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+
+            gap: 10px;
+
+            margin-bottom: 17px;
+        }
+
+
+        .media-option {
+
+            position: relative;
+        }
+
+
+        .media-option input {
+
+            position: absolute;
+
+            opacity: 0;
+
+            pointer-events: none;
+        }
+
+
+        .media-option label {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 9px;
+
+            padding: 13px;
+
+            background: var(--panel-2);
+
+            border: 1px solid var(--border);
+
+            border-radius: 9px;
+
+            color: var(--muted);
+
+            cursor: pointer;
+
+            transition: .2s;
+        }
+
+
+        .media-option input:checked + label {
+
+            background: rgba(255,255,255,.1);
+
+            border-color: rgba(255,255,255,.35);
+
+            color: white;
+        }
+
+
+        /* =========================================
+           CHECKBOXES
+        ========================================= */
+
         .checkbox-row {
 
             display: flex;
@@ -522,6 +601,10 @@
             height: 15px;
         }
 
+
+        /* =========================================
+           BUTTONS
+        ========================================= */
 
         .submit-row {
 
@@ -560,6 +643,7 @@
 
 
         .btn-primary:hover {
+
             transform: translateY(-1px);
         }
 
@@ -594,9 +678,11 @@
         }
 
 
-        .preview-box img {
+        .preview-box img,
+        .preview-box video {
 
             width: 100%;
+
             height: 100%;
 
             min-height: 360px;
@@ -668,21 +754,117 @@
 
 
         /* =========================================
+           WALLPAPER MANAGEMENT
+        ========================================= */
+
+        .management {
+
+            margin-top: 25px;
+        }
+
+
+        .management-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fill,minmax(180px,1fr));
+
+            gap: 15px;
+        }
+
+
+        .media-card {
+
+            overflow: hidden;
+
+            background: var(--panel-2);
+
+            border: 1px solid var(--border);
+
+            border-radius: 12px;
+        }
+
+
+        .media-card img,
+        .media-card video {
+
+            width: 100%;
+
+            height: 180px;
+
+            object-fit: cover;
+
+            display: block;
+
+            background: #08090d;
+        }
+
+
+        .media-card-info {
+
+            padding: 13px;
+        }
+
+
+        .media-card-info strong {
+
+            display: block;
+
+            margin-bottom: 5px;
+        }
+
+
+        .media-card-info span {
+
+            color: var(--muted);
+
+            font-size: 11px;
+        }
+
+
+        .delete-wallpaper {
+
+            width: 100%;
+
+            margin-top: 12px;
+
+            padding: 9px;
+
+            border: 1px solid rgba(255,77,103,.2);
+
+            border-radius: 8px;
+
+            background: rgba(255,77,103,.08);
+
+            color: #ff7285;
+
+            cursor: pointer;
+        }
+
+
+        /* =========================================
            RESPONSIVE
         ========================================= */
 
         @media (max-width: 1050px) {
 
             .sidebar {
+
                 width: 210px;
             }
 
+
             .main {
+
                 margin-left: 210px;
+
                 padding: 25px;
             }
 
+
             .content-grid {
+
                 grid-template-columns: 1fr;
             }
 
@@ -702,11 +884,11 @@
                 border-right: 0;
 
                 border-bottom: 1px solid var(--border);
-
             }
 
 
             .logo {
+
                 margin-bottom: 25px;
             }
 
@@ -723,7 +905,6 @@
 
                 grid-template-columns:
                     repeat(2, minmax(0, 1fr));
-
             }
 
 
@@ -774,6 +955,12 @@
             .btn {
 
                 width: 100%;
+            }
+
+
+            .media-type {
+
+                grid-template-columns: 1fr;
             }
 
         }
@@ -832,7 +1019,7 @@
 
         <i class="fa-solid fa-plus"></i>
 
-        Add Wallpaper
+        Add Media
 
     </a>
 
@@ -842,7 +1029,7 @@
 
         <i class="fa-solid fa-images"></i>
 
-        Wallpapers
+        Wallpapers & Videos
 
     </a>
 
@@ -887,7 +1074,7 @@
             </h1>
 
             <p>
-                Manage your WALLORA wallpaper collection.
+                Manage your WALLORA wallpaper and video collection.
             </p>
 
         </div>
@@ -979,11 +1166,11 @@
                 <div>
 
                     <h2>
-                        Add Wallpaper
+                        Add Media
                     </h2>
 
                     <span>
-                        Add a new wallpaper to your collection.
+                        Add a wallpaper or video to WALLORA.
                     </span>
 
                 </div>
@@ -994,6 +1181,65 @@
             <form id="wallpaperForm">
 
 
+                <!-- MEDIA TYPE -->
+
+                <div class="form-group full">
+
+                    <label>
+                        Media Type
+                    </label>
+
+
+                    <div class="media-type">
+
+
+                        <div class="media-option">
+
+                            <input
+                                type="radio"
+                                name="mediaType"
+                                id="mediaImage"
+                                value="image"
+                                checked
+                            >
+
+                            <label for="mediaImage">
+
+                                <i class="fa-regular fa-image"></i>
+
+                                Image / Wallpaper
+
+                            </label>
+
+                        </div>
+
+
+                        <div class="media-option">
+
+                            <input
+                                type="radio"
+                                name="mediaType"
+                                id="mediaVideo"
+                                value="video"
+                            >
+
+                            <label for="mediaVideo">
+
+                                <i class="fa-solid fa-video"></i>
+
+                                Video
+
+                            </label>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+
                 <div class="form-grid">
 
 
@@ -1002,7 +1248,7 @@
                     <div class="form-group full">
 
                         <label for="title">
-                            Wallpaper Title
+                            Title / Heading
                         </label>
 
                         <input
@@ -1016,12 +1262,15 @@
 
 
 
-                    <!-- IMAGE URL -->
+                    <!-- MEDIA URL -->
 
                     <div class="form-group full">
 
-                        <label for="imageUrl">
+                        <label for="imageUrl"
+                               id="mediaUrlLabel">
+
                             Image URL
+
                         </label>
 
                         <input
@@ -1031,7 +1280,8 @@
                             required
                         >
 
-                        <span class="form-help">
+                        <span class="form-help"
+                              id="mediaUrlHelp">
 
                             Paste the direct URL of the image.
                             The image must be publicly accessible.
@@ -1135,7 +1385,7 @@
                         <span class="form-help">
 
                             Separate tags using commas.
-                            These tags will power the search and filters.
+                            These tags will power search and filters.
 
                         </span>
 
@@ -1153,7 +1403,7 @@
 
                         <textarea
                             id="description"
-                            placeholder="Describe this wallpaper..."
+                            placeholder="Describe this wallpaper or video..."
                         ></textarea>
 
                     </div>
@@ -1270,7 +1520,7 @@
 
                         <i class="fa-solid fa-plus"></i>
 
-                        Add Wallpaper
+                        Add Media
 
                     </button>
 
@@ -1296,7 +1546,7 @@
                     </h2>
 
                     <span>
-                        See how your image looks before adding it.
+                        See your image or video before adding it.
                     </span>
 
                 </div>
@@ -1315,7 +1565,7 @@
 
                         <i class="fa-regular fa-image"></i>
 
-                        Paste an image URL and click
+                        Paste a media URL and click
                         Preview.
 
                     </div>
@@ -1328,6 +1578,15 @@
                     alt="Wallpaper preview"
                     style="display:none;"
                 >
+
+
+                <video
+                    id="previewVideo"
+                    controls
+                    playsinline
+                    style="display:none;"
+                ></video>
+
 
             </div>
 
@@ -1349,10 +1608,24 @@
     </section>
 
 
+
+    <!-- WALLPAPER MANAGEMENT -->
+
+    <section id="wallpapers"
+             class="management">
+
+        <div id="wallpaperList"></div>
+
+    </section>
+
+
 </main>
 
 
-<script type="module" src="admin.js"></script>
+
+<script type="module"
+        src="admin.js"></script>
+
 
 </body>
 
