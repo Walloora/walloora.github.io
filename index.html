@@ -406,6 +406,24 @@
             display: none;
         }
 
+        .apk-download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 700;
+    color: white;
+    background: #111;
+    border: 1px solid rgba(255,255,255,.15);
+    transition: .25s ease;
+}
+
+.apk-download-btn:hover {
+    transform: translateY(-2px);
+}
+
 
         /* =====================================================
            MOBILE NAV
@@ -2447,6 +2465,11 @@
         <a href="#about">
             About
         </a>
+
+        <a href="app-debug.apk" download="Wallora.apk" class="apk-download-btn">
+    <i class="fa-solid fa-download"></i>
+            ↓ Wallora APK
+    </a>
 
     </div>
 
